@@ -1,0 +1,206 @@
+/* =========================================================
+   theme.css
+   Tokens semánticos: aquí vive el propósito. Referencian
+   primitivos, nunca valores crudos. Los componentes consumen
+   SOLO estos tokens.
+
+   Esqueleto de ejemplo: slate como neutro y cyan como marca
+   (inferido del focus-ring original). Ajusta a tu marca.
+   ========================================================= */
+
+:root {
+  /* =======================================================
+     COLOR
+     ======================================================= */
+
+  /* Fondos y superficies */
+  --color-bg:              var(--white);
+  --color-bg-subtle:       var(--slate-50);
+  --color-surface:         var(--white);
+  --color-surface-raised:  var(--white);
+  --color-surface-sunken:  var(--slate-100);
+  --color-bg-header:       var(--heb-red-500); /* rojo de marca en ambos temas */
+  --color-overlay:         color-mix(in srgb, var(--slate-900) 60%, transparent);
+
+  /* Texto */
+  --color-text:            var(--slate-900);
+  --color-text-muted:      var(--slate-600);
+  --color-text-subtle:     var(--slate-500);
+  --color-text-inverse:    var(--white);
+  --color-text-disabled:   var(--slate-400);
+
+  /* Bordes */
+  --color-border:          var(--slate-100);
+  --color-border-subtle: var(--slate-200);
+  --color-border-strong:   var(--slate-300);
+
+  /* Marca / acción principal */
+  --color-accent:          var(--cyan-500);
+  --color-accent-hover:    var(--cyan-600);
+  --color-accent-active:   var(--cyan-700);
+  --color-accent-subtle:   var(--cyan-50);
+  --color-on-accent:       var(--white);
+
+  /* Estados: texto con el paso oscuro, fondo con el claro */
+  --color-success:         var(--green-700);
+  --color-success-subtle:  var(--green-50);
+  --color-warning:         var(--amber-800);
+  --color-warning-subtle:  var(--amber-50);
+  --color-danger:          var(--red-500);
+  --color-danger-subtle:   var(--red-50);
+  --color-info:            var(--blue-600);
+  --color-info-subtle:     var(--blue-50);
+
+  /* =======================================================
+     TIPOGRAFÍA
+     ======================================================= */
+
+  --font-body:    var(--font-open-sans);
+  --font-heading: var(--font-open-sans);   /* títulos de la página */
+  --font-brand:   var(--font-montserrat);  /* solo el nombre del producto en el header */
+  --font-code:    var(--font-system-mono);
+  --font-icon:    var(--font-material-symbols);
+
+  /* Estilos de texto: tamaño + interlineado emparejados */
+  --text-caption-size:     var(--font-size-xs);
+  --text-caption-leading:  var(--leading-4);
+  --text-body-sm-size:     var(--font-size-sm);
+  --text-body-sm-leading:  var(--leading-5);
+  --text-body-size:        var(--font-size-md);
+  --text-body-leading:     var(--leading-6);
+  --text-heading-sm-size:     var(--font-size-xl);
+  --text-heading-sm-leading:  var(--leading-7);
+  --text-heading-md-size:     var(--font-size-2xl);
+  --text-heading-md-leading:  var(--leading-8);
+  --text-heading-lg-size:     var(--font-size-4xl);
+  --text-heading-lg-leading:  var(--leading-10);
+
+  /* Roles que antes estaban en primitivos */
+  --tracking-heading: var(--tracking-tight);
+  --tracking-eyebrow: var(--tracking-wider);
+  --tracking-brand:   var(--tracking-widest);
+
+  /* =======================================================
+     ESPACIADO
+     ======================================================= */
+
+  --space-inset-xs:  var(--space-1);
+  --space-inset-sm:  var(--space-2);
+  --space-inset-md:  var(--space-4);
+  --space-inset-lg:  var(--space-6);
+
+  --space-stack-xs:  var(--space-1);
+  --space-stack-sm:  var(--space-2);
+  --space-stack-md:  var(--space-4);
+  --space-stack-lg:  var(--space-8);
+  --space-stack-section: var(--space-16);
+
+  --space-inline-xs: var(--space-1);
+  --space-inline-sm: var(--space-2);
+  --space-inline-md: var(--space-4);
+
+  /* =======================================================
+     LAYOUT
+     ======================================================= */
+
+  /* Breakpoints: las variables CSS NO funcionan dentro de
+     @media. Quedan aquí como referencia; usa estos valores
+     fijos en las media queries o expórtalos con tu herramienta. */
+  --breakpoint-md:  768px;
+  --breakpoint-lg:  1024px;
+  --breakpoint-xl:  1280px;
+  --breakpoint-2xl: 1536px;
+
+  --container-xs:  var(--size-90);
+  --container-sm:  var(--size-192);
+  --container-md:  var(--size-256);
+  --container-lg:  var(--size-320);
+  --container-xl:  var(--size-360);
+  --container-2xl: var(--size-480);
+
+  /* Valores base (móvil); se ajustan por breakpoint abajo */
+  --grid-gutter:      var(--space-5);
+  --page-padding-x:   var(--space-6);
+
+  --layout-header-height:           var(--size-16);
+  --layout-sidebar-width:           var(--size-70);
+  --layout-sidebar-width-collapsed: var(--size-16);
+
+  /* =======================================================
+     FORMA, ELEVACIÓN E ÍCONOS
+     ======================================================= */
+
+  --radius-control:  var(--radius-md);   /* botones, inputs */
+  --radius-card:     var(--radius-xl);
+  --radius-pill:     var(--radius-full);
+
+  --border-width-default: var(--border-width-1);
+  --border-width-strong:  var(--border-width-2);
+
+  --shadow-card:     var(--shadow-sm);
+  --shadow-dropdown: var(--shadow-md);
+  --shadow-popover:  var(--shadow-lg);
+  --shadow-modal:    var(--shadow-xl);
+
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
+
+  --icon-size-sm: var(--size-4);
+  --icon-size-md: var(--size-5);
+  --icon-size-lg: var(--size-6);
+
+  /* =======================================================
+     MOVIMIENTO Y CAPAS
+     ======================================================= */
+
+  --motion-hover:  var(--duration-fast) var(--ease-out-soft);
+  --motion-enter:  var(--duration-base) var(--ease-out-strong);
+  --motion-exit:   var(--duration-fast) var(--ease-out-strong);
+  --motion-layout: var(--duration-slow) var(--ease-in-out-strong);
+
+  --opacity-disabled: var(--opacity-40);
+
+  --z-dropdown: var(--z-10);
+  --z-sticky:   var(--z-20);
+  --z-overlay:  var(--z-30);
+  --z-modal:    var(--z-40);
+  --z-toast:    var(--z-50);
+}
+
+/* Gutters y márgenes responsivos (valores fijos: ver nota de breakpoints) */
+@media (min-width: 768px) {
+  :root { --grid-gutter: var(--space-5); --page-padding-x: var(--space-6); }
+}
+@media (min-width: 1024px) {
+  :root { --grid-gutter: var(--space-6); --page-padding-x: var(--space-8); }
+}
+@media (min-width: 1280px) {
+  :root { --grid-gutter: var(--space-8); --page-padding-x: var(--space-12); }
+}
+@media (min-width: 1536px) {
+  :root { --grid-gutter: var(--space-9); --page-padding-x: var(--space-10); }
+}
+
+/* =========================================================
+   Tema oscuro: solo se redefinen semánticos, los
+   primitivos y los componentes no cambian.
+   ========================================================= */
+[data-theme="dark"] {
+  --color-bg:              var(--slate-1000);
+  --color-bg-subtle:       var(--slate-900);
+  --color-surface:         var(--slate-900);
+  --color-surface-raised:  var(--slate-800);
+  --color-surface-sunken:  var(--slate-1000);
+
+  --color-text:            var(--slate-50);
+  --color-text-muted:      var(--slate-300);
+  --color-text-subtle:     var(--slate-400);
+  --color-text-inverse:    var(--slate-900);
+
+  --color-border:          var(--slate-800);
+  --color-border-strong:   var(--slate-700);
+
+  --color-accent:          var(--cyan-400);
+  --color-accent-hover:    var(--cyan-300);
+  --color-accent-subtle:   var(--cyan-900);
+  --color-on-accent:       var(--slate-1000);
+}

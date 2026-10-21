@@ -1,0 +1,94 @@
+/* =========================================================
+   pagination.css
+   Consume SOLO tokens --pagination-*.
+
+   <nav class="pagination" aria-label="Paginación">
+     <p class="pagination-info">Mostrando <strong>1–10</strong> de <strong>48</strong></p>
+     <label class="pagination-size">Filas por página
+       <span class="select-wrap"><select class="select select-sm">…</select></span>
+     </label>
+     <ul class="pagination-pages">
+       <li><button class="page-btn" aria-label="Anterior" disabled>‹</button></li>
+       <li><button class="page-btn" aria-current="page">1</button></li>
+       <li><span class="page-ellipsis">…</span></li>
+       <li><button class="page-btn" aria-label="Siguiente">›</button></li>
+     </ul>
+   </nav>
+   ========================================================= */
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-6);
+  font-size: var(--pagination-font-size);
+}
+
+.pagination-info {
+  color: var(--pagination-info-fg);
+  font-variant-numeric: tabular-nums;
+}
+.pagination-info strong { color: var(--color-text); font-weight: var(--pagination-font-weight); }
+
+.pagination-size {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--pagination-info-fg);
+  white-space: nowrap;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: var(--pagination-gap);
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--pagination-item-size);
+  height: var(--pagination-item-size);
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--pagination-item-radius);
+  background: transparent;
+  color: var(--pagination-item-fg);
+  font-size: var(--pagination-font-size);
+  font-weight: var(--pagination-font-weight);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background-color var(--motion-hover), color var(--motion-hover);
+}
+.page-btn:hover { background: var(--pagination-item-bg-hover); color: var(--pagination-item-fg-hover); }
+.page-btn[aria-current="page"] {
+  background: var(--pagination-item-bg-active);
+  color: var(--pagination-item-fg-active);
+  cursor: default;
+}
+.page-btn:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; background: transparent; }
+.page-btn .icon { font-size: var(--icon-size-md); }
+
+.page-ellipsis {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: var(--pagination-item-size);
+  color: var(--pagination-item-fg);
+}
+
+/* Indicador compacto "3 / 13" (solo móvil) */
+.page-compact { display: none; padding: 0 var(--space-2); color: var(--pagination-info-fg); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 767px) {
+  .pagination { justify-content: space-between; }
+  .pagination-size { display: none; }
+  .pagination-pages { margin: 0; }
+  .pagination-pages .page-num,
+  .pagination-pages .page-gap { display: none; }
+  .page-compact { display: inline; }
+}

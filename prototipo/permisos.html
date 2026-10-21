@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Permisos y licencias · BRS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-module="permisos">
+<div class="app-shell">
+
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <div class="topbar-start">
+      <button class="topbar-action topbar-menu" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        <span class="icon" aria-hidden="true">menu</span>
+      </button>
+      <a class="topbar-brand" href="vencimientos.html">
+        <img class="topbar-logo" src="../assets/heb-logo-white.svg" alt="HEB">
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <img class="topbar-product-logo" src="../assets/logo@2x.png" width="78" height="24" alt="BRS">
+      </a>
+    </div>
+
+    <div class="topbar-end">
+      <button class="topbar-user" popovertarget="user-menu" aria-haspopup="menu" aria-expanded="false" aria-label="Cuenta de Usuario de desarrollo">
+        <span class="icon topbar-user-icon" aria-hidden="true">account_circle</span>
+        <span class="topbar-user-text">
+          <span class="topbar-user-name">Usuario de desarrollo</span>
+        </span>
+        <span class="icon icon-sm" aria-hidden="true">expand_more</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <button class="sidebar-toggle" data-sidebar-toggle aria-controls="sidebar" aria-expanded="true" aria-label="Colapsar menú">
+        <span class="icon" aria-hidden="true">chevron_left</span>
+      </button>
+
+      <nav class="sidebar-scroll" data-nav aria-label="Menú del módulo"></nav>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-close aria-hidden="true"></div>
+
+    <!-- ================= PÁGINA ================= -->
+    <main class="page">
+      <div class="page-inner">
+
+        <div class="page-header">
+          <div class="stack-xs">
+            <h1 class="page-title">Permisos y licencias</h1>
+            <p class="page-subtitle">Una fila por sucursal habilitada, la más urgente primero. Abre una para trabajar su checklist; los cortes y el Excel están en Reportes.</p>
+          </div>
+          <button class="btn btn-primary" data-habilitar><span class="icon" aria-hidden="true">add_business</span>Habilitar sucursal</button>
+        </div>
+
+        <!-- ---------- Tabla de permisos por sucursal ---------- -->
+        <section class="table-view" id="permisos" aria-label="Permisos por sucursal">
+          <div class="tabs" role="tablist" aria-label="Filtrar por estatus">
+            <button class="tab" role="tab" data-tab="all" aria-selected="true">Todas <span class="count">0</span></button>
+            <button class="tab" role="tab" data-tab="vencidos" aria-selected="false">Con vencidos <span class="count">0</span></button>
+            <button class="tab" role="tab" data-tab="porVencer" aria-selected="false">En proceso <span class="count">0</span></button>
+            <button class="tab" role="tab" data-tab="alDia" aria-selected="false">Al día <span class="count">0</span></button>
+            <button class="tab" role="tab" data-tab="sinPermisos" aria-selected="false">Sin permisos <span class="count">0</span></button>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="input-group table-search">
+              <span class="icon" aria-hidden="true">search</span>
+              <input class="input" type="search" data-table-search placeholder="Buscar sucursal" aria-label="Buscar sucursal">
+            </div>
+            <div class="select-wrap">
+              <select class="select" data-table-estado aria-label="Filtrar por estado">
+                <option value="">Todos los estados</option>
+              </select>
+            </div>
+            <div class="table-toolbar-end">
+              <span class="small subtle" data-table-total aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="table-frame">
+            <div class="table-scroll">
+              <table class="table">
+                <thead><tr>
+                  <th data-sort="nombre" aria-sort="none"><button class="th-sort">Sucursal</button></th>
+                  <th data-sort="total" aria-sort="none"><button class="th-sort">Permisos</button></th>
+                  <th>Semáforo</th>
+                  <th data-sort="proximo" aria-sort="ascending"><button class="th-sort">Próximo vencimiento</button></th>
+                </tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <nav class="pagination" aria-label="Paginación">
+            <p class="pagination-info" aria-live="polite"></p>
+            <label class="pagination-size">Filas por página
+              <span class="select-wrap">
+                <select class="select select-sm" data-table-size>
+                  <option>10</option>
+                  <option selected>25</option>
+                  <option>50</option>
+                </select>
+              </span>
+            </label>
+            <ul class="pagination-pages"></ul>
+          </nav>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ================= MENÚS ================= -->
+<div class="menu" id="user-menu" popover role="menu" aria-label="Cuenta">
+  <p class="menu-label">Usuario de desarrollo</p>
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">person</span>Mi perfil</button>
+  <button class="menu-item" role="menuitem" data-theme-toggle><span class="icon" aria-hidden="true">dark_mode</span>Cambiar tema</button>
+  <hr class="menu-divider">
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">logout</span>Cerrar sesión</button>
+</div>
+
+<script src="../ui.js"></script>
+<script src="data.js"></script>
+<script src="forms.js"></script>
+<script src="shell.js"></script>
+<script src="permisos.js"></script>
+</body>
+</html>

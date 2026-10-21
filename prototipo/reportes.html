@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reporte de permisos · BRS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-module="permisos">
+<div class="app-shell">
+
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <div class="topbar-start">
+      <button class="topbar-action topbar-menu" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        <span class="icon" aria-hidden="true">menu</span>
+      </button>
+      <a class="topbar-brand" href="vencimientos.html">
+        <img class="topbar-logo" src="../assets/heb-logo-white.svg" alt="HEB">
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <img class="topbar-product-logo" src="../assets/logo@2x.png" width="78" height="24" alt="BRS">
+      </a>
+    </div>
+
+    <div class="topbar-end">
+      <button class="topbar-user" popovertarget="user-menu" aria-haspopup="menu" aria-expanded="false" aria-label="Cuenta de Usuario de desarrollo">
+        <span class="icon topbar-user-icon" aria-hidden="true">account_circle</span>
+        <span class="topbar-user-text">
+          <span class="topbar-user-name">Usuario de desarrollo</span>
+        </span>
+        <span class="icon icon-sm" aria-hidden="true">expand_more</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <button class="sidebar-toggle" data-sidebar-toggle aria-controls="sidebar" aria-expanded="true" aria-label="Colapsar menú">
+        <span class="icon" aria-hidden="true">chevron_left</span>
+      </button>
+
+      <nav class="sidebar-scroll" data-nav aria-label="Menú del módulo"></nav>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-close aria-hidden="true"></div>
+
+    <!-- ================= PÁGINA ================= -->
+    <!-- El contenido lo arma reportes.js -->
+    <main class="page">
+      <div class="page-inner" id="reporte">
+
+        <div class="page-header">
+          <div class="stack-xs">
+            <h1 class="page-title">Reporte de permisos y licencias</h1>
+            <p class="page-subtitle">Todos los permisos con su estatus. Filtra y exporta a Excel: se exporta exactamente lo que ves en la tabla.</p>
+          </div>
+          <button class="btn btn-primary" data-export><span class="icon" aria-hidden="true">download</span>Exportar a Excel</button>
+        </div>
+
+        <!-- ---------- Filtros ---------- -->
+        <section class="card card-sm report-filters" aria-label="Filtros del reporte">
+          <div class="report-filters-grid">
+            <div class="field">
+              <label class="field-label" for="f-estado">Estado</label>
+              <div class="select-wrap"><select class="select" id="f-estado" data-filter="estado"><option value="">Todos</option></select></div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="f-tienda">Tienda</label>
+              <div class="select-wrap"><select class="select" id="f-tienda" data-filter="tienda"><option value="">Todas</option></select></div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="f-estatus">Estatus</label>
+              <div class="select-wrap"><select class="select" id="f-estatus" data-filter="estatus"><option value="">Todos</option></select></div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="f-permiso">Permiso</label>
+              <div class="select-wrap"><select class="select" id="f-permiso" data-filter="permiso"><option value="">Todos</option></select></div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="f-area">Área</label>
+              <div class="select-wrap"><select class="select" id="f-area" data-filter="area"><option value="">Todas</option></select></div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="f-anio">Año de vencimiento</label>
+              <div class="select-wrap"><select class="select" id="f-anio" data-filter="anio"><option value="">Todos</option></select></div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="f-periodo">Periodo HEB</label>
+              <div class="select-wrap"><select class="select" id="f-periodo" disabled aria-describedby="f-periodo-hint"><option>Todos</option></select></div>
+              <p class="field-hint" id="f-periodo-hint">Se activa cuando Finanzas cargue el calendario fiscal.</p>
+            </div>
+          </div>
+          <div class="report-filters-foot">
+            <p class="small muted" data-total aria-live="polite"></p>
+            <button class="btn-link" data-reset hidden><span class="icon" aria-hidden="true">filter_alt_off</span>Limpiar filtros</button>
+          </div>
+        </section>
+
+        <!-- ---------- Resumen: habilitación, avance de captura y documentos ---------- -->
+        <section class="kpi-grid report-summary" data-resumen aria-label="Resumen"></section>
+
+        <!-- ---------- Distribución por estatus ---------- -->
+        <section class="stack" aria-labelledby="dist-title">
+          <h2 class="section-title" id="dist-title">Distribución por estatus</h2>
+          <div class="card donut-card" data-donut></div>
+        </section>
+
+        <!-- ---------- Vencimientos de los próximos 12 meses ---------- -->
+        <section class="stack" aria-labelledby="meses-title">
+          <div class="stack-xs">
+            <h2 class="section-title" id="meses-title">Vencimientos de los próximos 12 meses</h2>
+            <p class="small muted" data-meses-sub></p>
+          </div>
+          <div class="card month-chart" data-meses></div>
+        </section>
+
+        <!-- ---------- Cobertura por sucursal ---------- -->
+        <section class="table-view" aria-labelledby="cobertura-title">
+          <div class="stack-xs">
+            <h2 class="section-title" id="cobertura-title">Avance por sucursal</h2>
+            <p class="small muted">Permisos capturados contra los que le aplican según su perfil de habilitación. La que tiene menos avance va primero.</p>
+          </div>
+          <div class="table-frame">
+            <div class="table-scroll">
+              <table class="table">
+                <thead><tr><th>Sucursal</th><th>Perfil</th><th>Avance de captura</th><th>Vencidos</th><th>En proceso</th><th>Sin documento</th></tr></thead>
+                <tbody data-cobertura></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- Detalle ---------- -->
+        <section class="table-view" aria-labelledby="detalle-title">
+          <div class="table-header">
+            <h2 class="section-title" id="detalle-title">Detalle de permisos</h2>
+          </div>
+          <div class="table-frame">
+            <div class="table-scroll">
+              <table class="table">
+                <thead><tr>
+                  <th data-sort="estado" aria-sort="none"><button class="th-sort">Estado</button></th>
+                  <th data-sort="sucursal" aria-sort="none"><button class="th-sort">Sucursal</button></th>
+                  <th data-sort="permiso" aria-sort="none"><button class="th-sort">Permiso</button></th>
+                  <th data-sort="vigencia" aria-sort="ascending"><button class="th-sort">Vigencia</button></th>
+                  <th data-sort="aviso" aria-sort="none"><button class="th-sort">Aviso</button></th>
+                  <th>Estatus</th>
+                  <th>Documento</th>
+                </tr></thead>
+                <tbody data-detalle></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- Por vencer por periodo HEB ---------- -->
+        <section class="stack" aria-labelledby="periodo-title">
+          <div class="stack-xs">
+            <h2 class="section-title" id="periodo-title">Por vencer por periodo HEB</h2>
+            <p class="small muted">Permisos cuya ventana de renovación (del aviso a la vigencia) cae en cada periodo. Uno que cruza dos periodos cuenta en ambos.</p>
+          </div>
+          <div class="card"><div class="empty-state">
+            <span class="icon empty-icon" aria-hidden="true">calendar_month</span>
+            <p class="empty-title">Sin calendario fiscal</p>
+            <p class="empty-text">Finanzas aún no entrega los periodos HEB. Esta vista y el filtro de periodo se llenan solos en cuanto se carguen.</p>
+          </div></div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ================= MENÚS ================= -->
+<div class="menu" id="user-menu" popover role="menu" aria-label="Cuenta">
+  <p class="menu-label">Usuario de desarrollo</p>
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">person</span>Mi perfil</button>
+  <button class="menu-item" role="menuitem" data-theme-toggle><span class="icon" aria-hidden="true">dark_mode</span>Cambiar tema</button>
+  <hr class="menu-divider">
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">logout</span>Cerrar sesión</button>
+</div>
+
+<script src="../ui.js"></script>
+<script src="data.js"></script>
+<script src="forms.js"></script>
+<script src="shell.js"></script>
+<script src="reportes.js"></script>
+</body>
+</html>

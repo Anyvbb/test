@@ -1,0 +1,143 @@
+/* =========================================================
+   app.css
+   Tokens semánticos de dominio: Bienes Raíces (alta de
+   sucursales y contratos). Extienden theme.css con
+   significados propios del producto (estados de contrato,
+   estados de sucursal…). Igual que theme.css: solo
+   referencian primitivos, nunca valores crudos.
+   Cambia aquí el color de un estado y cambia en toda la app.
+   ========================================================= */
+
+:root {
+  /* ---------- Marca ---------- */
+  --color-brand:          var(--heb-red-500);
+  --color-brand-subtle:   var(--heb-red-50);
+  --color-brand-strong:   var(--heb-red-600); /* #B41E16 */
+  --color-brand-stronger: var(--heb-red-700);
+  --color-on-brand:       var(--white);
+
+  /* ---------- Pesos tipográficos por rol ---------- */
+  --font-weight-body:     var(--font-weight-regular);
+  --font-weight-strong:   var(--font-weight-semibold);
+  --font-weight-heading:  var(--font-weight-bold);
+  --font-weight-display:  var(--font-weight-extrabold);
+
+  /* ---------- Estados de contrato ----------
+     fg = texto/ícono, bg = fondo de etiqueta, solid = punto/barra */
+
+  /* Borrador: capturado, sin enviar a firma */
+  --status-draft-fg:        var(--slate-600);
+  --status-draft-bg:        var(--slate-100);
+  --status-draft-solid:     var(--slate-400);
+
+  /* Pendiente de firma */
+  --status-signing-fg:      var(--blue-700);
+  --status-signing-bg:      var(--blue-50);
+  --status-signing-solid:   var(--blue-500);
+
+  /* Vigente */
+  --status-active-fg:       var(--green-700);
+  --status-active-bg:       var(--green-50);
+  --status-active-solid:    var(--green-600);
+
+  /* En negociación / renovación */
+  --status-negotiation-fg:    var(--purple-600);
+  --status-negotiation-bg:    var(--purple-50);
+  --status-negotiation-solid: var(--purple-500);
+
+  /* Por vencer (dentro del periodo de aviso) */
+  --status-expiring-fg:     var(--orange-800);
+  --status-expiring-bg:     var(--orange-100);
+  --status-expiring-solid:  var(--orange-500);
+
+  /* Vencido */
+  --status-expired-fg:      var(--red-600);
+  --status-expired-bg:      var(--red-50);
+  --status-expired-solid:   var(--red-500);
+
+  /* Dado de baja / cancelado */
+  --status-terminated-fg:    var(--sand-600);
+  --status-terminated-bg:    var(--sand-100);
+  --status-terminated-solid: var(--sand-400);
+
+  /* ---------- Tipo de inmueble (tenencia) ---------- */
+  --tenure-own-fg:       var(--teal-700);
+  --tenure-own-bg:       var(--teal-50);
+  --tenure-third-fg:     var(--indigo-600);
+  --tenure-third-bg:     var(--indigo-50);
+  --tenure-mixed-fg:     var(--magenta-700);
+  --tenure-mixed-bg:     var(--magenta-50);
+
+  /* ---------- Asuntos de la bandeja ---------- */
+  --kind-contract-fg:    var(--blue-700);
+  --kind-contract-bg:    var(--blue-50);
+  --kind-permit-fg:      var(--purple-600);
+  --kind-permit-bg:      var(--purple-50);
+  --flag-nodoc-fg:       var(--magenta-700);
+  --flag-nodoc-bg:       var(--magenta-50);
+
+  /* Dato faltante en una ficha ("Sin capturar") */
+  --data-missing-fg:     var(--amber-800);
+
+  /* Urgencia: punto de cada grupo de la bandeja */
+  --urgency-overdue:     var(--red-500);
+  --urgency-soon:        var(--amber-500);
+  --urgency-later:       var(--slate-400);
+
+  /* ---------- Estado de sucursal ---------- */
+  --branch-open-solid:     var(--green-600);
+  --branch-building-solid: var(--amber-500);
+  --branch-closed-solid:   var(--slate-400);
+
+  /* ---------- Serie de gráficas ---------- */
+  --chart-1: var(--cyan-500);
+  --chart-2: var(--green-600);
+  --chart-3: var(--orange-500);
+  --chart-4: var(--purple-500);
+  --chart-grid: var(--slate-200);
+}
+
+[data-theme="dark"] {
+  --color-brand-subtle:        var(--heb-red-900);
+
+  --status-draft-fg:           var(--slate-300);
+  --status-draft-bg:           var(--slate-800);
+  --status-signing-fg:         var(--blue-300);
+  --status-signing-bg:         var(--blue-900);
+  --status-active-fg:          var(--green-300);
+  --status-active-bg:          var(--green-900);
+  --status-negotiation-fg:     var(--purple-300);
+  --status-negotiation-bg:     var(--purple-900);
+  --status-expiring-fg:        var(--orange-300);
+  --status-expiring-bg:        var(--orange-900);
+  --status-expired-fg:         var(--red-300);
+  --status-expired-bg:         var(--red-900);
+  --status-terminated-fg:      var(--sand-300);
+  --status-terminated-bg:      var(--sand-800);
+
+  --tenure-own-fg:             var(--teal-300);
+  --tenure-own-bg:             var(--teal-900);
+  --tenure-third-fg:           var(--indigo-200);
+  --tenure-third-bg:           var(--indigo-900);
+  --tenure-mixed-fg:           var(--magenta-300);
+  --tenure-mixed-bg:           var(--magenta-900);
+
+  --kind-contract-fg:          var(--blue-300);
+  --kind-contract-bg:          var(--blue-900);
+  --kind-permit-fg:            var(--purple-300);
+  --kind-permit-bg:            var(--purple-900);
+  --flag-nodoc-fg:             var(--magenta-300);
+  --flag-nodoc-bg:             var(--magenta-900);
+  --data-missing-fg:           var(--amber-400);
+
+  --color-success:             var(--green-400);
+  --color-success-subtle:      var(--green-900);
+  --color-warning:             var(--amber-400);
+  --color-warning-subtle:      var(--amber-1000);
+  --color-danger:              var(--red-400);
+  --color-danger-subtle:       var(--red-900);
+  --color-info:                var(--blue-400);
+  --color-info-subtle:         var(--blue-900);
+
+  --chart-grid: var(--slate-800);
+}

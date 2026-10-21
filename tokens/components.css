@@ -1,0 +1,530 @@
+/* =========================================================
+   components.css
+   Tokens de componente. Tercera capa:
+     primitives.css → theme.css / app.css → components.css
+   Cada componente consume SOLO sus variables --{componente}-*.
+   Para re-estilizar un componente, edita su bloque aquí.
+   ========================================================= */
+
+:root {
+  /* ---------- Button ---------- */
+  --button-height-sm:      var(--size-8);
+  --button-height-md:      var(--size-10);
+  --button-height-lg:      var(--size-12);
+  --button-padding-x-sm:   var(--space-3);
+  --button-padding-x-md:   var(--space-4);
+  --button-padding-x-lg:   var(--space-6);
+  --button-gap:            var(--space-inline-sm);
+  --button-radius:         var(--radius-pill); 
+  --button-font-family:    var(--font-body);
+  --button-font-size:      var(--text-body-sm-size);
+  --button-font-weight:    var(--font-weight-strong);
+  --button-transition:     var(--motion-hover);
+
+  --button-primary-bg:          var(--color-accent);
+  --button-primary-bg-hover:    var(--color-accent-hover);
+  --button-primary-bg-active:   var(--color-accent-active);
+  --button-primary-fg:          var(--color-on-accent);
+
+  --button-secondary-bg:        var(--color-surface);
+  --button-secondary-bg-hover:  var(--color-bg-subtle);
+  --button-secondary-fg:        var(--color-text);
+  --button-secondary-border:    var(--color-border-strong);
+
+  --button-ghost-bg-hover:      var(--color-surface-sunken);
+  --button-ghost-fg:            var(--color-text-muted);
+
+  --button-danger-bg:           var(--color-danger);
+  --button-danger-bg-hover:     var(--red-600);
+  --button-danger-fg:           var(--white);
+
+  --button-success-bg:          var(--color-success);
+  --button-success-bg-hover:    var(--green-800);
+  --button-success-fg:          var(--white);
+
+  /* ---------- Icon ---------- */
+  --icon-font:         var(--font-icon);
+  --icon-size-default: var(--icon-size-md);
+
+  /* ---------- Field (input, select, textarea) ---------- */
+  --field-height:          var(--size-10);
+  --field-padding-x:       var(--space-3);
+  --field-radius:          var(--radius-control);
+  --field-bg:              var(--color-surface);
+  --field-bg-disabled:     var(--color-surface-sunken);
+  --field-fg:              var(--color-text);
+  --field-placeholder:     var(--color-text-subtle);
+  --field-border:          var(--color-border-subtle);
+  --field-border-hover:    var(--color-text-subtle);
+  --field-border-focus:    var(--color-accent);
+  --field-border-error:    var(--color-danger);
+  --field-focus-ring:      var(--focus-ring);
+  --field-font-size:       var(--text-body-sm-size);
+  --field-label-fg:        var(--color-text);
+  --field-label-size:      var(--text-body-sm-size);
+  --field-label-weight:    var(--font-weight-strong);
+  --field-hint-fg:         var(--color-text-subtle);
+  --field-hint-size:       var(--text-caption-size);
+  --field-error-fg:        var(--color-danger);
+  --field-required-fg:     var(--color-danger);
+  --field-gap:             var(--space-stack-xs);
+
+  /* ---------- Checkbox / Switch ---------- */
+  --check-size:            var(--size-4);
+  --check-radius:          var(--radius-sm);
+  --check-border:          var(--color-border-strong);
+  --check-bg-checked:      var(--color-accent);
+  --check-fg-checked:      var(--color-on-accent);
+  --switch-width:          var(--size-9);
+  --switch-height:         var(--size-5);
+  --switch-track-off:      var(--color-border-strong);
+  --switch-track-on:       var(--color-accent);
+  --switch-thumb:          var(--white);
+
+  /* ---------- Card ---------- */
+  --card-bg:           var(--color-surface);
+  --card-border:       var(--color-border);
+  --card-radius:       var(--radius-card);
+  --card-shadow:       var(--shadow-card);
+  --card-padding:      var(--space-inset-lg);
+  --card-padding-sm:   var(--space-inset-md);
+  --card-title-size:   var(--text-body-size);
+  --card-title-weight: var(--font-weight-heading);
+  --card-title-font:   var(--font-heading);
+
+  /* ---------- Badge / Tag ---------- */
+  --badge-height:      var(--size-6);
+  --badge-padding-x:   var(--space-2);
+  --badge-radius:      var(--radius-pill);
+  --badge-font-size:   var(--text-caption-size);
+  --badge-font-weight: var(--font-weight-strong);
+  --badge-gap:         var(--space-inline-xs);
+  --badge-dot-size:    var(--space-2);
+  --badge-neutral-fg:  var(--color-text-muted);
+  --badge-neutral-bg:  var(--color-surface-sunken);
+  --badge-accent-fg:   var(--color-accent);
+  --badge-accent-bg:   var(--color-accent-subtle);
+
+  /* Contador (sidebar, tabs) */
+  --counter-min-width: var(--size-5);
+  --counter-height:    var(--size-5);
+  --counter-bg:        var(--color-brand);
+  --counter-fg:        var(--color-on-brand);
+  --counter-font-size: var(--text-caption-size);
+
+  /* ---------- Tabs ---------- */
+  --tabs-border:           var(--color-border);
+  --tabs-gap:              var(--space-6);
+  --tabs-fg:               var(--color-text-muted);
+  --tabs-fg-hover:         var(--color-text);
+  --tabs-fg-active:        var(--color-accent);
+  --tabs-indicator:        var(--color-accent);
+  --tabs-indicator-height: var(--border-width-strong);
+  --tabs-font-size:        var(--text-body-sm-size);
+  --tabs-font-weight:      var(--font-weight-strong);
+  --tabs-padding-y:        var(--space-3);
+  --tabs-counter-bg:       var(--color-surface-sunken);
+  --tabs-counter-fg:       var(--color-text-muted);
+  --tabs-counter-bg-active: var(--color-accent-subtle);
+  --tabs-counter-fg-active: var(--color-accent);
+
+  /* ---------- Segmented control ---------- */
+  --segmented-bg:          var(--color-surface-sunken);
+  --segmented-radius:      var(--radius-pill);
+  --segmented-item-bg-active: var(--color-surface);
+  --segmented-item-fg:     var(--color-text-muted);
+  --segmented-item-fg-active: var(--color-text);
+  --segmented-shadow:      var(--shadow-sm);
+
+  /* ---------- Modal ---------- */
+  --modal-overlay:      var(--color-overlay);
+  --modal-bg:           var(--color-surface-raised);
+  --modal-radius:       var(--radius-card);
+  --modal-shadow:       var(--shadow-modal);
+  --modal-padding:      var(--space-inset-lg);
+  --modal-width-sm:     var(--size-90);
+  --modal-width-sm-wide: calc(var(--size-70) * 2); /* 560px: formularios cortos con subtítulo largo */
+  --modal-width-md:     var(--size-192);
+  --modal-width-xl:     var(--container-lg);
+  --modal-border:       var(--color-border);
+  --modal-z:            var(--z-modal);
+  --modal-title-size:   var(--text-heading-sm-size);
+  --modal-title-font:   var(--font-heading);
+  --modal-title-weight: var(--font-weight-heading);
+  --modal-motion:       var(--motion-enter);
+  --modal-motion-exit:  var(--motion-exit);
+  --modal-subtitle-fg:  var(--color-text-muted);
+  --modal-footer-bg:    transparent;          /* footer sin fondo, solo la línea divisoria */
+  --modal-footer-border: var(--modal-border);
+  --modal-gap:          var(--space-stack-md);
+  --modal-max-height:   calc(100dvh - var(--space-16));
+
+  /* Formularios: siempre viven dentro de un modal */
+  --form-gap-x:         var(--space-4);
+  --form-gap-y:         var(--space-5);
+  --form-section-fg:    var(--color-text-subtle);
+  --form-section-gap:   var(--space-stack-lg);
+  --field-textarea-min-height: calc(var(--size-12) * 2); /* 96px */
+  --form-section-heading-size: var(--text-body-size);
+  --form-section-desc-fg:      var(--color-text-muted);
+
+  /* Mapa para marcar ubicación (Leaflet + OpenStreetMap) */
+  --map-height:         var(--size-80);   /* 320px */
+  --map-radius:         var(--radius-lg);
+  --map-border:         var(--field-border);
+  --map-bg:             var(--color-surface-sunken);
+  --map-marker:         var(--color-brand);
+  --map-marker-ring:    var(--color-surface);
+
+  /* ---------- Table ---------- */
+  --table-bg:            var(--color-surface);
+  --table-header-bg:     var(--color-bg-subtle);
+  --table-header-fg:     var(--color-text-muted);
+  --table-header-size:   var(--text-caption-size);
+  --table-header-weight: var(--font-weight-heading);
+  --table-header-tracking: var(--tracking-eyebrow);
+  --table-row-hover:     var(--color-bg-subtle);
+  --table-border:        var(--color-border);
+  --table-cell-padding-x: var(--space-4);
+  --table-cell-padding-y: var(--space-3);
+  --table-font-size:     var(--text-body-sm-size);
+
+  /* Tabla: extras (selección, orden, barra de herramientas) */
+  --table-radius:           var(--radius-xl);   /* 16px */
+  --table-shadow:           var(--shadow-card);
+  --table-row-height:       var(--size-14);
+  --table-row-selected:     var(--color-accent-subtle);
+  --table-cell-fg-muted:    var(--color-text-subtle);
+  --table-cell-max-width:   calc(var(--size-12) * 4); /* 192px, celdas truncadas */
+  --table-sort-fg:          var(--color-text-disabled);
+  --table-sort-fg-active:   var(--color-accent);
+  --table-view-gap:         var(--space-stack-md);
+  --table-toolbar-height:   var(--size-10);
+  --table-toolbar-gap:      var(--space-inline-sm);
+  --table-bulk-bg:          var(--color-accent-subtle);
+  --table-bulk-fg:          var(--color-accent);
+  --table-bulk-radius:      var(--radius-lg);
+  --table-z-sticky:         var(--z-10);
+
+  /* ---------- Paginador ---------- */
+  --pagination-gap:          var(--space-1);
+  --pagination-item-size:    var(--size-8);
+  --pagination-item-radius:  var(--radius-full);
+  --pagination-item-fg:      var(--color-text-muted);
+  --pagination-item-fg-hover: var(--color-text);
+  --pagination-item-bg-hover: var(--color-surface-sunken);
+  --pagination-item-bg-active: var(--color-accent);
+  --pagination-item-fg-active: var(--color-on-accent);
+  --pagination-font-size:    var(--text-body-sm-size);
+  --pagination-font-weight:  var(--font-weight-strong);
+  --pagination-info-fg:      var(--color-text-muted);
+
+  /* ---------- Menú: ítems ---------- */
+  --menu-padding:       var(--space-1);
+  --menu-min-width:     calc(var(--size-12) * 4); /* 192px */
+  --menu-item-height:   var(--size-9);
+  --menu-item-radius:   var(--radius-md);
+  --menu-item-fg:       var(--color-text);
+  --menu-item-icon-fg:  var(--color-text-subtle);
+  --menu-item-danger-fg: var(--color-danger);
+  --menu-item-danger-bg: var(--color-danger-subtle);
+
+  /* ---------- Campo compacto (toolbars, paginador) ---------- */
+  --field-height-sm:    var(--size-8);
+
+  /* ---------- Stepper (formularios por pasos) ---------- */
+  --stepper-gap:              var(--space-3);
+  --stepper-index-size:       var(--size-8);
+  --stepper-index-bg:         var(--color-surface);
+  --stepper-index-border:     var(--color-border-strong);
+  --stepper-index-fg:         var(--color-text-muted);
+  --stepper-index-bg-current: var(--color-accent);
+  --stepper-index-fg-current: var(--color-on-accent);
+  --stepper-index-bg-done:    var(--color-accent-subtle);
+  --stepper-index-fg-done:    var(--color-accent);
+  --stepper-label-fg:         var(--color-text-muted);
+  --stepper-label-fg-current: var(--color-text);
+  --stepper-desc-fg:          var(--color-text-subtle);
+  --stepper-line:             var(--color-border);
+  --stepper-line-done:        var(--color-accent);
+
+  /* ---------- Bandeja (grupos de asuntos) ---------- */
+  --inbox-bg:            var(--color-surface);
+  --inbox-border:        var(--color-border);
+  --inbox-radius:        var(--radius-card);
+  --inbox-shadow:        var(--shadow-card);
+  --inbox-header-bg:     var(--color-bg-subtle);
+  --inbox-header-padding: var(--space-3) var(--space-inset-lg);
+  --inbox-item-padding:  var(--space-inset-md) var(--space-inset-lg);
+  --inbox-item-gap:      var(--space-4);
+  --inbox-item-hover:    var(--color-bg-subtle);
+  --inbox-dot-size:      var(--space-2);
+  --inbox-gap:           var(--space-stack-md);
+
+  /* ---------- Lista de vencimientos (tarjetas) ---------- */
+  --due-card-bg:          var(--color-surface);
+  --due-card-bg-hover:    var(--color-bg-subtle);
+  --due-card-border:      var(--color-border);
+  --due-card-border-hover: var(--color-border-strong);
+  --due-card-radius:      var(--radius-lg);
+  --due-card-shadow:      var(--shadow-sm);
+  --due-card-padding:     var(--space-4) var(--space-5);
+  --due-card-gap:         var(--space-5);
+  --due-list-gap:         var(--space-2);
+  --due-num-fg:           var(--color-text-subtle);
+  --due-meta-fg:          var(--color-text-muted);
+
+  /* ---------- Bitácora de avisos ---------- */
+  --notice-icon-fg:       var(--color-text-muted);
+  --notice-gap:           var(--space-4);
+
+  /* ---------- Checklist de tipos (expediente) ---------- */
+  --checklist-width:        calc(var(--size-90) - var(--space-4)); /* 344px */
+  --checklist-dot-size:     calc(var(--space-1) * 2.5); /* 10px */
+  --checklist-dot-pending:  var(--color-border-strong);
+  --checklist-dot-unique:   var(--color-text-muted);
+  --checklist-item-height:  var(--size-9);
+  --checklist-group-fg:     var(--color-text-subtle);
+  --checklist-max-height:   calc(100dvh - var(--layout-header-height) - var(--space-16));
+
+  /* ---------- Tarjeta de expediente (registro con adjuntos) ---------- */
+  --record-bg:              var(--color-surface);
+  --record-border:          var(--color-border);
+  --record-radius:          var(--radius-lg);
+  --record-shadow:          var(--shadow-sm);
+  --record-padding:         var(--space-4) var(--space-5);
+  --record-divider:         var(--color-border);
+  --record-highlight:       var(--color-accent);
+
+  /* ---------- Ficha de datos (lista de definición) ---------- */
+  --dl-gap-x:            var(--space-6);
+  --dl-gap-y:            var(--space-5);
+  --dl-label-fg:         var(--color-text-muted);
+  --dl-label-size:       var(--text-caption-size);
+  --dl-label-weight:     var(--font-weight-strong);
+  --dl-value-fg:         var(--color-text);
+  --dl-value-weight:     var(--font-weight-strong);
+  --dl-missing-fg:       var(--color-text-disabled);
+  --dl-tile-border:      var(--color-border-strong);
+  --dl-tile-radius:      var(--radius-lg);
+  --dl-tile-padding:     var(--space-inset-md);
+
+  /* ---------- Detalle ---------- */
+  --detail-aside-width:  var(--size-90);
+  --detail-gap:          var(--space-6);
+  --placeholder-bg:      var(--color-surface-sunken);
+  --placeholder-border:  var(--color-border-strong);
+  --placeholder-radius:  var(--radius-lg);
+  --item-box-border:     var(--color-border);
+  --item-box-border-danger: color-mix(in srgb, var(--color-danger) 35%, transparent);
+  --item-box-border-warning: color-mix(in srgb, var(--color-warning) 35%, transparent);
+  --item-box-radius:     var(--radius-lg);
+  --item-box-padding:    var(--space-inset-md);
+
+  /* ---------- Botón enlace ---------- */
+  --link-fg:             var(--color-accent);
+  --link-fg-hover:       var(--color-accent-hover);
+  --link-weight:         var(--font-weight-strong);
+
+  /* ---------- App shell ---------- */
+  --sidebar-width:          var(--layout-sidebar-width);
+  --sidebar-width-collapsed: var(--layout-sidebar-width-collapsed);
+  --sidebar-bg:             var(--color-surface);
+  --sidebar-border:         var(--color-border);
+  --sidebar-item-height:    var(--size-10);
+  --sidebar-item-radius:    var(--radius-control);
+  --sidebar-item-fg:        var(--color-text-muted);
+  --sidebar-item-fg-hover:  var(--color-text);
+  --sidebar-item-bg-hover:  var(--color-surface-sunken);
+  --sidebar-item-fg-active: var(--color-accent);
+  --sidebar-item-bg-active: var(--color-accent-subtle);
+  --sidebar-section-fg:     var(--color-text-subtle);
+  --sidebar-section-size:   var(--text-caption-size);
+  --sidebar-padding:        var(--space-inset-md);
+  --sidebar-toggle-size:    var(--size-8);
+  --sidebar-toggle-top:     var(--space-4);
+  --sidebar-toggle-bg:      var(--color-surface);
+  --sidebar-toggle-bg-hover: var(--color-surface-sunken);
+  --sidebar-toggle-fg:      var(--color-text);
+  --sidebar-toggle-border:  var(--color-border);
+  --sidebar-toggle-shadow:  var(--shadow-sm);
+  --sidebar-toggle-z:       var(--z-sticky);
+
+  /* Header: rojo de marca en ambos temas (fondo desde
+     --color-bg-header). Texto e íconos en --color-on-brand;
+     hovers y campos son capas translúcidas del mismo color. */
+  --topbar-height:        var(--layout-header-height);
+  --topbar-bg:            var(--color-bg-header);
+  --topbar-border:        transparent;
+  --topbar-shadow:        var(--shadow-sm);
+  --topbar-fg:            var(--color-on-brand);
+  --topbar-fg-muted:      color-mix(in srgb, var(--color-on-brand) 85%, transparent);
+  --topbar-divider:       color-mix(in srgb, var(--white) 30%, transparent); /* #fff al 30% */
+  --topbar-hover:         color-mix(in srgb, var(--color-on-brand) 14%, transparent);
+  --topbar-focus-ring:    0 0 0 2px var(--color-on-brand);
+  --topbar-dot:           var(--color-on-brand);
+  --topbar-field-bg:      color-mix(in srgb, var(--color-on-brand) 14%, transparent);
+  --topbar-field-bg-hover: color-mix(in srgb, var(--color-on-brand) 20%, transparent);
+  --topbar-field-border:  color-mix(in srgb, var(--color-on-brand) 25%, transparent);
+  --topbar-field-fg:      var(--color-on-brand);
+  --topbar-field-placeholder: color-mix(in srgb, var(--color-on-brand) 75%, transparent);
+  --topbar-search-width:  calc(var(--size-90) * 1.3);
+  --topbar-logo-height:   var(--size-8);
+  --topbar-product-logo-height: var(--size-6); /* logo@2x.png: 156×48 → 78×24 */
+  --topbar-product-size:  var(--text-body-size);
+  --topbar-product-weight: var(--font-weight-display);
+  --topbar-product-tracking: var(--tracking-wider);
+  --topbar-product-fg:    var(--color-on-brand);
+  --topbar-product-font:  var(--font-brand);
+  --topbar-user-bg:       var(--color-brand-strong);
+  --topbar-user-bg-hover: var(--color-brand-stronger);
+  --topbar-user-fg:       var(--color-on-brand);
+  --topbar-avatar-bg:     var(--color-on-brand);
+  --topbar-avatar-fg:     var(--color-brand);
+  --topbar-z:             var(--z-sticky);
+
+  --brand-mark-bg:   var(--color-brand);
+  --brand-mark-fg:   var(--color-on-brand);
+  --brand-mark-size: var(--size-9);
+  --brand-mark-radius: var(--radius-md);
+
+  --page-bg:          var(--color-bg);
+  --page-padding-y:   var(--space-8);
+  --page-max-width:   var(--container-2xl);
+  --page-title-size:  var(--text-heading-md-size);
+  --page-title-leading: var(--text-heading-md-leading);
+  --page-title-font:  var(--font-heading);
+  --page-title-weight: var(--font-weight-heading);
+  --page-subtitle-fg: var(--color-text-muted);
+
+  /* ---------- KPI / Stat ---------- */
+  --kpi-bg:           var(--color-surface);
+  --kpi-border:       var(--color-border);
+  --kpi-radius:       var(--radius-card);
+  --kpi-padding:      var(--space-inset-md);
+  --kpi-label-fg:     var(--color-text-muted);
+  --kpi-label-size:   var(--text-caption-size);
+  --kpi-value-fg:     var(--color-text);
+  --kpi-value-size:   var(--text-heading-lg-size);
+  --kpi-value-font:   var(--font-heading);
+  --kpi-value-weight: var(--font-weight-display);
+  --kpi-bg-hover:     var(--color-bg-subtle);
+  --kpi-icon-size:    var(--size-10);
+  --kpi-icon-radius:  var(--radius-lg);
+
+  /* KPI: tonos del valor y mosaicos de conteo */
+  --kpi-gap:          var(--space-stack-sm);
+  --kpi-border-hover: var(--color-border-strong);
+  --kpi-border-active: var(--color-accent);
+  --kpi-bg-active:    var(--color-accent-subtle);
+  --stat-tile-radius: var(--radius-lg);
+  --stat-tile-padding: var(--space-3);
+
+  /* ---------- Progress ---------- */
+  --progress-height:  var(--space-2);
+  --progress-track:   var(--color-surface-sunken);
+  --progress-fill:    var(--color-accent);
+  --progress-radius:  var(--radius-pill);
+
+  /* ---------- Alert / Banner ---------- */
+  --alert-radius:      var(--radius-lg);
+  --alert-padding:     var(--space-inset-md);
+  --alert-border-width: var(--border-width-default);
+  --alert-gap:         var(--space-inline-sm);
+  --alert-title-size:  var(--text-body-sm-size);
+  --alert-title-weight: var(--font-weight-heading);
+  --alert-body-size:   var(--text-body-sm-size);
+  --alert-body-fg:     var(--color-text);
+  --alert-accent-width: var(--border-width-4);
+
+  --alert-info-fg:        var(--color-info);
+  --alert-info-bg:        var(--color-info-subtle);
+  --alert-info-border:    color-mix(in srgb, var(--color-info) 25%, transparent);
+  --alert-success-fg:     var(--color-success);
+  --alert-success-bg:     var(--color-success-subtle);
+  --alert-success-border: color-mix(in srgb, var(--color-success) 25%, transparent);
+  --alert-warning-fg:     var(--color-warning);
+  --alert-warning-bg:     var(--color-warning-subtle);
+  --alert-warning-border: color-mix(in srgb, var(--color-warning) 25%, transparent);
+  --alert-danger-fg:      var(--color-danger);
+  --alert-danger-bg:      var(--color-danger-subtle);
+  --alert-danger-border:  color-mix(in srgb, var(--color-danger) 25%, transparent);
+
+  /* ---------- Breadcrumbs ---------- */
+  --breadcrumb-font-size:  var(--text-body-sm-size);
+  --breadcrumb-gap:        var(--space-inline-xs);
+  --breadcrumb-fg:         var(--color-text-muted);
+  --breadcrumb-fg-hover:   var(--color-accent);
+  --breadcrumb-fg-current: var(--color-text);
+  --breadcrumb-current-weight: var(--font-weight-strong);
+  --breadcrumb-separator:  var(--color-text-disabled);
+  --breadcrumb-icon-size:  var(--icon-size-sm);
+  --breadcrumb-item-radius: var(--radius-sm);
+  --breadcrumb-item-bg-hover: var(--color-surface-sunken);
+
+  /* ---------- Avatar ---------- */
+  --avatar-size-sm:  var(--size-6);
+  --avatar-size-md:  var(--size-8);
+  --avatar-bg:       var(--color-accent-subtle);
+  --avatar-fg:       var(--color-accent);
+  --avatar-font-weight: var(--font-weight-heading);
+
+  /* ---------- Dropdown / Menu ---------- */
+  --menu-bg:         var(--color-surface-raised);
+  --menu-border:     var(--color-border);
+  --menu-radius:     var(--radius-lg);
+  --menu-shadow:     var(--shadow-dropdown);
+  --menu-item-hover: var(--color-surface-sunken);
+  --menu-z:          var(--z-dropdown);
+
+  /* ---------- Toast ---------- */
+  --toast-bg:        var(--color-text);
+  --toast-fg:        var(--color-text-inverse);
+  --toast-radius:    var(--radius-lg);
+  --toast-shadow:    var(--shadow-popover);
+  --toast-z:         var(--z-toast);
+  --toast-width:     var(--size-90);
+  --toast-padding:   var(--space-3) var(--space-4);
+  --toast-gap:       var(--space-3);
+  --toast-offset:    var(--space-6);
+  --toast-font-size: var(--text-body-sm-size);
+  --toast-motion:    var(--motion-enter);
+  --toast-icon-success: var(--green-400);
+  --toast-icon-danger:  var(--red-400);
+  --toast-icon-warning: var(--amber-400);
+
+  /* ---------- Calendar ---------- */
+  --calendar-cell-min-height: calc(var(--size-12) * 2.5); /* 120px */
+  --calendar-cell-bg:         var(--color-surface);
+  --calendar-cell-bg-muted:   var(--color-bg-subtle);
+  --calendar-cell-border:     var(--color-border);
+  --calendar-today-fg:        var(--color-on-accent);
+  --calendar-today-bg:        var(--color-accent);
+  --calendar-event-radius:    var(--radius-sm);
+  --calendar-event-size:      var(--text-caption-size);
+
+  /* ---------- Timeline (bitácora) ---------- */
+  --timeline-line:       var(--color-border);
+  --timeline-dot-size:   var(--size-8);
+  --timeline-dot-bg:     var(--color-surface-sunken);
+  --timeline-dot-fg:     var(--color-text-muted);
+
+  /* ---------- Lightbox ---------- */
+  --lightbox-overlay: color-mix(in srgb, var(--black) 90%, transparent);
+  --lightbox-z:       var(--z-toast);
+  --lightbox-control-bg:       var(--color-overlay);
+  --lightbox-control-bg-hover: var(--slate-800);
+  --lightbox-control-fg:       var(--white);
+
+  /* ---------- Empty state ---------- */
+  --empty-fg:        var(--color-text-subtle);
+  --empty-icon-size: var(--size-12);
+
+  /* ---------- Thumbnail ---------- */
+  --thumb-size:    var(--size-18);
+  --thumb-radius:  var(--radius-md);
+  --thumb-border:  var(--color-border);
+  --thumb-remove-bg: var(--color-overlay);
+  --thumb-remove-fg: var(--white);
+}
+

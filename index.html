@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bienes Raíces · Sucursales y contratos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Solo para la demo */
+    .demo-label { margin-bottom: var(--space-2); }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <div class="topbar-start">
+      <button class="topbar-action topbar-menu" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        <span class="icon" aria-hidden="true">menu</span>
+      </button>
+      <a class="topbar-brand" href="#">
+        <img class="topbar-logo" src="assets/heb-logo-white.svg" alt="HEB">
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <span class="topbar-product">Bienes Raíces</span>
+      </a>
+    </div>
+
+    <div class="topbar-end">
+      <button class="topbar-action" data-theme-toggle aria-label="Cambiar tema">
+        <span class="icon" aria-hidden="true">dark_mode</span>
+      </button>
+      <button class="topbar-action" aria-label="Notificaciones (3 nuevas)">
+        <span class="icon" aria-hidden="true">notifications</span>
+        <span class="topbar-action-dot" aria-hidden="true"></span>
+      </button>
+      <button class="topbar-action" aria-label="Ayuda">
+        <span class="icon" aria-hidden="true">help</span>
+      </button>
+      <button class="topbar-user" aria-label="Cuenta de Ana Velázquez">
+        <span class="topbar-avatar" aria-hidden="true">AV</span>
+        <span class="topbar-user-text">
+          <span class="topbar-user-name">Ana Velázquez</span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <button class="sidebar-toggle" data-sidebar-toggle aria-controls="sidebar" aria-expanded="true" aria-label="Colapsar menú">
+        <span class="icon" aria-hidden="true">chevron_left</span>
+      </button>
+
+      <nav class="sidebar-scroll">
+        <div class="sidebar-section">
+          <ul class="sidebar-list">
+            <li><a class="sidebar-item" href="#" title="Inicio"><span class="icon" aria-hidden="true">space_dashboard</span><span class="sidebar-label">Inicio</span></a></li>
+            <li><a class="sidebar-item" href="#" aria-current="page" title="Sucursales"><span class="icon" aria-hidden="true">storefront</span><span class="sidebar-label">Sucursales</span></a></li>
+            <li><a class="sidebar-item" href="#" title="Contratos"><span class="icon" aria-hidden="true">description</span><span class="sidebar-label">Contratos</span></a></li>
+            <li><a class="sidebar-item" href="#" title="Vencimientos"><span class="icon" aria-hidden="true">event_upcoming</span><span class="sidebar-label">Vencimientos</span><span class="sidebar-counter">5</span></a></li>
+            <li><a class="sidebar-item" href="#" title="Pagos de renta"><span class="icon" aria-hidden="true">payments</span><span class="sidebar-label">Pagos de renta</span></a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-section-title">Directorio</p>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-item" href="#" title="Arrendadores"><span class="icon" aria-hidden="true">real_estate_agent</span><span class="sidebar-label">Arrendadores</span></a></li>
+            <li><a class="sidebar-item" href="#" title="Inmuebles"><span class="icon" aria-hidden="true">apartment</span><span class="sidebar-label">Inmuebles</span></a></li>
+            <li><a class="sidebar-item" href="#" title="Documentos"><span class="icon" aria-hidden="true">folder_open</span><span class="sidebar-label">Documentos</span></a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-section-title">Análisis</p>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-item" href="#" title="Reportes"><span class="icon" aria-hidden="true">bar_chart</span><span class="sidebar-label">Reportes</span></a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="sidebar-item" href="#" title="Configuración"><span class="icon" aria-hidden="true">settings</span><span class="sidebar-label">Configuración</span></a>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-close aria-hidden="true"></div>
+
+    <!-- ================= PÁGINA ================= -->
+    <main class="page">
+      <div class="page-inner">
+
+        <div class="page-heading">
+          <nav class="breadcrumb" aria-label="Ruta">
+            <ol>
+              <li><a href="#"><span class="icon" aria-hidden="true">home</span><span class="sr-only">Inicio</span></a></li>
+              <li><a href="#">Bienes Raíces</a></li>
+              <li><a href="#">Sucursales</a></li>
+              <li><span aria-current="page">Guía de componentes</span></li>
+            </ol>
+          </nav>
+          <div class="page-header">
+            <div class="stack-xs">
+              <h1 class="page-title">Guía de componentes</h1>
+              <p class="page-subtitle">Botones, navegación, alertas y formularios en modal para el alta de sucursales y contratos.</p>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-secondary"><span class="icon" aria-hidden="true">download</span>Exportar</button>
+              <button class="btn btn-primary" data-modal-open="m-sucursal"><span class="icon" aria-hidden="true">add</span>Nueva sucursal</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Tabla + paginador ---------- -->
+        <section class="table-view" id="contratos" aria-labelledby="t-contratos">
+          <div class="table-header">
+            <div class="stack-xs">
+              <h2 id="t-contratos">Contratos</h2>
+              <p class="small muted">Contratos inmobiliarios de todas las sucursales.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" data-modal-open="m-contrato"><span class="icon" aria-hidden="true">add</span>Nuevo contrato</button>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Filtrar por estado">
+              <button class="tab" role="tab" data-tab="all" aria-selected="true">Todos <span class="count">0</span></button>
+              <button class="tab" role="tab" data-tab="active" aria-selected="false">Vigentes <span class="count">0</span></button>
+              <button class="tab" role="tab" data-tab="expiring" aria-selected="false">Por vencer <span class="count">0</span></button>
+              <button class="tab" role="tab" data-tab="expired" aria-selected="false">Vencidos <span class="count">0</span></button>
+              <button class="tab" role="tab" data-tab="process" aria-selected="false">En proceso <span class="count">0</span></button>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="input-group table-search">
+              <span class="icon" aria-hidden="true">search</span>
+              <input class="input input-sm" type="search" data-table-search placeholder="Buscar folio, sucursal o arrendador" aria-label="Buscar contratos">
+            </div>
+            <div class="select-wrap">
+              <select class="select select-sm" data-table-tipo aria-label="Tipo de contrato">
+                <option value="">Todos los tipos</option>
+                <option>Arrendamiento</option>
+                <option>Subarrendamiento</option>
+                <option>Comodato</option>
+                <option>Compraventa</option>
+              </select>
+            </div>
+            <div class="table-toolbar-end">
+              <button class="btn btn-ghost btn-sm"><span class="icon" aria-hidden="true">view_column</span>Columnas</button>
+              <button class="btn btn-secondary btn-sm"><span class="icon" aria-hidden="true">download</span>Exportar</button>
+            </div>
+          </div>
+
+          <div class="table-bulk" hidden>
+            <span><span data-bulk-count>0</span> seleccionados</span>
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm"><span class="icon" aria-hidden="true">download</span>Exportar</button>
+              <button class="btn btn-secondary btn-sm"><span class="icon" aria-hidden="true">autorenew</span>Renovar</button>
+              <button class="btn btn-danger btn-sm" data-modal-open="m-baja-contratos"><span class="icon" aria-hidden="true">block</span>Dar de baja</button>
+            </div>
+            <button class="btn btn-ghost btn-icon btn-sm table-toolbar-end" data-bulk-clear aria-label="Quitar selección"><span class="icon" aria-hidden="true">close</span></button>
+          </div>
+
+          <div class="table-frame">
+          <div class="table-scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-check"><label class="check"><input type="checkbox" data-select-all aria-label="Seleccionar todos en esta página"></label></th>
+                  <th data-sort="folio" aria-sort="none"><button class="th-sort">Folio</button></th>
+                  <th data-sort="sucursal" aria-sort="none"><button class="th-sort">Sucursal</button></th>
+                  <th data-sort="arrendador" aria-sort="none"><button class="th-sort">Arrendador</button></th>
+                  <th>Tipo</th>
+                  <th class="num" data-sort="renta" aria-sort="none"><button class="th-sort">Renta mensual</button></th>
+                  <th data-sort="fin" aria-sort="ascending"><button class="th-sort">Fin de vigencia</button></th>
+                  <th data-sort="status" aria-sort="none"><button class="th-sort">Estado</button></th>
+                  <th class="col-actions"><span class="sr-only">Acciones</span></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          </div>
+
+          <nav class="pagination" aria-label="Paginación de contratos">
+            <p class="pagination-info" aria-live="polite"></p>
+            <label class="pagination-size">Filas por página
+              <span class="select-wrap">
+                <select class="select select-sm" data-table-size>
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                </select>
+              </span>
+            </label>
+            <ul class="pagination-pages"></ul>
+          </nav>
+        </section>
+
+        <!-- ---------- Botones ---------- -->
+        <section class="card" aria-labelledby="t-botones">
+          <div class="card-header">
+            <h2 class="card-title" id="t-botones">Botones</h2>
+            <span class="caption subtle">.btn + variante + talla</span>
+          </div>
+
+          <div class="stack">
+            <div>
+              <p class="eyebrow demo-label">Variantes</p>
+              <div class="btn-group">
+                <button class="btn btn-primary">Primario</button>
+                <button class="btn btn-secondary">Secundario</button>
+                <button class="btn btn-ghost">Ghost</button>
+                <button class="btn btn-danger">Dar de baja</button>
+                <button class="btn btn-success">Autorizar</button>
+              </div>
+            </div>
+            <div>
+              <p class="eyebrow demo-label">Con ícono</p>
+              <div class="btn-group">
+                <button class="btn btn-primary"><span class="icon" aria-hidden="true">add</span>Nuevo contrato</button>
+                <button class="btn btn-secondary"><span class="icon" aria-hidden="true">filter_list</span>Filtrar</button>
+                <button class="btn btn-ghost">Ver sucursal<span class="icon" aria-hidden="true">arrow_forward</span></button>
+                <button class="btn btn-secondary btn-icon" aria-label="Editar"><span class="icon" aria-hidden="true">edit</span></button>
+                <button class="btn btn-ghost btn-icon" aria-label="Más opciones"><span class="icon" aria-hidden="true">more_vert</span></button>
+              </div>
+            </div>
+            <div>
+              <p class="eyebrow demo-label">Tallas</p>
+              <div class="btn-group">
+                <button class="btn btn-primary btn-sm">Pequeño</button>
+                <button class="btn btn-primary">Mediano</button>
+                <button class="btn btn-primary btn-lg">Grande</button>
+              </div>
+            </div>
+            <div>
+              <p class="eyebrow demo-label">Deshabilitados</p>
+              <div class="btn-group">
+                <button class="btn btn-primary" disabled>Primario</button>
+                <button class="btn btn-secondary" disabled>Secundario</button>
+                <button class="btn btn-ghost" disabled>Ghost</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- Alertas ---------- -->
+        <section class="card" aria-labelledby="t-alertas">
+          <div class="card-header">
+            <h2 class="card-title" id="t-alertas">Alertas</h2>
+            <span class="caption subtle">.alert + info · success · warning · danger</span>
+          </div>
+
+          <div class="stack">
+            <div class="alert alert-info" role="status">
+              <span class="icon alert-icon" aria-hidden="true">info</span>
+              <div class="alert-content">
+                <p class="alert-title">INPC de agosto disponible</p>
+                <p class="alert-body">Los incrementos anuales de renta indexados al INPC se recalcularán el 1 de octubre.</p>
+              </div>
+              <button class="alert-close" data-alert-dismiss aria-label="Cerrar"><span class="icon" aria-hidden="true">close</span></button>
+            </div>
+
+            <div class="alert alert-success" role="status">
+              <span class="icon alert-icon" aria-hidden="true">check_circle</span>
+              <div class="alert-content">
+                <p class="alert-title">Contrato registrado</p>
+                <p class="alert-body">CTR-0412 · Sucursal Cumbres quedó vigente hasta el 30 de septiembre de 2031.</p>
+              </div>
+              <button class="alert-close" data-alert-dismiss aria-label="Cerrar"><span class="icon" aria-hidden="true">close</span></button>
+            </div>
+
+            <div class="alert alert-warning alert-accent" role="alert">
+              <span class="icon alert-icon" aria-hidden="true">warning</span>
+              <div class="alert-content">
+                <p class="alert-title">5 contratos vencen en los próximos 90 días</p>
+                <p class="alert-body">Inicia la renovación o negociación con el arrendador antes de la fecha de aviso previo.</p>
+                <div class="alert-actions">
+                  <button class="btn btn-secondary btn-sm">Ver contratos</button>
+                  <button class="btn btn-ghost btn-sm">Recordar después</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-danger" role="alert">
+              <span class="icon alert-icon" aria-hidden="true">error</span>
+              <div class="alert-content">
+                <p class="alert-title">No se pudo guardar el contrato</p>
+                <p class="alert-body">El RFC del arrendador no es válido. Corrígelo y vuelve a intentarlo.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- Etiquetas ---------- -->
+        <section class="card" aria-labelledby="t-badges">
+          <div class="card-header">
+            <h2 class="card-title" id="t-badges">Etiquetas de estado</h2>
+            <span class="caption subtle">.badge + data-status (tokens en app.css)</span>
+          </div>
+          <div class="btn-group">
+            <span class="badge badge-dot" data-status="draft">Borrador</span>
+            <span class="badge badge-dot" data-status="signing">Pendiente de firma</span>
+            <span class="badge badge-dot" data-status="active">Vigente</span>
+            <span class="badge badge-dot" data-status="negotiation">En negociación</span>
+            <span class="badge badge-dot" data-status="expiring">Por vencer</span>
+            <span class="badge badge-dot" data-status="expired">Vencido</span>
+            <span class="badge badge-dot" data-status="terminated">Dado de baja</span>
+          </div>
+          <div class="btn-group">
+            <span class="badge">Neutral</span>
+            <span class="badge badge-accent">Nuevo</span>
+            <span class="badge"><span class="icon" aria-hidden="true">attach_file</span>3 anexos</span>
+          </div>
+        </section>
+
+        <!-- ---------- Formularios ---------- -->
+        <section class="card" aria-labelledby="t-forms">
+          <div class="card-header">
+            <h2 class="card-title" id="t-forms">Formularios en modal</h2>
+            <span class="caption subtle">Todo formulario vive en un &lt;dialog class="modal"&gt;</span>
+          </div>
+          <p class="small muted">Prueba enviar el formulario vacío para ver los estados de error. Esc, clic fuera o Cancelar lo cierran y lo limpian.</p>
+          <div class="btn-group">
+            <button class="btn btn-primary" data-modal-open="m-sucursal"><span class="icon" aria-hidden="true">add_business</span>Nueva sucursal <span class="caption">(md)</span></button>
+            <button class="btn btn-secondary" data-modal-open="m-contrato"><span class="icon" aria-hidden="true">description</span>Nuevo contrato <span class="caption">(xl)</span></button>
+            <button class="btn btn-secondary" data-modal-open="m-nota"><span class="icon" aria-hidden="true">sticky_note_2</span>Nota al contrato <span class="caption">(sm)</span></button>
+            <button class="btn btn-ghost" data-modal-open="m-baja"><span class="icon" aria-hidden="true">block</span>Confirmación</button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ================= MODAL · Nueva sucursal (md) ================= -->
+<dialog class="modal modal-md" id="m-sucursal" aria-labelledby="m-sucursal-title">
+  <form class="modal-form" novalidate>
+    <header class="modal-header">
+      <div class="modal-heading">
+        <h2 class="modal-title" id="m-sucursal-title">Nueva sucursal</h2>
+        <p class="modal-subtitle">Da de alta la sucursal; después podrás ligarle sus contratos.</p>
+      </div>
+      <button type="button" class="modal-close" data-modal-close aria-label="Cerrar"><span class="icon" aria-hidden="true">close</span></button>
+    </header>
+
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field">
+          <label class="field-label" for="suc-nombre">Nombre <span class="field-required" aria-hidden="true">*</span></label>
+          <div class="input-group">
+            <span class="icon" aria-hidden="true">storefront</span>
+            <input class="input" id="suc-nombre" name="nombre" placeholder="Ej. Cumbres" required aria-describedby="suc-nombre-err">
+          </div>
+          <p class="field-error" id="suc-nombre-err">Escribe el nombre de la sucursal.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="suc-num">Número de sucursal <span class="field-required" aria-hidden="true">*</span></label>
+          <input class="input" type="number" id="suc-num" name="numero" min="1" placeholder="2045" required aria-describedby="suc-num-err">
+          <p class="field-error" id="suc-num-err">Indica el número de sucursal.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="suc-formato">Formato <span class="field-required" aria-hidden="true">*</span></label>
+          <div class="select-wrap">
+            <select class="select" id="suc-formato" name="formato" required aria-describedby="suc-formato-err">
+              <option value="">Selecciona…</option>
+              <option>Supermercado</option>
+              <option>Mi Tienda</option>
+              <option>Express</option>
+              <option>Centro de distribución</option>
+            </select>
+          </div>
+          <p class="field-error" id="suc-formato-err">Elige el formato.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="suc-region">Región</label>
+          <div class="select-wrap">
+            <select class="select" id="suc-region" name="region">
+              <option value="">Sin asignar</option>
+              <option>Monterrey</option>
+              <option>Bajío</option>
+              <option>Centro</option>
+              <option>Noreste</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field field-full">
+          <label class="field-label" for="suc-dir">Dirección <span class="field-required" aria-hidden="true">*</span></label>
+          <input class="input" id="suc-dir" name="direccion" placeholder="Calle, número y colonia" required aria-describedby="suc-dir-err">
+          <p class="field-error" id="suc-dir-err">Escribe la dirección.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="suc-cp">Código postal <span class="field-required" aria-hidden="true">*</span></label>
+          <input class="input" id="suc-cp" name="cp" inputmode="numeric" pattern="\d{5}" maxlength="5" placeholder="64610" required aria-describedby="suc-cp-err">
+          <p class="field-error" id="suc-cp-err">Deben ser 5 dígitos.</p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="suc-sup">Superficie</label>
+          <div class="input-group">
+            <input class="input" type="number" id="suc-sup" name="superficie" min="1" placeholder="4,500">
+            <span class="input-suffix">m²</span>
+          </div>
+          <p class="field-hint">Superficie rentable.</p>
+        </div>
+
+        <div class="field field-full">
+          <label class="switch">
+            <input type="checkbox" name="activa" checked>
+            Sucursal activa
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button type="submit" class="btn btn-primary">Dar de alta sucursal</button>
+    </footer>
+  </form>
+</dialog>
+
+<!-- ================= MODAL · Nuevo contrato (xl, con secciones) ================= -->
+<dialog class="modal modal-xl" id="m-contrato" aria-labelledby="m-contrato-title">
+  <form class="modal-form" novalidate>
+    <header class="modal-header">
+      <div class="modal-heading">
+        <h2 class="modal-title" id="m-contrato-title">Nuevo contrato</h2>
+        <p class="modal-subtitle">Registra el contrato de arrendamiento de una sucursal.</p>
+      </div>
+      <button type="button" class="modal-close" data-modal-close aria-label="Cerrar"><span class="icon" aria-hidden="true">close</span></button>
+    </header>
+
+    <div class="modal-body">
+      <div class="alert alert-info">
+        <span class="icon alert-icon" aria-hidden="true">info</span>
+        <div class="alert-content">
+          <p class="alert-body">Se enviará un aviso al área jurídica 120 días antes de la fecha de término.</p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <p class="form-section-title">Inmueble</p>
+        <div class="form-grid form-grid-3">
+          <div class="field">
+            <label class="field-label" for="c-suc">Sucursal <span class="field-required" aria-hidden="true">*</span></label>
+            <div class="select-wrap">
+              <select class="select" id="c-suc" name="sucursal" required>
+                <option value="">Selecciona…</option>
+                <option>2045 · Cumbres</option>
+                <option>2112 · San Jerónimo</option>
+                <option>3008 · Juriquilla</option>
+              </select>
+            </div>
+            <p class="field-error">Elige la sucursal.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="c-tipo">Tipo de contrato <span class="field-required" aria-hidden="true">*</span></label>
+            <div class="select-wrap">
+              <select class="select" id="c-tipo" name="tipo" required>
+                <option value="">Selecciona…</option>
+                <option>Arrendamiento</option>
+                <option>Subarrendamiento</option>
+                <option>Comodato</option>
+                <option>Compraventa</option>
+              </select>
+            </div>
+            <p class="field-error">Elige el tipo de contrato.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="c-folio">Folio</label>
+            <input class="input" id="c-folio" name="folio" value="CTR-0413" readonly>
+            <p class="field-hint">Se asigna automáticamente.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <p class="form-section-title">Arrendador</p>
+        <div class="form-grid form-grid-3">
+          <div class="field">
+            <label class="field-label" for="c-arr">Nombre o razón social <span class="field-required" aria-hidden="true">*</span></label>
+            <input class="input" id="c-arr" name="arrendador" placeholder="Inmobiliaria del Norte, S.A. de C.V." required>
+            <p class="field-error">Escribe el nombre del arrendador.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="c-rfc">RFC <span class="field-required" aria-hidden="true">*</span></label>
+            <input class="input" id="c-rfc" name="rfc" placeholder="INO850101AB1" required pattern="[A-Za-zÑñ&amp;]{3,4}\d{6}[A-Za-z0-9]{3}" maxlength="13">
+            <p class="field-hint">12 caracteres (moral) o 13 (física).</p>
+            <p class="field-error">El RFC no tiene un formato válido.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="c-mail">Correo de contacto</label>
+            <div class="input-group">
+              <span class="icon" aria-hidden="true">mail</span>
+              <input class="input" type="email" id="c-mail" name="correo" placeholder="contacto@arrendador.mx">
+            </div>
+            <p class="field-error">Escribe un correo válido.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <p class="form-section-title">Condiciones</p>
+        <div class="form-grid form-grid-3">
+          <div class="field">
+            <label class="field-label" for="c-ini">Inicio de vigencia <span class="field-required" aria-hidden="true">*</span></label>
+            <input class="input" type="date" id="c-ini" name="inicio" required>
+            <p class="field-error">Indica la fecha de inicio.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="c-fin">Fin de vigencia <span class="field-required" aria-hidden="true">*</span></label>
+            <input class="input" type="date" id="c-fin" name="fin" required>
+            <p class="field-error">Indica la fecha de término.</p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="c-dep">Depósito en garantía</label>
+            <div class="input-group">
+              <input class="input" type="number" id="c-dep" name="deposito" min="0" max="12" placeholder="2">
+              <span class="input-suffix">meses</span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="c-renta">Renta mensual <span class="field-required" aria-hidden="true">*</span></label>
+            <div class="input-group">
+              <span class="icon" aria-hidden="true">attach_money</span>
+              <input class="input" type="number" id="c-renta" name="renta" min="1" step="0.01" placeholder="185,000.00" required>
+              <span class="input-suffix">MXN</span>
+            </div>
+            <p class="field-error">Indica el monto de la renta.</p>
+          </div>
+          <fieldset class="field">
+            <legend class="field-label">Incremento anual</legend>
+            <div class="check-group">
+              <label class="check"><input type="radio" name="incremento" value="inpc" checked><span>Indexado al INPC</span></label>
+              <label class="check"><input type="radio" name="incremento" value="fijo"><span>Porcentaje fijo</span></label>
+              <label class="check"><input type="radio" name="incremento" value="ninguno"><span>Sin incremento</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend class="field-label">Cláusulas</legend>
+            <div class="check-group">
+              <label class="check"><input type="checkbox" name="clausula" value="renovacion" checked><span>Renovación automática</span></label>
+              <label class="check"><input type="checkbox" name="clausula" value="iva"><span>Renta con IVA incluido</span></label>
+              <label class="check"><input type="checkbox" name="clausula" value="mantenimiento"><span>Mantenimiento a cargo del arrendador</span></label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <p class="form-section-title">Documentos</p>
+        <label class="dropzone">
+          <span class="icon" aria-hidden="true">upload_file</span>
+          <span><strong>Sube el contrato firmado</strong> o arrástralo aquí</span>
+          <span class="caption">PDF, máximo 20 MB</span>
+          <input type="file" accept="application/pdf" class="sr-only">
+        </label>
+      </div>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-ghost modal-footer-start">Guardar borrador</button>
+      <button type="button" class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button type="submit" class="btn btn-primary">Dar de alta contrato</button>
+    </footer>
+  </form>
+</dialog>
+
+<!-- ================= MODAL · Nota al contrato (sm) ================= -->
+<dialog class="modal modal-sm" id="m-nota" aria-labelledby="m-nota-title">
+  <form class="modal-form" novalidate>
+    <header class="modal-header">
+      <div class="modal-heading">
+        <h2 class="modal-title" id="m-nota-title">Nota al contrato</h2>
+        <p class="modal-subtitle">CTR-0412 · Sucursal Cumbres</p>
+      </div>
+      <button type="button" class="modal-close" data-modal-close aria-label="Cerrar"><span class="icon" aria-hidden="true">close</span></button>
+    </header>
+    <div class="modal-body">
+      <div class="form-grid form-grid-1">
+        <div class="field">
+          <label class="field-label" for="n-texto">Nota <span class="field-required" aria-hidden="true">*</span></label>
+          <textarea class="textarea" id="n-texto" name="nota" required placeholder="Ej. El arrendador solicitó revisar la renta en la renovación"></textarea>
+          <p class="field-error">La nota no puede ir vacía.</p>
+        </div>
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-modal-close>Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar nota</button>
+    </footer>
+  </form>
+</dialog>
+
+<!-- ================= MODAL · Confirmación destructiva (sm) ================= -->
+<dialog class="modal modal-sm modal-confirm" id="m-baja" aria-labelledby="m-baja-title" aria-describedby="m-baja-desc">
+  <form class="modal-form" novalidate>
+    <header class="modal-header">
+      <span class="modal-confirm-icon" aria-hidden="true"><span class="icon">block</span></span>
+      <div class="modal-heading">
+        <h2 class="modal-title" id="m-baja-title">¿Dar de baja la sucursal?</h2>
+        <p class="modal-subtitle" id="m-baja-desc">La sucursal 2045 · Cumbres tiene 2 contratos vigentes; también quedarán dados de baja. Esta acción no se puede deshacer.</p>
+      </div>
+      <button type="button" class="modal-close" data-modal-close aria-label="Cerrar"><span class="icon" aria-hidden="true">close</span></button>
+    </header>
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-modal-close autofocus>Cancelar</button>
+      <button type="submit" class="btn btn-danger">Dar de baja</button>
+    </footer>
+  </form>
+</dialog>
+
+<!-- ================= MENÚ · Acciones de fila (compartido) ================= -->
+<div class="menu" id="row-menu" popover role="menu" aria-label="Acciones del contrato">
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">visibility</span>Ver detalle</button>
+  <button class="menu-item" role="menuitem" data-modal-open="m-contrato"><span class="icon" aria-hidden="true">edit</span>Editar contrato</button>
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">autorenew</span>Renovar</button>
+  <button class="menu-item" role="menuitem" data-modal-open="m-nota"><span class="icon" aria-hidden="true">sticky_note_2</span>Agregar nota</button>
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">download</span>Descargar PDF</button>
+  <hr class="menu-divider">
+  <button class="menu-item menu-item-danger" role="menuitem" data-modal-open="m-baja-contratos"><span class="icon" aria-hidden="true">block</span>Dar de baja</button>
+</div>
+
+<!-- ================= MODAL · Baja de contratos (sm) ================= -->
+<dialog class="modal modal-sm modal-confirm" id="m-baja-contratos" aria-labelledby="m-bajac-title" aria-describedby="m-bajac-desc">
+  <form class="modal-form" novalidate>
+    <header class="modal-header">
+      <span class="modal-confirm-icon" aria-hidden="true"><span class="icon">block</span></span>
+      <div class="modal-heading">
+        <h2 class="modal-title" id="m-bajac-title">¿Dar de baja los contratos?</h2>
+        <p class="modal-subtitle" id="m-bajac-desc">Los contratos pasarán a “Dado de baja” y dejarán de generar avisos de vencimiento y pagos de renta.</p>
+      </div>
+      <button type="button" class="modal-close" data-modal-close aria-label="Cerrar"><span class="icon" aria-hidden="true">close</span></button>
+    </header>
+    <div class="modal-body">
+      <div class="field">
+        <label class="field-label" for="bajac-motivo">Motivo <span class="field-required" aria-hidden="true">*</span></label>
+        <div class="select-wrap">
+          <select class="select" id="bajac-motivo" name="motivo" required>
+            <option value="">Selecciona…</option>
+            <option>Terminación anticipada</option>
+            <option>Cierre de sucursal</option>
+            <option>Sustituido por nuevo contrato</option>
+          </select>
+        </div>
+        <p class="field-error">Indica el motivo de la baja.</p>
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-modal-close autofocus>Cancelar</button>
+      <button type="submit" class="btn btn-danger">Dar de baja</button>
+    </footer>
+  </form>
+</dialog>
+
+<script src="ui.js"></script>
+<script src="demo-table.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+/* =========================================================
+   badge.css
+   Etiquetas de estado. Consume tokens --badge-* y los
+   estados de dominio --status-* (app.css).
+
+   <span class="badge">Neutral</span>
+   <span class="badge badge-accent">Nuevo</span>
+   <span class="badge badge-dot" data-status="active">Vigente</span>
+
+   data-status: draft · signing · active · negotiation ·
+                expiring · expired · terminated
+   data-tenure: own · third · mixed
+   ========================================================= */
+
+.badge {
+  --_fg: var(--badge-neutral-fg);
+  --_bg: var(--badge-neutral-bg);
+  --_solid: currentColor;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--badge-gap);
+  height: var(--badge-height);
+  padding: 0 var(--badge-padding-x);
+  border-radius: var(--badge-radius);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-size: var(--badge-font-size);
+  font-weight: var(--badge-font-weight);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.badge .icon { font-size: var(--icon-size-sm); }
+
+.badge-dot::before {
+  content: "";
+  flex-shrink: 0;
+  width: var(--badge-dot-size);
+  height: var(--badge-dot-size);
+  border-radius: var(--radius-full);
+  background: var(--_solid);
+}
+
+.badge-accent { --_fg: var(--badge-accent-fg); --_bg: var(--badge-accent-bg); }
+
+.badge[data-status="draft"]       { --_fg: var(--status-draft-fg);       --_bg: var(--status-draft-bg);       --_solid: var(--status-draft-solid); }
+.badge[data-status="signing"]     { --_fg: var(--status-signing-fg);     --_bg: var(--status-signing-bg);     --_solid: var(--status-signing-solid); }
+.badge[data-status="active"]      { --_fg: var(--status-active-fg);      --_bg: var(--status-active-bg);      --_solid: var(--status-active-solid); }
+.badge[data-status="negotiation"] { --_fg: var(--status-negotiation-fg); --_bg: var(--status-negotiation-bg); --_solid: var(--status-negotiation-solid); }
+.badge[data-status="expiring"]    { --_fg: var(--status-expiring-fg);    --_bg: var(--status-expiring-bg);    --_solid: var(--status-expiring-solid); }
+.badge[data-status="expired"]     { --_fg: var(--status-expired-fg);     --_bg: var(--status-expired-bg);     --_solid: var(--status-expired-solid); }
+.badge[data-status="terminated"]  { --_fg: var(--status-terminated-fg);  --_bg: var(--status-terminated-bg);  --_solid: var(--status-terminated-solid); }
+
+/* Tipo de inmueble: data-tenure="own | third | mixed" */
+.badge[data-tenure="own"]   { --_fg: var(--tenure-own-fg);   --_bg: var(--tenure-own-bg); }
+.badge[data-tenure="third"] { --_fg: var(--tenure-third-fg); --_bg: var(--tenure-third-bg); }
+.badge[data-tenure="mixed"] { --_fg: var(--tenure-mixed-fg); --_bg: var(--tenure-mixed-bg); }
+
+/* Asuntos de la bandeja: data-kind="contract | permit", data-flag="nodoc" */
+.badge[data-kind="contract"] { --_fg: var(--kind-contract-fg); --_bg: var(--kind-contract-bg); }
+.badge[data-kind="permit"]   { --_fg: var(--kind-permit-fg);   --_bg: var(--kind-permit-bg); }
+.badge[data-flag="nodoc"]    { --_fg: var(--flag-nodoc-fg);    --_bg: var(--flag-nodoc-bg); }
+.badge[data-flag="missing"]  { --_fg: var(--status-expiring-fg); --_bg: var(--status-expiring-bg); }
+
+/* Contador genérico (tabs, filtros) */
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--counter-min-width);
+  height: var(--counter-height);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--tabs-counter-bg);
+  color: var(--tabs-counter-fg);
+  font-size: var(--counter-font-size);
+  font-weight: var(--font-weight-heading);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}

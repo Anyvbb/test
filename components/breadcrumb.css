@@ -1,0 +1,84 @@
+/* =========================================================
+   breadcrumb.css
+   Consume SOLO tokens --breadcrumb-*.
+
+   <nav class="breadcrumb" aria-label="Ruta">
+     <ol>
+       <li><a href="/"><span class="icon">home</span><span class="sr-only">Inicio</span></a></li>
+       <li><a href="/sucursales">Sucursales</a></li>
+       <li><span aria-current="page">2045 · Cumbres</span></li>
+     </ol>
+   </nav>
+   El separador lo pone el CSS; no lo escribas en el HTML.
+   ========================================================= */
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--breadcrumb-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--breadcrumb-font-size);
+  line-height: var(--text-body-sm-leading);
+}
+
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--breadcrumb-gap);
+  min-width: 0;
+}
+
+.breadcrumb li + li::before {
+  content: "chevron_right";
+  font-family: var(--icon-font);
+  font-size: var(--breadcrumb-icon-size);
+  line-height: 1;
+  color: var(--breadcrumb-separator);
+  font-feature-settings: 'liga';
+}
+
+.breadcrumb a,
+.breadcrumb [aria-current="page"] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  max-width: 16rem;
+  padding: 0 var(--space-1);
+  border-radius: var(--breadcrumb-item-radius);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.breadcrumb a {
+  color: var(--breadcrumb-fg);
+  transition: color var(--motion-hover), background-color var(--motion-hover);
+}
+.breadcrumb a:hover {
+  color: var(--breadcrumb-fg-hover);
+  background: var(--breadcrumb-item-bg-hover);
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--breadcrumb-fg-current);
+  font-weight: var(--breadcrumb-current-weight);
+}
+
+.breadcrumb .icon { font-size: var(--breadcrumb-icon-size); }
+
+/* En móvil: solo el nivel anterior como "volver" */
+@media (max-width: 767px) {
+  .breadcrumb li { display: none; }
+  .breadcrumb li:nth-last-child(2) { display: inline-flex; }
+  .breadcrumb li:nth-last-child(2)::before {
+    content: "chevron_left";
+    font-family: var(--icon-font);
+    font-size: var(--breadcrumb-icon-size);
+    line-height: 1;
+    color: var(--breadcrumb-separator);
+    font-feature-settings: 'liga';
+  }
+}

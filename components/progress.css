@@ -1,0 +1,29 @@
+/* =========================================================
+   progress.css
+   Barra de progreso. Consume SOLO tokens --progress-*.
+   <div class="progress" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="--value: 40%">
+     <span class="progress-bar"></span>
+   </div>
+   data-tone: warning · danger · success
+   ========================================================= */
+
+.progress {
+  --_fill: var(--progress-fill);
+  position: relative;
+  width: 100%;
+  height: var(--progress-height);
+  overflow: hidden;
+  border-radius: var(--progress-radius);
+  background: var(--progress-track);
+}
+.progress-bar {
+  display: block;
+  width: var(--value, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--_fill);
+  transition: width var(--motion-layout);
+}
+.progress[data-tone="warning"] { --_fill: var(--status-expiring-solid); }
+.progress[data-tone="danger"]  { --_fill: var(--status-expired-solid); }
+.progress[data-tone="success"] { --_fill: var(--status-active-solid); }

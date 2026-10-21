@@ -1,0 +1,90 @@
+/* =========================================================
+   due-list.css
+   Lista de vencimientos en tarjetas + bitácora de avisos.
+   Consume tokens --due-* y --notice-*.
+
+   <div class="due-list">
+     <article class="due-card" data-href="sucursal.html?id=5">
+       <div class="due-card-main">
+         <p class="due-card-title">Aztlán <span class="due-card-num">#2214</span></p>
+         <p class="due-card-meta">M. Zapata · Monterrey, N.L. · Avisos de 1 año y 6 meses enviados</p>
+       </div>
+       <div class="due-card-date"><span>Fin de vigencia</span><strong>03/ago/2026</strong></div>
+       <div class="due-card-status"><span class="badge badge-dot" data-status="expired">Vencido</span><span>Venció hace 2 meses</span></div>
+       <div class="due-card-action"><button class="btn btn-secondary btn-sm">Iniciar renovación</button></div>
+     </article>
+   </div>
+
+   <ul class="notice-list">
+     <li class="notice"><span class="icon">mail</span><div><p class="notice-title">Aviso de 1 año · Valle Oriente</p><p class="notice-meta">Enviado 01/sep/2026 · 3 destinatarios</p></div></li>
+   </ul>
+   ========================================================= */
+
+.due-list { display: flex; flex-direction: column; gap: var(--due-list-gap); min-width: 0; }
+
+/* Filtro activo sobre la lista */
+.due-list-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: 0 var(--space-1) var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm-size);
+}
+.due-list-filter strong { color: var(--color-text); font-weight: var(--font-weight-strong); }
+
+.due-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7rem 9rem 10rem; /* fijas: columnas alineadas entre tarjetas */
+  align-items: center;
+  gap: var(--due-card-gap);
+  padding: var(--due-card-padding);
+  background: var(--due-card-bg);
+  border: var(--border-width-default) solid var(--due-card-border);
+  border-radius: var(--due-card-radius);
+  box-shadow: var(--due-card-shadow);
+  color: var(--color-text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--motion-hover), border-color var(--motion-hover);
+}
+.due-card:hover { background: var(--due-card-bg-hover); border-color: var(--due-card-border-hover); color: var(--color-text); }
+
+.due-card-main { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.due-card-title {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--font-weight-heading);
+}
+.due-card-title { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); }
+.due-card-link { color: inherit; }
+.due-card-link:hover { color: var(--link-fg); text-decoration: underline; }
+.due-card-action { display: flex; justify-content: flex-end; }
+.due-card-area { color: var(--due-meta-fg); font-size: var(--text-caption-size); font-weight: var(--font-weight-body); }
+.due-card-num { color: var(--due-num-fg); font-family: var(--font-code); font-size: var(--text-body-sm-size); font-weight: var(--font-weight-body); }
+.due-card-meta { color: var(--due-meta-fg); font-size: var(--text-caption-size); line-height: var(--text-body-sm-leading); }
+
+.due-card-date { display: flex; flex-direction: column; gap: var(--space-1); }
+.due-card-date span { color: var(--due-meta-fg); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+.due-card-date strong { font-size: var(--text-body-sm-size); font-weight: var(--font-weight-strong); font-variant-numeric: tabular-nums; }
+
+.due-card-status { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-1); text-align: right; }
+.due-card-status > span:last-child { color: var(--due-meta-fg); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+
+@media (max-width: 767px) {
+  .due-card { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "main status" "date date" "action action"; gap: var(--space-3); }
+  .due-card-action { grid-area: action; justify-content: stretch; }
+  .due-card-action .btn { width: 100%; }
+  .due-card-main { grid-area: main; }
+  .due-card-status { grid-area: status; }
+  .due-card-date { grid-area: date; flex-direction: row; gap: var(--space-2); }
+}
+
+/* ---------- Bitácora de avisos ---------- */
+.notice-list { display: flex; flex-direction: column; gap: var(--notice-gap); margin: 0; padding: 0; list-style: none; }
+.notice { display: grid; grid-template-columns: var(--icon-size-md) minmax(0, 1fr); gap: var(--space-3); align-items: start; }
+.notice > .icon { color: var(--notice-icon-fg); font-size: var(--icon-size-md); margin-top: var(--space-0-5); }
+.notice-title { font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); font-weight: var(--font-weight-strong); }
+.notice-meta { color: var(--due-meta-fg); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }

@@ -1,0 +1,199 @@
+/* =========================================================
+   table.css
+   Tabla de datos con barra de herramientas, selección,
+   orden por columna y acciones por fila.
+   Consume SOLO tokens --table-*.
+
+   La vista NO va dentro de una card: encabezado, pestañas,
+   barra y paginador van sobre el fondo de la página; solo
+   .table-frame lleva fondo, borde y radio.
+
+   <section class="table-view">
+     <div class="table-header"> título · acción principal </div>
+     <div class="tabs">…</div>
+     <div class="table-toolbar"> buscador · filtros · acciones </div>
+     <div class="table-bulk" hidden> N seleccionados · acciones </div>
+     <div class="table-frame">
+       <div class="table-scroll">
+         <table class="table">
+           <thead><tr>
+             <th class="col-check"><label class="check"><input type="checkbox" data-select-all></label></th>
+             <th aria-sort="ascending"><button class="th-sort">Folio</button></th>
+             <th class="num">Renta</th>
+             <th class="col-actions"><span class="sr-only">Acciones</span></th>
+           </tr></thead>
+           <tbody>…</tbody>
+         </table>
+       </div>
+     </div>
+     <nav class="pagination">…</nav>
+   </section>
+   ========================================================= */
+
+.table-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--table-view-gap);
+  min-width: 0;
+}
+
+.table-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
+}
+
+/* ---------- Barra de herramientas ---------- */
+.table-toolbar,
+.table-bulk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--table-toolbar-gap);
+  min-height: var(--table-toolbar-height);
+}
+
+.table-toolbar-end { display: flex; flex-wrap: wrap; align-items: center; gap: var(--table-toolbar-gap); margin-left: auto; }
+
+.table-search { width: min(100%, var(--size-90)); }
+
+.table-bulk {
+  padding: 0 var(--space-2) 0 var(--space-4);
+  border-radius: var(--table-bulk-radius);
+  background: var(--table-bulk-bg);
+  color: var(--table-bulk-fg);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--font-weight-strong);
+}
+.table-bulk[hidden],
+.table-toolbar[hidden] { display: none; }
+
+/* ---------- Marco de la tabla (lo único con superficie) ---------- */
+.table-frame {
+  min-width: 0;
+  background: var(--table-bg);
+  border: var(--border-width-default) solid var(--table-border);
+  border-radius: var(--table-radius);
+  box-shadow: var(--table-shadow);
+  overflow: hidden;
+}
+
+/* ---------- Contenedor con scroll horizontal ---------- */
+.table-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* ---------- Tabla ---------- */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--table-font-size);
+  line-height: var(--text-body-sm-leading);
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
+  border-bottom: var(--border-width-default) solid var(--table-border);
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: var(--table-z-sticky);
+  background: var(--table-header-bg);
+  color: var(--table-header-fg);
+  font-size: var(--table-header-size);
+  font-weight: var(--table-header-weight);
+  letter-spacing: var(--table-header-tracking);
+  text-transform: uppercase;
+}
+
+.table tbody tr { height: var(--table-row-height); transition: background-color var(--motion-hover); }
+.table tbody tr:hover { background: var(--table-row-hover); }
+.table tbody tr[aria-selected="true"] { background: var(--table-row-selected); }
+.table tbody tr:last-child td { border-bottom: 0; }
+
+/* Filas que abren un detalle al hacer clic */
+.table-clickable tbody tr:not(.row-empty) { cursor: pointer; }
+
+/* Alineación y columnas especiales */
+.table .num { text-align: right; }
+.table .col-check { width: var(--size-12); padding-right: 0; }
+.table .col-actions { width: var(--size-12); padding-left: 0; text-align: right; }
+.table .col-check .check { vertical-align: middle; }
+.table .col-check .check input { margin: 0; }
+
+/* Celda con dos líneas: principal + secundaria */
+.cell-stack { display: flex; flex-direction: column; min-width: 0; }
+.cell-primary { color: var(--color-text); font-weight: var(--font-weight-strong); }
+.cell-secondary { color: var(--table-cell-fg-muted); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+.cell-link { color: var(--color-text); font-weight: var(--font-weight-strong); }
+.cell-link:hover { color: var(--color-accent); text-decoration: underline; text-underline-offset: 2px; }
+.cell-truncate { display: block; max-width: var(--table-cell-max-width); overflow: hidden; text-overflow: ellipsis; }
+.cell-badges { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
+.cell-mono { font-family: var(--font-code); font-size: var(--text-caption-size); color: var(--table-cell-fg-muted); }
+
+/* ---------- Encabezado ordenable ---------- */
+.th-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0 calc(var(--space-1) * -1);
+  padding: var(--space-0-5) var(--space-1);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+.th-sort:hover { color: var(--color-text); }
+.th-sort::after {
+  content: "unfold_more";
+  font-family: var(--icon-font);
+  font-size: var(--icon-size-sm);
+  font-feature-settings: 'liga';
+  line-height: 1;
+  color: var(--table-sort-fg);
+}
+.table .num .th-sort { flex-direction: row-reverse; }
+th[aria-sort="ascending"]  .th-sort,
+th[aria-sort="descending"] .th-sort { color: var(--color-text); }
+th[aria-sort="ascending"]  .th-sort::after { content: "arrow_upward";   color: var(--table-sort-fg-active); }
+th[aria-sort="descending"] .th-sort::after { content: "arrow_downward"; color: var(--table-sort-fg-active); }
+
+/* Filas vacías / estado sin resultados dentro de la tabla */
+.table .row-empty td { padding: 0; border-bottom: 0; white-space: normal; }
+.table .row-empty:hover { background: transparent; }
+
+/* ---------- Esqueleto de carga ---------- */
+.skeleton {
+  display: block;
+  height: var(--space-3);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-surface-sunken) 25%, var(--color-bg-subtle) 50%, var(--color-surface-sunken) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.2s ease-in-out infinite;
+}
+@keyframes skeleton { to { background-position: -200% 0; } }
+
+@media (max-width: 767px) {
+  .table-search { width: 100%; }
+  .table-toolbar-end { margin-left: 0; }
+}
+
+/* Fila recién agregada (p. ej. sucursal recién habilitada) */
+.table tbody tr.is-new { animation: row-new 2.4s ease-out; }
+@keyframes row-new { from { background: var(--color-accent-subtle); } to { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .table tbody tr.is-new { animation: none; background: var(--color-accent-subtle); } }

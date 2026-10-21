@@ -1,0 +1,43 @@
+/* =========================================================
+   styles.css — punto de entrada
+   Orden de capas:
+     fonts → primitives → theme → app → components (tokens)
+     → base → componentes
+   Importa SOLO este archivo en la app.
+   ========================================================= */
+
+@import url("tokens/fonts.css");
+@import url("tokens/primitives.css");
+@import url("tokens/theme.css");
+@import url("tokens/app.css");
+@import url("tokens/components.css");
+
+@import url("base.css");
+
+@import url("components/icon.css");
+@import url("components/button.css");
+@import url("components/card.css");
+@import url("components/header.css");
+@import url("components/sidebar.css");
+@import url("components/breadcrumb.css");
+@import url("components/alert.css");
+@import url("components/badge.css");
+@import url("components/tabs.css");
+@import url("components/menu.css");
+@import url("components/empty.css");
+@import url("components/table.css");
+@import url("components/pagination.css");
+@import url("components/toast.css");
+@import url("components/kpi.css");
+@import url("components/segmented.css");
+@import url("components/progress.css");
+@import url("components/inbox.css");
+@import url("components/due-list.css");
+@import url("components/data-list.css");
+@import url("components/detail.css");
+@import url("components/report.css");
+@import url("components/checklist.css");
+@import url("components/record.css");
+@import url("components/stepper.css");
+@import url("components/form.css");
+@import url("components/modal.css");

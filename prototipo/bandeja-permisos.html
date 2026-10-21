@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bandeja de vencimientos · BRS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-module="permisos">
+<div class="app-shell">
+
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <div class="topbar-start">
+      <button class="topbar-action topbar-menu" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        <span class="icon" aria-hidden="true">menu</span>
+      </button>
+      <a class="topbar-brand" href="vencimientos.html">
+        <img class="topbar-logo" src="../assets/heb-logo-white.svg" alt="HEB">
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <img class="topbar-product-logo" src="../assets/logo@2x.png" width="78" height="24" alt="BRS">
+      </a>
+    </div>
+
+    <div class="topbar-end">
+      <button class="topbar-user" popovertarget="user-menu" aria-haspopup="menu" aria-expanded="false" aria-label="Cuenta de Usuario de desarrollo">
+        <span class="icon topbar-user-icon" aria-hidden="true">account_circle</span>
+        <span class="topbar-user-text">
+          <span class="topbar-user-name">Usuario de desarrollo</span>
+        </span>
+        <span class="icon icon-sm" aria-hidden="true">expand_more</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <button class="sidebar-toggle" data-sidebar-toggle aria-controls="sidebar" aria-expanded="true" aria-label="Colapsar menú">
+        <span class="icon" aria-hidden="true">chevron_left</span>
+      </button>
+
+      <nav class="sidebar-scroll" data-nav aria-label="Menú del módulo"></nav>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-close aria-hidden="true"></div>
+
+    <!-- ================= PÁGINA ================= -->
+    <main class="page">
+      <div class="page-inner" id="bandeja">
+
+        <div class="page-header">
+          <div class="stack-xs">
+            <h1 class="page-title">Bandeja de vencimientos</h1>
+            <p class="page-subtitle">Permisos y licencias de sucursales que vencen en el horizonte elegido, ordenados por urgencia.</p>
+          </div>
+        </div>
+
+        <!-- ---------- Indicadores ---------- -->
+        <div class="grid-3" data-kpis role="group" aria-label="Filtrar por vencimiento"></div>
+
+        <!-- ---------- Filtros ---------- -->
+        <div class="inbox-filters">
+          <div class="inbox-filters-end">
+            <div class="field">
+              <label class="field-label" for="f-horizonte">Horizonte</label>
+              <div class="select-wrap"><select class="select" id="f-horizonte" data-filter-horizonte>
+                <option value="6" selected>Próximos 6 meses</option><option value="7">Próximos 7 meses</option><option value="8">Próximos 8 meses</option><option value="9">Próximos 9 meses</option><option value="10">Próximos 10 meses</option><option value="11">Próximos 11 meses</option><option value="12">Próximos 12 meses</option>
+              </select></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Vencimientos ---------- -->
+        <div class="due-list" data-inbox aria-live="polite"></div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ================= MENÚS ================= -->
+<div class="menu" id="user-menu" popover role="menu" aria-label="Cuenta">
+  <p class="menu-label">Usuario de desarrollo</p>
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">person</span>Mi perfil</button>
+  <button class="menu-item" role="menuitem" data-theme-toggle><span class="icon" aria-hidden="true">dark_mode</span>Cambiar tema</button>
+  <hr class="menu-divider">
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">logout</span>Cerrar sesión</button>
+</div>
+
+
+<script src="../ui.js"></script>
+<script src="data.js"></script>
+<script src="forms.js"></script>
+<script src="shell.js"></script>
+<script src="vencimientos.js"></script>
+</body>
+</html>

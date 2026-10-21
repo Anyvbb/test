@@ -1,0 +1,79 @@
+/* =========================================================
+   checklist.css
+   Lista de tipos agrupada con estado (capturado / pendiente).
+   Consume SOLO tokens --checklist-*.
+
+   <div class="checklist-group">
+     <p class="checklist-group-head"><span>Jurídico</span><span>1 de 14</span></p>
+     <ul class="checklist">
+       <li class="checklist-item is-done" data-status="expired"><span class="checklist-dot"></span><button class="checklist-name">Licencia…</button></li>
+       <li class="checklist-item"><span class="checklist-dot"></span><span class="checklist-name">Uso de Suelo</span><button class="btn btn-ghost btn-icon btn-sm">+</button></li>
+     </ul>
+   </div>
+   data-status del ítem: expired · expiring · active · unique
+   ========================================================= */
+
+.checklist-group + .checklist-group { margin-top: var(--space-4); }
+
+.checklist-group-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  color: var(--checklist-group-fg);
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-leading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.checklist { margin: 0; padding: 0; list-style: none; }
+
+.checklist-item {
+  --_dot: transparent;
+  --_ring: var(--checklist-dot-pending);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--checklist-item-height);
+  padding: 0 var(--space-1) 0 var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm-size);
+}
+.checklist-item:hover { background: var(--color-surface-sunken); }
+
+.checklist-dot {
+  flex-shrink: 0;
+  width: var(--checklist-dot-size);
+  height: var(--checklist-dot-size);
+  border: var(--border-width-strong) solid var(--_ring);
+  border-radius: var(--radius-full);
+  background: var(--_dot);
+}
+
+.checklist-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+button.checklist-name { cursor: pointer; }
+button.checklist-name:hover { text-decoration: underline; }
+
+.checklist-item .btn-icon { flex-shrink: 0; }
+
+/* Capturado: punto sólido del color del estado */
+.checklist-item.is-done { color: var(--color-text); font-weight: var(--font-weight-strong); }
+.checklist-item[data-status="expired"]  { --_dot: var(--status-expired-solid);  --_ring: var(--status-expired-solid); }
+.checklist-item[data-status="expiring"] { --_dot: var(--status-expiring-solid); --_ring: var(--status-expiring-solid); }
+.checklist-item[data-status="active"]   { --_dot: var(--status-active-solid);   --_ring: var(--status-active-solid); }
+.checklist-item[data-status="unique"]   { --_dot: var(--checklist-dot-unique);  --_ring: var(--checklist-dot-unique); }

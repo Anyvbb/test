@@ -1,0 +1,103 @@
+/* =========================================================
+   menu.css
+   Menú desplegable (acciones de fila, opciones de usuario).
+   Usa el atributo nativo `popover` (capa superior, Esc y
+   clic fuera gratis); ui.js lo posiciona junto al botón.
+   Consume SOLO tokens --menu-*.
+
+   <button class="btn btn-ghost btn-icon" popovertarget="menu-1" aria-label="Acciones">…</button>
+   <div class="menu" id="menu-1" popover>
+     <button class="menu-item"><span class="icon">visibility</span>Ver detalle</button>
+     <hr class="menu-divider">
+     <button class="menu-item menu-item-danger">…</button>
+   </div>
+   ========================================================= */
+
+.menu {
+  position: fixed;
+  inset: auto;
+  min-width: var(--menu-min-width);
+  margin: 0;
+  padding: var(--menu-padding);
+  border: var(--border-width-default) solid var(--menu-border);
+  border-radius: var(--menu-radius);
+  background: var(--menu-bg);
+  box-shadow: var(--menu-shadow);
+  color: var(--menu-item-fg);
+
+  opacity: 0;
+  transform: translateY(calc(var(--space-1) * -1)) scale(0.98);
+  transition:
+    opacity var(--motion-exit),
+    transform var(--motion-exit),
+    overlay var(--motion-exit) allow-discrete,
+    display var(--motion-exit) allow-discrete;
+}
+.menu:popover-open {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: none;
+  transition-duration: var(--duration-fast);
+}
+@starting-style {
+  .menu:popover-open { opacity: 0; transform: translateY(calc(var(--space-1) * -1)) scale(0.98); }
+}
+
+.menu-label {
+  padding: var(--space-2) var(--space-3) var(--space-1);
+  color: var(--color-text-subtle);
+  font-size: var(--text-caption-size);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  height: var(--menu-item-height);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--menu-item-radius);
+  background: transparent;
+  color: var(--menu-item-fg);
+  font-size: var(--text-body-sm-size);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.menu-item:hover,
+.menu-item:focus-visible { background: var(--menu-item-hover); box-shadow: none; }
+.menu-item .icon { color: var(--menu-item-icon-fg); font-size: var(--icon-size-md); }
+
+.menu-item-danger,
+.menu-item-danger .icon { color: var(--menu-item-danger-fg); }
+.menu-item-danger:hover,
+.menu-item-danger:focus-visible { background: var(--menu-item-danger-bg); }
+
+.menu-divider {
+  height: var(--border-width-default);
+  margin: var(--space-1) 0;
+  border: 0;
+  background: var(--menu-border);
+}
+
+/* Ítem con checkbox (p. ej. columnas visibles) */
+label.menu-item { user-select: none; }
+.menu-item .check input { margin: 0; }
+.menu-item:has(input:disabled) { color: var(--color-text-subtle); cursor: default; }
+.menu-item[hidden], .menu-divider[hidden] { display: none; }
+
+/* Encabezado del menú de usuario: nombre + dato secundario */
+.menu-header { display: flex; flex-direction: column; padding: var(--space-2) var(--space-3); }
+.menu-header strong { font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); font-weight: var(--font-weight-strong); }
+.menu-header span { color: var(--color-text-subtle); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+
+/* Ítem con descripción (dos líneas) */
+.menu-item:has(.menu-item-desc) { height: auto; padding-top: var(--space-2); padding-bottom: var(--space-2); }
+.menu-item-text { display: flex; flex-direction: column; }
+.menu-item-desc { color: var(--color-text-subtle); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+.menu-item[aria-checked="true"] .icon { color: var(--color-accent); }

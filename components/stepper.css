@@ -1,0 +1,123 @@
+/* =========================================================
+   stepper.css
+   Pasos de un formulario largo (dentro de un modal).
+   Consume SOLO tokens --stepper-*.
+
+   <ol class="stepper">
+     <li class="stepper-step is-done"><button type="button" class="stepper-trigger" data-step="1">
+       <span class="stepper-index">1</span>
+       <span class="stepper-text"><span class="stepper-label">Datos generales</span><span class="stepper-desc">Nombre y dirección</span></span>
+     </button></li>
+     <li class="stepper-step" aria-current="step">…</li>
+   </ol>
+
+   Estados: aria-current="step" (actual) · .is-done (completado)
+   Paneles: <div class="step-panel" data-step-panel="1"> … </div>
+   ========================================================= */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--stepper-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: var(--stepper-gap);
+  flex: 1;
+  min-width: 0;
+}
+.stepper-step:last-child { flex: 0 0 auto; }
+
+/* Línea que une un paso con el siguiente */
+.stepper-step:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  min-width: var(--space-6);
+  height: var(--border-width-strong);
+  border-radius: var(--radius-pill);
+  background: var(--stepper-line);
+}
+.stepper-step.is-done::after { background: var(--stepper-line-done); }
+
+.stepper-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.stepper-trigger:disabled { cursor: default; }
+
+.stepper-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--stepper-index-size);
+  height: var(--stepper-index-size);
+  border: var(--border-width-strong) solid var(--stepper-index-border);
+  border-radius: var(--radius-full);
+  background: var(--stepper-index-bg);
+  color: var(--stepper-index-fg);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--font-weight-heading);
+  font-variant-numeric: tabular-nums;
+  transition: background-color var(--motion-hover), border-color var(--motion-hover), color var(--motion-hover);
+}
+.stepper-index .icon { font-size: var(--icon-size-sm); }
+
+.stepper-text { display: flex; flex-direction: column; min-width: 0; }
+.stepper-label {
+  color: var(--stepper-label-fg);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--font-weight-strong);
+  white-space: nowrap;
+}
+.stepper-desc {
+  color: var(--stepper-desc-fg);
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-leading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Paso actual */
+.stepper-step[aria-current="step"] .stepper-index {
+  border-color: var(--stepper-index-bg-current);
+  background: var(--stepper-index-bg-current);
+  color: var(--stepper-index-fg-current);
+}
+.stepper-step[aria-current="step"] .stepper-label { color: var(--stepper-label-fg-current); }
+
+/* Paso completado */
+.stepper-step.is-done .stepper-index {
+  border-color: var(--stepper-index-bg-done);
+  background: var(--stepper-index-bg-done);
+  color: var(--stepper-index-fg-done);
+}
+.stepper-step.is-done .stepper-trigger:hover .stepper-label { color: var(--stepper-label-fg-current); text-decoration: underline; }
+
+.step-panel[hidden] { display: none; }
+
+/* Dentro de un modal: franja bajo el encabezado */
+.modal-stepper {
+  padding: 0 var(--modal-padding) var(--space-4);
+  border-bottom: var(--border-width-default) solid var(--modal-border);
+  margin-bottom: var(--space-4);
+}
+
+@media (max-width: 767px) {
+  .stepper-desc { display: none; }
+}

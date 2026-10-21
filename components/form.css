@@ -1,0 +1,392 @@
+/* =========================================================
+   form.css
+   Campos de formulario. Consume SOLO tokens --field-*,
+   --check-*, --switch-* y --form-*.
+   Se usan dentro de .modal-body (ver modal.css).
+
+   <div class="form-grid">
+     <div class="field">
+       <label class="field-label" for="f-nombre">Nombre <span class="field-required">*</span></label>
+       <input class="input" id="f-nombre" required>
+       <p class="field-hint">Texto de ayuda</p>
+       <p class="field-error">Mensaje de error</p>
+     </div>
+     <div class="field field-full">…ocupa las dos columnas…</div>
+   </div>
+
+   Error: .field.is-invalid (o input[aria-invalid="true"]).
+   El .field-error solo se muestra en estado de error.
+   ========================================================= */
+
+/* ---------- Layout ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--form-gap-y) var(--form-gap-x);
+}
+.form-grid-1 { grid-template-columns: minmax(0, 1fr); }
+.form-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.field-full { grid-column: 1 / -1; }
+.field-span-2 { grid-column: span 2; }
+
+.form-section { display: flex; flex-direction: column; gap: var(--space-stack-md); }
+.form-section + .form-section {
+  padding-top: var(--form-section-gap);
+  border-top: var(--border-width-default) solid var(--color-border);
+}
+/* Encabezado de sección con título y descripción (formularios largos) */
+.form-section-head { display: flex; flex-direction: column; gap: var(--space-0-5); }
+.form-section-heading {
+  font-family: var(--font-heading);
+  font-size: var(--form-section-heading-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--font-weight-heading);
+}
+.form-section-desc { color: var(--form-section-desc-fg); font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); }
+
+.form-section-title {
+  color: var(--form-section-fg);
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-leading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .form-grid, .form-grid-3 { grid-template-columns: minmax(0, 1fr); }
+  .field-span-2 { grid-column: auto; }
+}
+
+/* ---------- Campo ---------- */
+.field { display: flex; flex-direction: column; gap: var(--field-gap); min-width: 0; }
+.field[hidden] { display: none; }
+fieldset.field { margin: 0; padding: 0; border: 0; }
+fieldset.field > legend { margin-bottom: var(--space-2); padding: 0; }
+
+.field-label {
+  color: var(--field-label-fg);
+  font-size: var(--field-label-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--field-label-weight);
+}
+.field-required { color: var(--field-required-fg); }
+.field-optional { color: var(--field-hint-fg); font-weight: var(--font-weight-body); }
+
+.field-hint,
+.field-error {
+  font-size: var(--field-hint-size);
+  line-height: var(--text-caption-leading);
+}
+.field-hint  { color: var(--field-hint-fg); }
+.field-error { display: none; align-items: center; gap: var(--space-1); color: var(--field-error-fg); }
+.field-error::before {
+  content: "error";
+  font-family: var(--icon-font);
+  font-size: var(--icon-size-sm);
+  font-feature-settings: 'liga';
+  line-height: 1;
+}
+
+/* ---------- Controles de texto ---------- */
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: var(--field-height);
+  padding: 0 var(--field-padding-x);
+  border: var(--border-width-default) solid var(--field-border);
+  border-radius: var(--field-radius);
+  background: var(--field-bg);
+  color: var(--field-fg);
+  font-size: var(--field-font-size);
+  line-height: var(--text-body-sm-leading);
+  transition: border-color var(--motion-hover), box-shadow var(--motion-hover), background-color var(--motion-hover);
+}
+.input::placeholder,
+.textarea::placeholder { color: var(--field-placeholder); }
+
+.input:hover,
+.select:hover,
+.textarea:hover { border-color: var(--field-border-hover); }
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--field-border-focus);
+  box-shadow: var(--field-focus-ring);
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  background: var(--field-bg-disabled);
+  color: var(--color-text-disabled);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+}
+
+.input[readonly] { background: var(--field-bg-disabled); }
+
+.textarea {
+  min-height: var(--field-textarea-min-height);
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+  resize: vertical;
+}
+
+/* Select con flecha de ícono (sin SVG con colores fijos) */
+.select-wrap { position: relative; display: flex; }
+.select-wrap::after {
+  content: "expand_more";
+  position: absolute;
+  top: 50%;
+  right: var(--field-padding-x);
+  transform: translateY(-50%);
+  font-family: var(--icon-font);
+  font-size: var(--icon-size-md);
+  font-feature-settings: 'liga';
+  line-height: 1;
+  color: var(--field-placeholder);
+  pointer-events: none;
+}
+.select {
+  appearance: none;
+  padding-right: calc(var(--field-padding-x) + var(--icon-size-md) + var(--space-2));
+  cursor: pointer;
+}
+
+/* Input con ícono o sufijo */
+.input-group { position: relative; display: flex; align-items: center; }
+.input-group > .icon {
+  position: absolute;
+  left: var(--field-padding-x);
+  color: var(--field-placeholder);
+  font-size: var(--icon-size-md);
+  pointer-events: none;
+}
+.input-group > .icon ~ .input { padding-left: calc(var(--field-padding-x) + var(--icon-size-md) + var(--space-2)); }
+.input-suffix {
+  position: absolute;
+  right: var(--field-padding-x);
+  color: var(--field-hint-fg);
+  font-size: var(--field-font-size);
+  pointer-events: none;
+}
+.input-group:has(.input-suffix) .input { padding-right: var(--space-12); }
+.input-prefix {
+  position: absolute;
+  left: var(--field-padding-x);
+  color: var(--field-hint-fg);
+  font-size: var(--field-font-size);
+  pointer-events: none;
+}
+.input-group:has(.input-prefix) .input { padding-left: calc(var(--field-padding-x) + var(--space-4)); }
+
+/* Recuadro informativo de solo lectura dentro de un formulario (dato que vive en otra ficha) */
+.info-box { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-3) var(--space-4); border: var(--border-width-default) solid var(--color-border-subtle); border-radius: var(--radius-md); background: var(--color-bg-subtle); }
+.info-box-label { color: var(--color-text-muted); font-size: var(--text-caption-size); font-weight: var(--font-weight-heading); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+.info-box-value { color: var(--color-text); }
+.info-box-value.is-missing { color: var(--color-warning); }
+.info-box-hint { color: var(--color-text-subtle); font-size: var(--text-caption-size); }
+
+/* ---------- Error ---------- */
+.field.is-invalid .input,
+.field.is-invalid .select,
+.field.is-invalid .textarea,
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--field-border-error);
+}
+.field.is-invalid .input:focus,
+.field.is-invalid .select:focus,
+.field.is-invalid .textarea:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--field-border-error) 15%, transparent);
+}
+.field.is-invalid .field-error { display: flex; }
+.field.is-invalid .field-hint { display: none; }
+
+/* ---------- Checkbox y radio ---------- */
+.check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--color-text);
+  font-size: var(--field-font-size);
+  line-height: var(--text-body-sm-leading);
+  cursor: pointer;
+}
+.check input {
+  appearance: none;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-content: center;
+  width: var(--check-size);
+  height: var(--check-size);
+  margin: calc((var(--text-body-sm-leading) - var(--check-size)) / 2) 0 0;
+  border: var(--border-width-strong) solid var(--check-border);
+  border-radius: var(--check-radius);
+  background: var(--field-bg);
+  cursor: pointer;
+  transition: background-color var(--motion-hover), border-color var(--motion-hover);
+}
+.check input[type="radio"] { border-radius: var(--radius-full); }
+
+.check input::before {
+  content: "";
+  width: calc(var(--check-size) * 0.5);
+  height: calc(var(--check-size) * 0.5);
+  background: var(--check-fg-checked);
+  transform: scale(0);
+  transition: transform var(--motion-hover);
+}
+.check input[type="checkbox"]::before {
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+.check input[type="radio"]::before { border-radius: var(--radius-full); }
+
+.check input:checked { background: var(--check-bg-checked); border-color: var(--check-bg-checked); }
+.check input:checked::before { transform: scale(1); }
+.check input:focus-visible { box-shadow: var(--focus-ring); }
+.check input:disabled { opacity: var(--opacity-disabled); cursor: not-allowed; }
+
+.check-desc { display: block; color: var(--field-hint-fg); font-size: var(--field-hint-size); line-height: var(--text-caption-leading); }
+
+.check-group { display: flex; flex-direction: column; gap: var(--space-3); }
+.check-group-inline { flex-direction: row; flex-wrap: wrap; gap: var(--space-3) var(--space-6); }
+
+/* ---------- Switch ---------- */
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--field-font-size);
+  cursor: pointer;
+}
+.switch input {
+  appearance: none;
+  position: relative;
+  flex-shrink: 0;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  margin: 0;
+  border-radius: var(--radius-pill);
+  background: var(--switch-track-off);
+  cursor: pointer;
+  transition: background-color var(--motion-hover);
+}
+.switch input::before {
+  content: "";
+  position: absolute;
+  top: var(--space-0-5);
+  left: var(--space-0-5);
+  width: calc(var(--switch-height) - var(--space-1));
+  height: calc(var(--switch-height) - var(--space-1));
+  border-radius: var(--radius-full);
+  background: var(--switch-thumb);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--motion-hover);
+}
+.switch input:checked { background: var(--switch-track-on); }
+.switch input:checked::before { transform: translateX(calc(var(--switch-width) - var(--switch-height))); }
+.switch input:focus-visible { box-shadow: var(--focus-ring); }
+
+/* ---------- Zona de carga ---------- */
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  border: var(--border-width-strong) dashed var(--field-border);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-subtle);
+  color: var(--field-hint-fg);
+  font-size: var(--field-font-size);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--motion-hover), background-color var(--motion-hover);
+}
+.dropzone:hover { border-color: var(--field-border-focus); background: var(--color-accent-subtle); }
+.dropzone .icon { font-size: var(--icon-size-lg); color: var(--color-accent); }
+.dropzone strong { color: var(--color-accent); font-weight: var(--font-weight-strong); }
+.dropzone.has-file { border-style: solid; border-color: var(--field-border-focus); background: var(--color-accent-subtle); }
+.dropzone [data-dropzone-file] { color: var(--color-text); font-weight: var(--font-weight-strong); }
+.dropzone [data-dropzone-file]:empty { display: none; }
+.field.is-invalid .dropzone { border-color: var(--field-border-error); }
+
+/* ---------- Talla compacta (toolbars de tabla, paginador) ---------- */
+.input-sm,
+.select-sm { min-height: var(--field-height-sm); }
+.select-sm { padding-right: calc(var(--field-padding-x) + var(--icon-size-sm) + var(--space-2)); }
+.select-wrap:has(.select-sm)::after { font-size: var(--icon-size-sm); right: var(--space-2); }
+.input-group:has(.input-sm) > .icon { font-size: var(--icon-size-sm); }
+.input-group > .icon ~ .input-sm { padding-left: calc(var(--field-padding-x) + var(--icon-size-sm) + var(--space-2)); }
+
+/* Checkbox indeterminado (seleccionar todo con selección parcial) */
+.check input:indeterminate { background: var(--check-bg-checked); border-color: var(--check-bg-checked); }
+.check input:indeterminate::before {
+  width: calc(var(--check-size) * 0.5);
+  height: var(--border-width-strong);
+  clip-path: none;
+  border-radius: var(--radius-pill);
+  transform: scale(1);
+}
+
+/* ---------- Selector que abre un menú (p. ej. columnas visibles) ----------
+   Se ve igual que un <select>, pero abre un .menu con opciones múltiples.
+   <span class="select-wrap">
+     <button type="button" class="select select-trigger" popovertarget="menu-id" data-menu-align="start">…</button>
+   </span> */
+.select-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: left;
+  white-space: nowrap;
+}
+.select-trigger .icon { color: var(--field-placeholder); font-size: var(--icon-size-md); }
+.select-trigger[aria-expanded="true"] { border-color: var(--field-border-focus); box-shadow: var(--field-focus-ring); }
+.select-wrap:has(.select-trigger)::after { transition: transform var(--motion-hover); }
+.select-wrap:has(.select-trigger[aria-expanded="true"])::after { transform: translateY(-50%) rotate(180deg); }
+
+/* ---------- Mapa para marcar una ubicación ---------- */
+.map-picker {
+  position: relative;
+  height: var(--map-height);
+  overflow: hidden;
+  border: var(--border-width-default) solid var(--map-border);
+  border-radius: var(--map-radius);
+  background: var(--map-bg);
+  z-index: 0; /* los controles de Leaflet no se salen del diálogo */
+}
+.map-picker-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm-size);
+  text-align: center;
+}
+.map-picker .leaflet-container { font-family: var(--font-body); }
+
+/* Sección como <fieldset> (para desactivar un bloque completo) */
+fieldset.form-section { min-width: 0; margin: 0; padding: 0; border: 0; }
+.form-section + fieldset.form-section { padding-top: var(--form-section-gap); border-top: var(--border-width-default) solid var(--color-border); }
+.form-section[hidden] { display: none; }
+
+/* Archivos elegidos en una zona de carga múltiple (cada uno se puede quitar) */
+.file-picked { display: flex; flex-direction: column; gap: var(--space-1); margin: var(--space-2) 0 0; padding: 0; list-style: none; }
+.file-picked:empty { display: none; }
+.file-picked li {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3);
+  border: var(--border-width-default) solid var(--color-border-subtle); border-radius: var(--radius-md); background: var(--color-surface);
+}
+.file-picked li > .icon { color: var(--color-text-subtle); }
+.file-picked-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--text-body-sm-size); font-weight: var(--font-weight-strong); }
+.file-picked-size { color: var(--color-text-subtle); font-size: var(--text-caption-size); white-space: nowrap; }

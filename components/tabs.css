@@ -1,0 +1,63 @@
+/* =========================================================
+   tabs.css
+   Pestañas de filtro/vista. Consume SOLO tokens --tabs-*.
+
+   <div class="tabs" role="tablist" aria-label="Estado">
+     <button class="tab" role="tab" aria-selected="true">Todos <span class="count">48</span></button>
+     <button class="tab" role="tab" aria-selected="false">Vigentes <span class="count">21</span></button>
+   </div>
+   ========================================================= */
+
+.tabs {
+  display: flex;
+  gap: var(--tabs-gap);
+  border-bottom: var(--border-width-default) solid var(--tabs-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  padding: var(--tabs-padding-y) 0;
+  border: 0;
+  background: transparent;
+  color: var(--tabs-fg);
+  font-size: var(--tabs-font-size);
+  font-weight: var(--tabs-font-weight);
+  line-height: var(--text-body-sm-leading);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--motion-hover);
+}
+.tab:hover { color: var(--tabs-fg-hover); }
+
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--border-width-default) * -1);
+  height: var(--tabs-indicator-height);
+  border-radius: var(--radius-pill);
+  background: var(--tabs-indicator);
+  transform: scaleX(0);
+  transition: transform var(--motion-enter);
+}
+
+.tab[aria-selected="true"] { color: var(--tabs-fg-active); }
+.tab[aria-selected="true"]::after { transform: scaleX(1); }
+.tab[aria-selected="true"] .count { background: var(--tabs-counter-bg-active); color: var(--tabs-counter-fg-active); }
+
+.tab:focus-visible { box-shadow: none; outline: none; }
+.tab:focus-visible::before {
+  content: "";
+  position: absolute;
+  inset: var(--space-1) calc(var(--space-1) * -1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--focus-ring);
+}

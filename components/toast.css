@@ -1,0 +1,64 @@
+/* =========================================================
+   toast.css
+   Aviso temporal tras una acción (alta, edición, baja).
+   Consume SOLO tokens --toast-*.
+   Se crea desde JS: UI.toast('Sucursal dada de alta', 'success')
+   Tipos: success · danger · warning · info (por defecto)
+   ========================================================= */
+
+.toast-region {
+  position: fixed;
+  right: var(--toast-offset);
+  bottom: var(--toast-offset);
+  z-index: var(--toast-z);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--toast-gap);
+  width: min(var(--toast-width), calc(100vw - var(--space-8)));
+  padding: var(--toast-padding);
+  border-radius: var(--toast-radius);
+  background: var(--toast-bg);
+  box-shadow: var(--toast-shadow);
+  color: var(--toast-fg);
+  font-size: var(--toast-font-size);
+  line-height: var(--text-body-sm-leading);
+  pointer-events: auto;
+  animation: toast-in var(--toast-motion);
+}
+.toast.is-leaving { opacity: 0; transform: translateY(var(--space-2)); transition: opacity var(--motion-exit), transform var(--motion-exit); }
+
+.toast-icon { font-size: var(--icon-size-md); }
+.toast[data-type="success"] .toast-icon { color: var(--toast-icon-success); }
+.toast[data-type="danger"]  .toast-icon { color: var(--toast-icon-danger); }
+.toast[data-type="warning"] .toast-icon { color: var(--toast-icon-warning); }
+
+.toast-text { flex: 1; min-width: 0; }
+
+.toast-close {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  opacity: var(--opacity-60);
+  cursor: pointer;
+}
+.toast-close:hover { opacity: 1; }
+.toast-close .icon { font-size: var(--icon-size-sm); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(var(--space-2)); }
+}
+
+@media (max-width: 767px) {
+  .toast-region { left: var(--space-4); right: var(--space-4); bottom: var(--space-4); align-items: stretch; }
+  .toast { width: 100%; }
+}

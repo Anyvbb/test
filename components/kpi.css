@@ -1,0 +1,103 @@
+/* =========================================================
+   kpi.css
+   Indicadores (KPI) y mosaicos de conteo. Consume tokens --kpi-*.
+
+   <div class="kpi-grid">
+     <article class="kpi" data-tone="danger">
+       <p class="kpi-label">Vencidos</p>
+       <p class="kpi-value">4</p>
+       <p class="kpi-meta">2 contratos · 2 permisos</p>
+     </article>
+   </div>
+
+   <div class="stat-tiles">
+     <div class="stat-tile" data-tone="success"><span>Vigentes</span><strong>0</strong></div>
+   </div>
+
+   data-tone: danger · warning · success · nodoc (valor en color)
+   ========================================================= */
+
+.kpi {
+  --_tone: var(--kpi-value-fg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--kpi-gap);
+  min-width: 0;
+  padding: var(--card-padding);
+  background: var(--kpi-bg);
+  border: var(--border-width-default) solid var(--kpi-border);
+  border-radius: var(--kpi-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.kpi-label {
+  color: var(--kpi-label-fg);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--font-weight-strong);
+}
+
+.kpi-value {
+  color: var(--_tone);
+  font-family: var(--kpi-value-font);
+  font-size: var(--kpi-value-size);
+  line-height: var(--text-heading-lg-leading);
+  font-weight: var(--kpi-value-weight);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-heading);
+  overflow-wrap: anywhere;
+}
+
+.kpi-value.is-long { font-size: var(--text-heading-md-size); line-height: var(--text-heading-lg-leading); }
+
+.kpi-meta {
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+}
+.kpi-meta[data-tone="danger"] { color: var(--color-danger); font-weight: var(--font-weight-strong); }
+
+/* KPI como filtro: <button class="kpi" aria-pressed="false"> */
+button.kpi {
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--motion-hover), background-color var(--motion-hover), box-shadow var(--motion-hover);
+}
+button.kpi:hover { border-color: var(--kpi-border-hover); }
+button.kpi[aria-pressed="true"] {
+  border-color: var(--kpi-border-active);
+  background: var(--kpi-bg-active);
+  box-shadow: inset 0 0 0 var(--border-width-default) var(--kpi-border-active), var(--card-shadow);
+}
+
+.kpi[data-tone="danger"]  { --_tone: var(--status-expired-fg); }
+.kpi[data-tone="warning"] { --_tone: var(--status-expiring-fg); }
+.kpi[data-tone="success"] { --_tone: var(--status-active-fg); }
+.kpi[data-tone="nodoc"]   { --_tone: var(--flag-nodoc-fg); }
+
+/* ---------- Mosaicos de conteo ---------- */
+.stat-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+
+.stat-tile {
+  --_fg: var(--color-text-muted);
+  --_bg: var(--color-surface-sunken);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--stat-tile-padding);
+  border-radius: var(--stat-tile-radius);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--font-weight-strong);
+}
+.stat-tile strong { font-family: var(--font-heading); font-size: var(--text-body-size); font-variant-numeric: tabular-nums; }
+
+.stat-tile[data-tone="success"] { --_fg: var(--status-active-fg);   --_bg: var(--status-active-bg); }
+.stat-tile[data-tone="warning"] { --_fg: var(--status-expiring-fg); --_bg: var(--status-expiring-bg); }
+.stat-tile[data-tone="danger"]  { --_fg: var(--status-expired-fg);  --_bg: var(--status-expired-bg); }
+.stat-tile[data-tone="nodoc"]   { --_fg: var(--flag-nodoc-fg);      --_bg: var(--flag-nodoc-bg); }

@@ -1,0 +1,115 @@
+/* =========================================================
+   alert.css
+   Consume SOLO tokens --alert-*.
+
+   <div class="alert alert-warning" role="alert">
+     <span class="icon alert-icon" aria-hidden="true">warning</span>
+     <div class="alert-content">
+       <p class="alert-title">Título</p>
+       <p class="alert-body">Descripción opcional.</p>
+       <div class="alert-actions">…botones btn-sm…</div>
+     </div>
+     <button class="alert-close" aria-label="Cerrar">…</button>
+   </div>
+
+   Variantes: alert-info · alert-success · alert-warning · alert-danger
+   Modificadores: alert-accent (borde lateral) · alert-banner (ancho completo, sin radio)
+   ========================================================= */
+
+.alert {
+  --_fg: var(--alert-info-fg);
+  --_bg: var(--alert-info-bg);
+  --_border: var(--alert-info-border);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--alert-gap);
+  padding: var(--alert-padding);
+  border: var(--alert-border-width) solid var(--_border);
+  border-radius: var(--alert-radius);
+  background: var(--_bg);
+  color: var(--alert-body-fg);
+}
+
+.alert-info    { --_fg: var(--alert-info-fg);    --_bg: var(--alert-info-bg);    --_border: var(--alert-info-border); }
+.alert-success { --_fg: var(--alert-success-fg); --_bg: var(--alert-success-bg); --_border: var(--alert-success-border); }
+.alert-warning { --_fg: var(--alert-warning-fg); --_bg: var(--alert-warning-bg); --_border: var(--alert-warning-border); }
+.alert-danger  { --_fg: var(--alert-danger-fg);  --_bg: var(--alert-danger-bg);  --_border: var(--alert-danger-border); }
+
+.alert-icon {
+  color: var(--_fg);
+  font-size: var(--icon-size-md);
+  margin-top: var(--space-0-5);
+}
+
+.alert-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+}
+
+.alert-title {
+  color: var(--_fg);
+  font-size: var(--alert-title-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--alert-title-weight);
+}
+
+.alert-body {
+  font-size: var(--alert-body-size);
+  line-height: var(--text-body-sm-leading);
+}
+
+.alert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline-sm);
+  margin-top: var(--space-stack-sm);
+}
+
+.alert-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-6);
+  height: var(--size-6);
+  margin: calc(var(--space-0-5) * -1) calc(var(--space-1) * -1) 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--motion-hover), color var(--motion-hover);
+}
+.alert-close:hover {
+  background: color-mix(in srgb, var(--_fg) 12%, transparent);
+  color: var(--_fg);
+}
+.alert-close .icon { font-size: var(--icon-size-sm); }
+
+/* ---------- Modificadores ---------- */
+.alert-accent {
+  border-left-width: var(--alert-accent-width);
+  border-left-color: var(--_fg);
+}
+
+.alert-banner {
+  align-items: center;
+  border-width: 0 0 var(--alert-border-width);
+  border-radius: 0;
+  padding: var(--space-3) var(--page-padding-x);
+}
+.alert-banner .alert-content { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: var(--space-inline-sm); }
+.alert-banner .alert-actions { margin: 0 0 0 auto; }
+.alert-banner .alert-icon { margin-top: 0; }
+
+/* Salida al cerrar */
+.alert.is-dismissing {
+  opacity: 0;
+  transform: translateY(calc(var(--space-1) * -1));
+  transition: opacity var(--motion-exit), transform var(--motion-exit);
+}

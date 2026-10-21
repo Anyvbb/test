@@ -1,0 +1,421 @@
+/* =========================================================
+   primitives.css
+   Solo valores crudos, sin propósito. Ningún componente
+   debería usar estos tokens directamente: pasan por theme.css.
+
+   Convenciones:
+   - Color:      --{paleta}-{50…1000}
+   - Dimensión:  --space-{n} y --size-{n}, donde n × 4 = px
+                 (misma lógica que Tailwind: space-4 = 16px, size-70 = 280px)
+   - Tipografía: --font-size-{talla}, --leading-{n} (n × 4 = px)
+   - Resto:      tallas (sm, md, lg…) o valor numérico explícito
+   ========================================================= */
+
+:root {
+  /* =======================================================
+     COLOR
+     ======================================================= */
+
+  /* Base */
+  --white: #ffffff;
+  --black: #000000;
+
+  /* ---------- Neutros ----------
+     Cinco familias neutras: conserva solo las que use
+     al menos un tema. */
+
+  /* Gray */
+  --gray-50:   var(--white);
+  --gray-100:  #f4f4f4;
+  --gray-200:  #d3d3d3;
+  --gray-300:  #bcbcbc;
+  --gray-400:  #a6a6a6;
+  --gray-500:  #909090;
+  --gray-600:  #737373;
+  --gray-700:  #565656;
+  --gray-800:  #3a3a3a;
+  --gray-900:  #1d1d1d;
+  --gray-1000: var(--black);
+
+  /* Neutral */
+  --neutral-50:   #fafafa;
+  --neutral-100:  #f5f5f5;
+  --neutral-200:  #e5e5e5;
+  --neutral-300:  #d4d4d4;
+  --neutral-400:  #a3a3a3;
+  --neutral-500:  #737373;
+  --neutral-600:  #525252;
+  --neutral-700:  #404040;
+  --neutral-800:  #262626;
+  --neutral-900:  #171717;
+  --neutral-1000: #0a0a0a;
+
+  /* Zinc */
+  --zinc-50:   #fafafa;
+  --zinc-100:  #f4f4f5;
+  --zinc-200:  #e4e4e7;
+  --zinc-300:  #d4d4d8;
+  --zinc-400:  #a1a1aa;
+  --zinc-500:  #71717a;
+  --zinc-600:  #52525b;
+  --zinc-700:  #3f3f46;
+  --zinc-800:  #27272a;
+  --zinc-900:  #18181b;
+  --zinc-1000: #09090b;
+
+  /* Slate */
+  --slate-50:   #f8fafc;
+  --slate-100:  #f1f5f9;
+  --slate-200:  #e2e8f0;
+  --slate-300:  #cbd5e1;
+  --slate-400:  #94a3b8;
+  --slate-500:  #64728b;
+  --slate-600:  #475569;
+  --slate-700:  #334155;
+  --slate-800:  #1e293b;
+  --slate-900:  #0f172a;
+  --slate-1000: #020617;
+
+  /* Sand */
+  --sand-50:   #f8f6f1;
+  --sand-100:  #ebe7df;
+  --sand-200:  #d9d4c7;
+  --sand-300:  #c7c0b0;
+  --sand-400:  #b6ad98;
+  --sand-500:  #8a8372;
+  --sand-600:  #655f52;
+  --sand-700:  #474339;
+  --sand-800:  #2a271f;
+  --sand-900:  #221f19;
+  --sand-1000: #221f19; /* TODO: igual a sand-900, falta definir el tono más oscuro */
+
+  /* ---------- Cromáticos ----------
+     Ordenados por tono. Todas siguen la misma curva a partir
+     del 500 (mezcla en sRGB):
+       50 → 90% blanco · 100 → 80% · 200 → 60% · 300 → 40% · 400 → 20%
+       600 → 80% del base · 700 → 60% · 800 → 40% · 900 → 20% · 1000 → 10%
+     (cyan, red y orange tienen ajustes manuales sobre esta curva). */
+
+  /* Red */
+  --red-50:   #fbf4f5;
+  --red-100:  #f8e4e7;
+  --red-200:  #e6a2ab;
+  --red-300:  #d97782;
+  --red-400:  #d94a5b;
+  --red-500:  #c11f32;
+  --red-600:  #9d1b2a;
+  --red-700:  #74131e;
+  --red-800:  #4d0c14;
+  --red-900:  #27060a;
+  --red-1000: #130305;
+
+  /* HEB Red: rojo de marca. NO usar para estados de error
+     (para eso está red). */
+  --heb-red-50:   #fdf2f2;
+  --heb-red-100:  #f9d3d1;
+  --heb-red-200:  #f3a8a4;
+  --heb-red-300:  #ea817b;
+  --heb-red-400:  #ea5a53;
+  --heb-red-500:  #e1251b;
+  --heb-red-600:  #b41e16;
+  --heb-red-700:  #871610;
+  --heb-red-800:  #5a0f0b;
+  --heb-red-900:  #2d0705;
+  --heb-red-1000: #170403;
+
+  /* Orange */
+  --orange-50:   #fffdfa; /* revisar: casi blanco, salto grande a 100 */
+  --orange-100:  #ffebc8;
+  --orange-200:  #ffd8a8;
+  --orange-300:  #ffc664;
+  --orange-400:  #ffb332;
+  --orange-500:  #ffa100;
+  --orange-600:  #cd8100;
+  --orange-700:  #9b6200;
+  --orange-800:  #694200;
+  --orange-900:  #372300;
+  --orange-1000: #1e1300;
+
+  /* Amber */
+  --amber-50:   #fffde6;
+  --amber-100:  #fffbcc;
+  --amber-200:  #fff3a3;
+  --amber-300:  #ffe066;
+  --amber-400:  #ffd300;
+  --amber-500:  #ffbf00;
+  --amber-600:  #d69e00;
+  --amber-700:  #b77900;
+  --amber-800:  #8c5a00;
+  --amber-900:  #5a3a00;
+  --amber-1000: #2a1800;
+
+  /* Yellow */
+  --yellow-50:   #fdf7e6;
+  --yellow-100:  #fbf0ce;
+  --yellow-200:  #f7e19c;
+  --yellow-300:  #f2d16b;
+  --yellow-400:  #eec239;
+  --yellow-500:  #eab308;
+  --yellow-600:  #bb8f06;
+  --yellow-700:  #8c6b05;
+  --yellow-800:  #5e4803;
+  --yellow-900:  #2f2402;
+  --yellow-1000: #171201;
+
+  /* Green */
+  --green-50:   #ebf9ee;
+  --green-100:  #d6f4de;
+  --green-200:  #aee9bd;
+  --green-300:  #85dd9b;
+  --green-400:  #5dd27a;
+  --green-500:  #34c759; /* ~2.2:1 sobre blanco: no usar para texto */
+  --green-600:  #2a9f47;
+  --green-700:  #1f7735;
+  --green-800:  #155024;
+  --green-900:  #0a2812;
+  --green-1000: #051409;
+
+  /* Teal */
+  --teal-50:   #e8f8f6;
+  --teal-100:  #d0f1ed;
+  --teal-200:  #a1e3db;
+  --teal-300:  #72d4ca;
+  --teal-400:  #43c6b8;
+  --teal-500:  #14b8a6;
+  --teal-600:  #109385;
+  --teal-700:  #0c6e64;
+  --teal-800:  #084a42;
+  --teal-900:  #042521;
+  --teal-1000: #021211;
+
+  /* Cyan */
+  --cyan-50:   #f3f9fc;
+  --cyan-100:  #e1f1f7;
+  --cyan-200:  #afd7e8;
+  --cyan-300:  #62b0d1;
+  --cyan-400:  #31a2d3;
+  --cyan-500:  #007db3;
+  --cyan-600:  #006895;
+  --cyan-700:  #004e70;
+  --cyan-800:  #00405c;
+  --cyan-900:  #002a3c;
+  --cyan-1000: #001924;
+
+  /* Sky */
+  --sky-50:   #e7f6fd;
+  --sky-100:  #cfedfb;
+  --sky-200:  #9fdbf6;
+  --sky-300:  #6ec9f2;
+  --sky-400:  #3eb7ed;
+  --sky-500:  #0ea5e9;
+  --sky-600:  #0b84ba;
+  --sky-700:  #08638c;
+  --sky-800:  #06425d;
+  --sky-900:  #03212f;
+  --sky-1000: #011017;
+
+  /* Blue */
+  --blue-50:   #ebf2fe;
+  --blue-100:  #d8e6fd;
+  --blue-200:  #b1cdfb;
+  --blue-300:  #89b4fa;
+  --blue-400:  #629bf8;
+  --blue-500:  #3b82f6;
+  --blue-600:  #2f68c5;
+  --blue-700:  #234e94;
+  --blue-800:  #183462;
+  --blue-900:  #0c1a31;
+  --blue-1000: #060d19;
+
+  /* Indigo */
+  --indigo-50:   #ecebfc;
+  --indigo-100:  #d9d6f8;
+  --indigo-200:  #b3adf1;
+  --indigo-300:  #8c84ea;
+  --indigo-400:  #665be3;
+  --indigo-500:  #4032dc;
+  --indigo-600:  #3328b0;
+  --indigo-700:  #261e84;
+  --indigo-800:  #1a1458;
+  --indigo-900:  #0d0a2c;
+  --indigo-1000: #060516;
+
+  /* Purple */
+  --purple-50:   #f0edf7;
+  --purple-100:  #e0dbef;
+  --purple-200:  #c1b7df;
+  --purple-300:  #a293cf;
+  --purple-400:  #836fbf;
+  --purple-500:  #644baf;
+  --purple-600:  #503c8c;
+  --purple-700:  #3c2d69;
+  --purple-800:  #281e46;
+  --purple-900:  #140f23;
+  --purple-1000: #0a0812;
+
+  /* Magenta */
+  --magenta-50:   #fbe9f4;
+  --magenta-100:  #f7d3e8;
+  --magenta-200:  #f0a7d1;
+  --magenta-300:  #e87bbb;
+  --magenta-400:  #e14fa4;
+  --magenta-500:  #d9238d;
+  --magenta-600:  #ae1c71;
+  --magenta-700:  #821555;
+  --magenta-800:  #570e38;
+  --magenta-900:  #2b071c;
+  --magenta-1000: #16040e;
+
+  /* =======================================================
+     DIMENSIÓN  (n × 4 = px)
+     ======================================================= */
+
+  /* Espaciado: padding, gap, margin */
+  --space-0:   0;
+  --space-0-5: 2px;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-9:   36px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-14:  56px;
+  --space-16:  64px;
+
+  /* Tamaños: ancho y alto de elementos */
+  --size-4:   16px;
+  --size-5:   20px;
+  --size-6:   24px;
+  --size-7:   28px;
+  --size-8:   32px;
+  --size-9:   36px;
+  --size-10:  40px;
+  --size-11:  44px;
+  --size-12:  48px;
+  --size-13:  52px;
+  --size-14:  56px;
+  --size-15:  60px;
+  --size-16:  64px;
+  --size-18:  72px;
+  --size-70:  280px;
+  --size-80:  320px;
+  --size-85:  340px;
+  --size-90:  360px;
+
+  /* Tamaños grandes: anchos de contenedor */
+  --size-192: 768px;
+  --size-256: 1024px;
+  --size-320: 1280px;
+  --size-360: 1440px;
+  --size-480: 1920px;
+
+  /* =======================================================
+     BORDES
+     ======================================================= */
+
+  --radius-none: 0;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  20px;
+  --radius-3xl:  24px;
+  --radius-4xl:  32px;
+  --radius-full: 9999px;
+
+  /* 0.5px se eliminó: se renderiza distinto según pantalla
+     y navegador. Si necesitas un hairline, resuélvelo en el tema. */
+  --border-width-0: 0;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+  --border-width-4: 4px;
+
+  /* =======================================================
+     TIPOGRAFÍA
+     ======================================================= */
+
+  /* Familias: nombradas por fuente, el tema asigna el rol */
+  --font-open-sans:   'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-montserrat:  'Montserrat', 'Open Sans', system-ui, sans-serif;
+  --font-system-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-material-symbols: 'Material Symbols Rounded';
+
+  /* Tamaño: en rem para respetar la configuración del navegador */
+  --font-size-xs:  0.75rem;  /* 12px */
+  --font-size-sm:  0.875rem; /* 14px */
+  --font-size-md:  1rem;     /* 16px */
+  --font-size-lg:  1.125rem; /* 18px */
+  --font-size-xl:  1.25rem;  /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.75rem;  /* 28px */
+  --font-size-4xl: 2rem;     /* 32px */
+
+  /* Interlineado (n × 4 = px), misma lógica que el espaciado */
+  --leading-4:  1rem;    /* 16px */
+  --leading-5:  1.25rem; /* 20px */
+  --leading-6:  1.5rem;  /* 24px */
+  --leading-7:  1.75rem; /* 28px */
+  --leading-8:  2rem;    /* 32px */
+  --leading-9:  2.25rem; /* 36px */
+  --leading-10: 2.5rem;  /* 40px */
+
+  /* Peso: solo los que se cargan en fonts.css */
+  --font-weight-regular:   400;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+  --font-weight-extrabold: 800;
+
+  /* Tracking: todo en em para que escale con el tamaño.
+     wide y widest son conversiones aproximadas de 0.144px
+     y 3.52px a 16px; verifícalas contra el diseño. */
+  --tracking-tight:   -0.01em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.01em;
+  --tracking-wider:   0.06em;
+  --tracking-widest:  0.22em;
+
+  /* =======================================================
+     ELEVACIÓN
+     El color se deriva de la paleta, no está escrito a mano.
+     ======================================================= */
+
+  --shadow-sm: 0 1px 2px 0 color-mix(in srgb, var(--black) 4%, transparent);
+  --shadow-md: 0 4px 12px -2px color-mix(in srgb, var(--black) 8%, transparent);
+  --shadow-lg: 0 8px 24px -4px color-mix(in srgb, var(--black) 16%, transparent);  /* antes "pop" */
+  --shadow-xl: 0 12px 32px -8px color-mix(in srgb, var(--black) 12%, transparent); /* antes "lg" */
+
+  /* =======================================================
+     MOVIMIENTO
+     ======================================================= */
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+
+  --ease-out-soft:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-strong:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* =======================================================
+     OPACIDAD Y CAPAS (nuevos, ajusta según necesites)
+     ======================================================= */
+
+  --opacity-0:   0;
+  --opacity-10:  0.1;
+  --opacity-20:  0.2;
+  --opacity-40:  0.4;
+  --opacity-60:  0.6;
+  --opacity-80:  0.8;
+  --opacity-100: 1;
+
+  --z-0:   0;
+  --z-10:  10;
+  --z-20:  20;
+  --z-30:  30;
+  --z-40:  40;
+  --z-50:  50;
+}

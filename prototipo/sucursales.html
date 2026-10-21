@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sucursales · BRS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-module="inmuebles">
+<div class="app-shell">
+
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <div class="topbar-start">
+      <button class="topbar-action topbar-menu" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        <span class="icon" aria-hidden="true">menu</span>
+      </button>
+      <a class="topbar-brand" href="vencimientos.html">
+        <img class="topbar-logo" src="../assets/heb-logo-white.svg" alt="HEB">
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <img class="topbar-product-logo" src="../assets/logo@2x.png" width="78" height="24" alt="BRS">
+      </a>
+    </div>
+
+    <div class="topbar-end">
+      <button class="topbar-user" popovertarget="user-menu" aria-haspopup="menu" aria-expanded="false" aria-label="Cuenta de Usuario de desarrollo">
+        <span class="icon topbar-user-icon" aria-hidden="true">account_circle</span>
+        <span class="topbar-user-text">
+          <span class="topbar-user-name">Usuario de desarrollo</span>
+        </span>
+        <span class="icon icon-sm" aria-hidden="true">expand_more</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <button class="sidebar-toggle" data-sidebar-toggle aria-controls="sidebar" aria-expanded="true" aria-label="Colapsar menú">
+        <span class="icon" aria-hidden="true">chevron_left</span>
+      </button>
+
+      <nav class="sidebar-scroll" data-nav aria-label="Menú del módulo"></nav>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-close aria-hidden="true"></div>
+
+    <!-- ================= PÁGINA ================= -->
+    <main class="page">
+      <div class="page-inner">
+
+        <div class="page-heading">
+          <div class="page-header">
+            <div class="stack-xs">
+              <h1 class="page-title">Sucursales</h1>
+              <p class="page-subtitle">Alta y consulta de sucursales, su dirección, precios de lista y distribución.</p>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-secondary"><span class="icon" aria-hidden="true">download</span>Exportar</button>
+              <button class="btn btn-primary" data-new-branch><span class="icon" aria-hidden="true">add</span>Nueva sucursal</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- Tabla de sucursales ---------- -->
+        <section class="table-view" id="sucursales" aria-label="Sucursales">
+          <div class="tabs" role="tablist" aria-label="Filtrar por tipo">
+            <button class="tab" role="tab" data-tab="all" aria-selected="true">Todas <span class="count">0</span></button>
+            <button class="tab" role="tab" data-tab="Propio" aria-selected="false">Propias <span class="count">0</span></button>
+            <button class="tab" role="tab" data-tab="Tercero" aria-selected="false">Terceros <span class="count">0</span></button>
+            <button class="tab" role="tab" data-tab="Mixto" aria-selected="false">Mixtas <span class="count">0</span></button>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="input-group table-search">
+              <span class="icon" aria-hidden="true">search</span>
+              <input class="input" type="search" data-table-search placeholder="Buscar por sucursal o número de tienda" aria-label="Buscar sucursales">
+            </div>
+            <div class="select-wrap">
+              <select class="select" data-table-estado aria-label="Filtrar por estado">
+                <option value="">Todos los estados</option>
+              </select>
+            </div>
+            <div class="select-wrap">
+              <button type="button" class="select select-trigger" popovertarget="col-menu" data-menu-align="start" aria-haspopup="true" aria-expanded="false">
+                <span class="icon" aria-hidden="true">view_column</span>
+                <span data-col-summary>Columnas</span>
+              </button>
+            </div>
+            <div class="table-toolbar-end">
+              <span class="small subtle" data-table-total aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="table-frame">
+            <div class="table-scroll">
+              <table class="table table-clickable">
+                <thead><tr></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <nav class="pagination" aria-label="Paginación de sucursales">
+            <p class="pagination-info" aria-live="polite"></p>
+            <label class="pagination-size">Filas por página
+              <span class="select-wrap">
+                <select class="select select-sm" data-table-size>
+                  <option>10</option>
+                  <option selected>25</option>
+                  <option>50</option>
+                </select>
+              </span>
+            </label>
+            <ul class="pagination-pages"></ul>
+          </nav>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ================= MENÚS ================= -->
+<div class="menu" id="user-menu" popover role="menu" aria-label="Cuenta">
+  <p class="menu-label">Usuario de desarrollo</p>
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">person</span>Mi perfil</button>
+  <button class="menu-item" role="menuitem" data-theme-toggle><span class="icon" aria-hidden="true">dark_mode</span>Cambiar tema</button>
+  <hr class="menu-divider">
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">logout</span>Cerrar sesión</button>
+</div>
+
+
+<div class="menu" id="col-menu" popover aria-label="Columnas visibles">
+  <p class="menu-label">Columnas visibles</p>
+  <div data-col-options></div>
+</div>
+
+
+<script src="../ui.js"></script>
+<script src="data.js"></script>
+<script src="forms.js"></script>
+<script src="shell.js"></script>
+<script src="sucursales.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+/* =========================================================
+   empty.css
+   Estado vacío / sin resultados. Consume SOLO tokens --empty-*.
+
+   <div class="empty-state">
+     <span class="icon empty-icon">search_off</span>
+     <p class="empty-title">Sin resultados</p>
+     <p class="empty-text">Prueba con otro término.</p>
+     <button class="btn btn-secondary btn-sm">Limpiar filtros</button>
+   </div>
+   ========================================================= */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-12) var(--space-6);
+  color: var(--empty-fg);
+  text-align: center;
+}
+
+.empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--empty-icon-size);
+  height: var(--empty-icon-size);
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-sunken);
+  font-size: var(--icon-size-lg);
+}
+
+.empty-title {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--font-weight-heading);
+}
+
+.empty-text {
+  max-width: 24rem;
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+}
+
+.empty-state .btn { margin-top: var(--space-2); }

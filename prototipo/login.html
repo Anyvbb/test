@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión · BRS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+  <script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+  <style>
+    /* Login (Figma "Login" 63:1787): tarjeta blanca centrada sobre slate-100 */
+    body { margin: 0; background: var(--color-surface-sunken); }
+    .login {
+      min-height: 100vh; min-height: 100dvh;
+      display: grid; place-items: center;
+      padding: var(--space-8) var(--space-4);
+    }
+    .login-card {
+      width: min(568px, 100%);
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-12);
+      padding: var(--space-16) 60px;
+      border-radius: 64px;
+      background: var(--color-surface);
+    }
+    .login-brand { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); }
+    .login-brand img { height: 48px; width: auto; }
+    .login-product {
+      display: flex; align-items: center; gap: var(--space-3); margin: 0;
+      color: var(--color-text); font-family: var(--font-brand); font-size: 28px; line-height: 34px; font-weight: var(--font-weight-bold); letter-spacing: 1.68px;
+      text-align: center; white-space: nowrap;
+    }
+    .login-product .icon { font-size: 28px; color: var(--color-text-disabled); font-variation-settings: "FILL" 1; }
+    .login-heading { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); text-align: center; }
+    .login-heading h1 { margin: 0; font-size: var(--font-size-2xl); line-height: 32px; font-weight: var(--font-weight-extrabold); }
+    .login-heading p { margin: 0; color: var(--color-text-subtle); font-size: var(--font-size-md); line-height: 24px; }
+
+    .login-form { width: 100%; display: flex; flex-direction: column; gap: 28px; }
+    .login-fields { display: flex; flex-direction: column; gap: var(--space-4); }
+    .login-input {
+      width: 100%; height: auto; padding: var(--space-3) var(--space-5);
+      border: var(--border-width-default) solid var(--color-border-subtle); border-radius: var(--radius-md);
+      background: var(--color-surface); color: var(--color-text); font: inherit; font-size: var(--font-size-md); line-height: 24px;
+    }
+    .login-input::placeholder { color: var(--color-text-subtle); }
+    .login-input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 20%, transparent); }
+    .login-input[aria-invalid="true"] { border-color: var(--color-danger); }
+    .login-forgot {
+      align-self: flex-start; padding: 0; border: 0; background: none; cursor: pointer;
+      color: var(--color-text); font: inherit; font-size: var(--font-size-md); line-height: 24px; font-weight: var(--font-weight-semibold);
+    }
+    .login-forgot:hover { text-decoration: underline; }
+    .login-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+      width: 100%; height: 48px; padding: 0 var(--space-6); border-radius: var(--radius-full);
+      font: inherit; font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-extrabold); cursor: pointer;
+    }
+    .login-btn-primary { border: 0; background: var(--color-accent); color: var(--color-on-accent); }
+    .login-btn-primary:hover { background: var(--color-accent-hover); }
+    .login-btn-ms { border: var(--border-width-default) solid var(--color-border-strong); background: var(--color-surface); color: var(--color-text); }
+    .login-btn-ms:hover { background: var(--color-surface-sunken); }
+    .login-btn-ms svg { width: 18px; height: 18px; }
+    .login-actions { display: flex; flex-direction: column; gap: var(--space-5); }
+    .login-msg:empty { display: none; }
+    .login-help { margin: 0; color: var(--color-text); font-size: var(--font-size-md); line-height: 24px; text-align: center; }
+
+    @media (max-width: 600px) {
+      .login-card { padding: var(--space-10) var(--space-6); border-radius: 32px; gap: var(--space-8); }
+      .login-product { font-size: 20px; line-height: 26px; letter-spacing: 1px; white-space: normal; }
+      .login-product .icon { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="login">
+    <section class="login-card" aria-labelledby="login-title">
+      <div class="login-brand">
+        <img src="../assets/heb-logo-red.svg" alt="HEB">
+        <p class="login-product"><span class="icon" aria-hidden="true">home_work</span>BIENES RAÍCES SHOPING</p>
+      </div>
+
+      <div class="login-heading">
+        <h1 id="login-title">Te damos la bienvenida</h1>
+        <p>Accede a tus actividades y reportes</p>
+      </div>
+
+      <form class="login-form" id="login-form" novalidate>
+        <div class="login-fields">
+          <label class="sr-only" for="login-email">Correo electrónico</label>
+          <input class="login-input" id="login-email" name="email" type="email" autocomplete="username" placeholder="Correo electrónico" required>
+          <label class="sr-only" for="login-pass">Contraseña</label>
+          <input class="login-input" id="login-pass" name="password" type="password" autocomplete="current-password" placeholder="Contraseña" required>
+          <!-- Oculto por ahora: recuperación de contraseña -->
+          <button type="button" class="login-forgot" data-olvide hidden>¿Olvidaste tu contraseña?</button>
+        </div>
+
+        <div class="login-msg" data-msg role="alert" aria-live="polite"></div>
+
+        <div class="login-actions">
+          <button type="submit" class="login-btn login-btn-primary">Ingresar</button>
+          <button type="button" class="login-btn login-btn-ms" data-microsoft>
+            <svg viewBox="0 0 21 21" aria-hidden="true"><rect x="0" y="0" width="10" height="10" fill="#f25022"/><rect x="11" y="0" width="10" height="10" fill="#7fba00"/><rect x="0" y="11" width="10" height="10" fill="#00a4ef"/><rect x="11" y="11" width="10" height="10" fill="#ffb900"/></svg>
+            Iniciar sesión con Microsoft
+          </button>
+        </div>
+      </form>
+
+      <p class="login-help">¿Necesitas ayuda?<br>Comunícate a <strong>sat@heb.com.mx</strong></p>
+    </section>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>

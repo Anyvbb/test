@@ -1,0 +1,204 @@
+/* =========================================================
+   modal.css
+   Basado en <dialog> nativo (foco atrapado, Esc y capa
+   superior gratis). Consume SOLO tokens --modal-*.
+
+   Regla del sistema: TODO formulario vive dentro de un modal.
+   El <form> envuelve header, body y footer para que el
+   botón primario del footer sea el submit.
+
+   <dialog class="modal modal-md" id="m-ejemplo" aria-labelledby="m-ejemplo-title">
+     <form class="modal-form">
+       <header class="modal-header">
+         <div class="modal-heading">
+           <h2 class="modal-title" id="m-ejemplo-title">Título</h2>
+           <p class="modal-subtitle">Descripción</p>
+         </div>
+         <button type="button" class="modal-close" data-modal-close aria-label="Cerrar">…</button>
+       </header>
+       <div class="modal-body">…campos…</div>
+       <footer class="modal-footer">
+         <button type="button" class="btn btn-ghost" data-modal-close>Cancelar</button>
+         <button type="submit" class="btn btn-primary">Guardar</button>
+       </footer>
+     </form>
+   </dialog>
+
+   Abrir: <button data-modal-open="m-ejemplo">…</button>
+   Tallas: modal-sm · modal-md · modal-xl
+   ========================================================= */
+
+.modal {
+  width: min(var(--modal-width-md), calc(100vw - var(--space-8)));
+  max-width: none;
+  max-height: var(--modal-max-height);
+  margin: auto;
+  padding: 0;
+  border: var(--border-width-default) solid var(--modal-border);
+  border-radius: var(--modal-radius);
+  background: var(--modal-bg);
+  box-shadow: var(--modal-shadow);
+  color: var(--color-text);
+  overflow: hidden;
+
+  /* Salida */
+  opacity: 0;
+  transform: translateY(var(--space-2)) scale(0.98);
+  transition:
+    opacity var(--modal-motion-exit),
+    transform var(--modal-motion-exit),
+    overlay var(--modal-motion-exit) allow-discrete,
+    display var(--modal-motion-exit) allow-discrete;
+}
+
+.modal[open] {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--modal-motion),
+    transform var(--modal-motion),
+    overlay var(--modal-motion) allow-discrete,
+    display var(--modal-motion) allow-discrete;
+}
+
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    transform: translateY(var(--space-2)) scale(0.98);
+  }
+}
+
+.modal::backdrop {
+  background: var(--modal-overlay);
+  opacity: 0;
+  transition:
+    opacity var(--modal-motion-exit),
+    overlay var(--modal-motion-exit) allow-discrete,
+    display var(--modal-motion-exit) allow-discrete;
+}
+.modal[open]::backdrop { opacity: 1; transition-duration: var(--duration-base); }
+@starting-style { .modal[open]::backdrop { opacity: 0; } }
+
+.modal-sm { width: min(var(--modal-width-sm), calc(100vw - var(--space-8))); }
+.modal-sm-wide { width: min(var(--modal-width-sm-wide), calc(100vw - var(--space-8))); }
+.modal-md { width: min(var(--modal-width-md), calc(100vw - var(--space-8))); }
+.modal-xl { width: min(var(--modal-width-xl), calc(100vw - var(--space-8))); }
+
+/* El form ocupa todo el diálogo para que el body pueda hacer scroll */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---------- Partes ---------- */
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-inline-md);
+  padding: var(--modal-padding) var(--modal-padding) var(--space-4);
+}
+
+.modal-heading { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-stack-xs); }
+
+.modal-title {
+  font-family: var(--modal-title-font);
+  font-size: var(--modal-title-size);
+  line-height: var(--text-heading-sm-leading);
+  font-weight: var(--modal-title-weight);
+}
+
+.modal-subtitle.is-single-line { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.modal-subtitle {
+  color: var(--modal-subtitle-fg);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+}
+
+.modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-8);
+  height: var(--size-8);
+  margin: calc(var(--space-1) * -1) calc(var(--space-2) * -1) 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--motion-hover), color var(--motion-hover);
+}
+.modal-close:hover { background: var(--color-surface-sunken); color: var(--color-text); }
+
+.modal-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--modal-gap);
+  padding: 0 var(--modal-padding) var(--modal-padding);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-inline-sm);
+  padding: var(--space-4) var(--modal-padding);
+  border-top: var(--border-width-default) solid var(--modal-footer-border);
+  background: var(--modal-footer-bg);
+}
+.modal-footer-start { margin-right: auto; }
+
+/* ---------- Modal de confirmación ---------- */
+.modal-confirm .modal-header { flex-direction: column; align-items: flex-start; }
+.modal-confirm-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-10);
+  height: var(--size-10);
+  border-radius: var(--radius-full);
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+.modal-confirm .modal-close { position: absolute; top: var(--modal-padding); right: var(--modal-padding); margin: calc(var(--space-1) * -1) calc(var(--space-2) * -1) 0 0; }
+
+/* Evita el scroll de la página detrás del modal */
+html:has(.modal[open]) { overflow: hidden; }
+
+/* ---------- Móvil: hoja inferior ---------- */
+@media (max-width: 767px) {
+  .modal,
+  .modal-sm,
+  .modal-sm-wide,
+  .modal-md,
+  .modal-xl {
+    width: 100vw;
+    max-height: calc(100dvh - var(--space-8));
+    margin: auto 0 0;
+    border-bottom: 0;
+    border-radius: var(--modal-radius) var(--modal-radius) 0 0;
+    transform: translateY(100%);
+  }
+  .modal[open] { transform: none; }
+  @starting-style { .modal[open] { transform: translateY(100%); } }
+
+  .modal-footer { flex-direction: column-reverse; align-items: stretch; }
+  .modal-footer .btn { width: 100%; }
+  .modal-footer-start { margin: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal, .modal[open], .modal::backdrop { transition-duration: 0s; }
+}

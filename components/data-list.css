@@ -1,0 +1,75 @@
+/* =========================================================
+   data-list.css
+   Ficha de datos: pares etiqueta/valor y mosaicos.
+   Consume SOLO tokens --dl-*.
+
+   <dl class="dl dl-3">
+     <div class="dl-item"><dt>N° de tienda</dt><dd class="is-missing">Sin capturar</dd></div>
+   </dl>
+   <div class="dl-tiles">
+     <div class="dl-tile"><dt>Renta</dt><dd class="is-missing">Sin capturar</dd><p class="dl-hint">Por m² o monto fijo</p></div>
+   </div>
+   ========================================================= */
+
+.dl { display: grid; gap: var(--dl-gap-y) var(--dl-gap-x); margin: 0; }
+.dl-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.dl-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.dl-item, .dl-tile { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.dl-item dt, .dl-tile dt {
+  color: var(--dl-label-fg);
+  font-size: var(--dl-label-size);
+  line-height: var(--text-caption-leading);
+  font-weight: var(--dl-label-weight);
+}
+.dl-item dd, .dl-tile dd {
+  margin: 0;
+  color: var(--dl-value-fg);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--dl-value-weight);
+  overflow-wrap: anywhere;
+}
+dd.is-missing { color: var(--dl-missing-fg); }
+dd.is-mono { font-family: var(--font-code); font-size: var(--text-caption-size); font-weight: var(--font-weight-body); }
+
+.dl-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-3); margin: 0; }
+.dl-tile {
+  padding: var(--dl-tile-padding);
+  border: var(--border-width-default) dashed var(--dl-tile-border);
+  border-radius: var(--dl-tile-radius);
+}
+.dl-hint { color: var(--color-text-subtle); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+
+@media (max-width: 767px) {
+  .dl-2, .dl-3 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Filas etiqueta | valor (paneles laterales) ----------
+   <dl class="dl-rows">
+     <div class="dl-row"><dt>Formato</dt><dd>HEB</dd></div>
+     <div class="dl-row dl-row-stack"><dt>Folio</dt><dd>…</dd></div>
+   </dl> */
+.dl-rows { display: flex; flex-direction: column; margin: 0; }
+.dl-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: var(--space-3) 0;
+}
+.dl-row + .dl-row { border-top: var(--border-width-default) solid var(--color-border); }
+.dl-row:first-child { padding-top: 0; }
+.dl-row:last-child { padding-bottom: 0; }
+.dl-row dt { color: var(--dl-label-fg); font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); }
+.dl-row dd {
+  margin: 0;
+  color: var(--dl-value-fg);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+  font-weight: var(--dl-value-weight);
+  overflow-wrap: anywhere;
+}
+.dl-row-stack { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+.dl-row-stack dt { font-size: var(--text-caption-size); line-height: var(--text-caption-leading); font-weight: var(--dl-label-weight); }
+.dl-sub { display: block; color: var(--color-text-subtle); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); font-weight: var(--font-weight-body); }

@@ -1,0 +1,314 @@
+/* =========================================================
+   detail.css
+   Pantalla de detalle: encabezado con etiquetas, layout
+   principal + lateral, caja de elemento, marcador de posición
+   y línea de tiempo. Consume tokens --detail-*, --item-box-*,
+   --placeholder-* y --timeline-*.
+   ========================================================= */
+
+.detail-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.detail-title-row .page-title { margin-right: var(--space-1); }
+.detail-title-row > .btn-icon:first-child { margin-left: calc(var(--space-2) * -1); }
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--detail-aside-width);
+  gap: var(--detail-gap);
+  align-items: start;
+}
+.detail-main, .detail-aside { display: flex; flex-direction: column; gap: var(--detail-gap); min-width: 0; }
+
+@media (max-width: 1279px) {
+  .detail-layout { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Barra de avance (ficha completa) dentro de una card */
+.completion { display: grid; grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr) auto; align-items: center; gap: var(--space-4) var(--space-6); }
+.completion-label { display: flex; flex-direction: column; gap: var(--space-2); }
+@media (max-width: 767px) { .completion { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Caja de elemento (contrato, permiso) ---------- */
+.item-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--item-box-padding);
+  border: var(--border-width-default) solid var(--item-box-border);
+  border-radius: var(--item-box-radius);
+}
+.item-box[data-tone="danger"]  { border-color: var(--item-box-border-danger); }
+.item-box[data-tone="warning"] { border-color: var(--item-box-border-warning); }
+.item-box-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.item-box-title { font-weight: var(--font-weight-heading); font-size: var(--text-body-size); }
+.item-box-head .btn-link { margin-left: auto; }
+.item-box-meta { color: var(--color-text-muted); font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); }
+
+/* ---------- Marcador de posición (mapa, documentos) ---------- */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: calc(var(--size-12) * 4);
+  padding: var(--space-6);
+  border: var(--border-width-default) dashed var(--placeholder-border);
+  border-radius: var(--placeholder-radius);
+  background: var(--placeholder-bg);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm-size);
+  text-align: center;
+}
+.placeholder .icon { font-size: var(--icon-size-lg); color: var(--color-text-subtle); }
+.placeholder strong { color: var(--color-text); font-weight: var(--font-weight-heading); }
+.placeholder-solid { border-style: solid; border-color: transparent; }
+
+/* ---------- Línea de tiempo ---------- */
+.timeline { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.timeline-item { position: relative; display: grid; grid-template-columns: var(--timeline-dot-size) minmax(0, 1fr); gap: var(--space-3); padding-bottom: var(--space-5); }
+.timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: var(--timeline-dot-size);
+  bottom: 0;
+  left: calc(var(--timeline-dot-size) / 2);
+  width: var(--border-width-default);
+  background: var(--timeline-line);
+}
+.timeline-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  border-radius: var(--radius-full);
+  background: var(--timeline-dot-bg);
+  color: var(--timeline-dot-fg);
+}
+.timeline-dot .icon { font-size: var(--icon-size-sm); }
+.timeline-title { font-size: var(--text-body-sm-size); font-weight: var(--font-weight-strong); }
+.timeline-meta { color: var(--color-text-subtle); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+
+/* Paneles de pestañas */
+.tab-panel[hidden] { display: none; }
+
+/* Card con título y acción en texto a la derecha */
+.card-header .btn-link { margin-left: auto; }
+
+/* Ubicación: datos + mapa */
+.location-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); gap: var(--space-6); align-items: stretch; }
+@media (max-width: 1023px) { .location-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Lista simple de archivos */
+.file-list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.file-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; }
+.file-item + .file-item { border-top: var(--border-width-default) solid var(--color-border); }
+.file-item > .icon { color: var(--color-text-subtle); }
+.file-item .cell-stack { flex: 1; }
+
+/* ---------- Encabezado del detalle: meta con íconos y etiquetas ---------- */
+.detail-header { align-items: flex-start; }
+.detail-heading { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-leading);
+}
+.detail-meta li { display: inline-flex; align-items: center; gap: var(--space-1); }
+.detail-meta .icon { font-size: var(--icon-size-sm); color: var(--color-text-subtle); }
+.detail-meta .is-missing { color: var(--color-warning); font-weight: var(--font-weight-strong); }
+.detail-tags { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+
+/* Lateral fijo al hacer scroll (solo con dos columnas) */
+@media (min-width: 1280px) {
+  .detail-aside-sticky { position: sticky; top: calc(var(--layout-header-height) + var(--space-6)); }
+}
+
+/* ---------- Card con título, etiqueta y descripción ---------- */
+.card-header:has(.card-heading) { align-items: flex-start; }
+.card-heading { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; flex: 1 1 18rem; }
+.card-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.card-subtitle { max-width: 64ch; color: var(--color-text-muted); font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); }
+.card-aside .card-title { font-size: var(--text-body-size); }
+
+/* ---------- Tenencia: grupos (mixto) y registros de escritura ---------- */
+.tenure-groups { display: flex; flex-direction: column; gap: var(--space-6); }
+.tenure-group { display: flex; flex-direction: column; gap: var(--space-3); }
+.tenure-group + .tenure-group { padding-top: var(--space-6); border-top: var(--border-width-default) solid var(--color-border); }
+.tenure-group-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.tenure-group-title { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-body-sm-size); font-weight: var(--font-weight-heading); }
+
+.record-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-10);
+  height: var(--size-10);
+  border-radius: var(--radius-md);
+  background: var(--tenure-own-bg);
+  color: var(--tenure-own-fg);
+}
+.record-icon .icon { font-size: var(--icon-size-md); }
+@media (max-width: 767px) { .record-icon { display: none; } }
+
+.placeholder-compact { min-height: 0; padding: var(--space-8) var(--space-6); }
+.placeholder-compact .btn { margin-top: var(--space-2); }
+
+/* ---------- Superficies: mosaicos con cifra grande ---------- */
+.dl-tile-lg dd { font-size: var(--text-heading-sm-size); line-height: var(--text-heading-sm-leading); font-weight: var(--font-weight-heading); font-variant-numeric: tabular-nums; }
+.dl-tile-lg dd.is-missing { font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); font-weight: var(--dl-value-weight); }
+.dl-unit { color: var(--color-text-subtle); font-size: var(--text-body-sm-size); font-weight: var(--font-weight-strong); }
+
+/* ---------- Folio con botón de copiar ---------- */
+.folio { display: flex; align-items: flex-start; gap: var(--space-1); }
+.folio .mono { flex: 1; min-width: 0; font-size: var(--text-caption-size); line-height: var(--text-body-sm-leading); overflow-wrap: anywhere; }
+.folio .btn-icon { margin: calc(var(--space-1) * -1) calc(var(--space-2) * -1) 0 0; flex-shrink: 0; }
+
+/* =========================================================
+   Detalle de sucursal (sucursal.html)
+   Encabezado plano, secciones sin card, mapa con overlays y
+   lateral con datos en filas.
+   ========================================================= */
+
+/* ---------- Encabezado ---------- */
+.branch-back {
+  display: inline-flex; align-items: center; gap: var(--space-1); align-self: flex-start;
+  color: var(--color-text-muted); font-size: var(--text-body-sm-size); text-decoration: none;
+}
+.branch-back:hover { color: var(--color-text); }
+.branch-back .icon { font-size: var(--icon-size-md); }
+.branch-header { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.branch-heading { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.branch-heading .page-title { font-size: var(--text-heading-lg-size); line-height: var(--text-heading-lg-leading); font-weight: var(--font-weight-display); letter-spacing: var(--tracking-heading); }
+.branch-code { color: var(--color-text-muted); font-family: var(--font-code); font-size: var(--text-body-sm-size); }
+.branch-address { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text); }
+.branch-address .icon { font-size: var(--icon-size-md); color: var(--color-text-muted); }
+.branch-address .is-missing { color: var(--color-warning); }
+.branch-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-1); }
+.flag {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  height: var(--size-8); padding: 0 var(--space-3); border-radius: var(--radius-full);
+  border: var(--border-width-default) solid; font-size: var(--text-body-sm-size); font-weight: var(--font-weight-strong);
+}
+.flag .icon { font-size: var(--icon-size-sm); }
+.flag[data-tone="ok"]   { color: var(--color-success); background: var(--color-success-subtle); border-color: color-mix(in srgb, var(--color-success) 35%, transparent); }
+.flag[data-tone="warn"] { color: var(--color-warning); background: var(--color-warning-subtle); border-color: color-mix(in srgb, var(--color-warning) 35%, transparent); }
+
+/* ---------- Secciones sin card ---------- */
+.branch-section { display: flex; flex-direction: column; gap: var(--space-4); }
+.branch-section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); }
+.branch-section-title { font-size: var(--text-heading-sm-size); line-height: var(--text-heading-sm-leading); font-weight: var(--font-weight-heading); }
+.branch-section-desc { margin-top: calc(var(--space-3) * -1); color: var(--color-text-muted); }
+.branch-sub { display: flex; flex-direction: column; gap: var(--space-3); }
+.branch-sub-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.branch-sub-title { font-size: var(--text-body-size); font-weight: var(--font-weight-heading); }
+.branch-section .btn-link .icon { font-size: var(--icon-size-sm); }
+
+/* ---------- Registro de escritura / contrato ---------- */
+.deed { display: flex; align-items: flex-start; gap: var(--space-4); padding: var(--space-5); border: var(--border-width-default) solid var(--color-border-subtle); border-radius: var(--radius-lg); background: var(--color-surface); }
+.deed-icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: var(--size-12); height: var(--size-12); border-radius: var(--radius-md); background: var(--color-accent-subtle); color: var(--color-accent); }
+.deed-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.deed-title { font-weight: var(--font-weight-heading); }
+.deed-title .mono { color: var(--color-text-muted); font-weight: var(--font-weight-strong); font-size: var(--text-body-sm-size); }
+.deed-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); color: var(--color-text); }
+.deed-links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-1); }
+.deed-files { display: flex; flex-direction: column; gap: var(--space-1); margin-top: var(--space-2); }
+.deed-files .record-file-name { font-weight: var(--font-weight-body); }
+@media (max-width: 767px) { .deed-icon { display: none; } .deed { padding: var(--space-4); } }
+
+/* ---------- Ubicación: mapa + datos ---------- */
+.map-card { padding: 0; gap: 0; overflow: hidden; }
+.map-wrap { position: relative; height: 26rem; background: var(--color-surface-sunken); }
+.map-canvas { position: absolute; inset: 0; z-index: 0; }
+/* Vista "Mapa": OpenStreetMap atenuado para que destaquen el punto y el terreno */
+.map-wrap[data-capa-activa="mapa"] .leaflet-tile-pane { filter: grayscale(0.85) brightness(1.04) contrast(0.92); }
+.map-label, .map-toggle {
+  position: absolute; top: var(--space-4); z-index: 500;
+  background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+}
+.map-label { left: var(--space-4); max-width: calc(100% - 13rem); display: flex; flex-direction: column; gap: 2px; padding: var(--space-3) var(--space-4); }
+.map-label strong { font-weight: var(--font-weight-heading); }
+.map-label span { color: var(--color-text-muted); font-size: var(--text-body-sm-size); }
+.map-label .is-missing { color: var(--color-warning); }
+.map-toggle { right: var(--space-4); display: inline-flex; padding: var(--space-1); border-radius: var(--radius-full); }
+.map-toggle button {
+  height: var(--size-9); padding: 0 var(--space-4); border: 0; border-radius: var(--radius-full);
+  background: none; color: var(--color-text); font: inherit; font-size: var(--text-body-sm-size); font-weight: var(--font-weight-heading); cursor: pointer;
+}
+.map-toggle button[aria-pressed="true"] { background: var(--color-text); color: var(--color-bg); }
+.map-status { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-text-muted); font-size: var(--text-body-sm-size); }
+.map-pin { color: var(--color-accent); filter: drop-shadow(0 2px 2px color-mix(in srgb, var(--black) 30%, transparent)); }
+.map-pin .icon { font-size: 44px; font-variation-settings: "FILL" 1; }
+.map-wrap .leaflet-control-zoom.leaflet-bar { border: 0; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; margin: 0 var(--space-4) var(--space-4) 0; }
+.map-wrap .leaflet-control-zoom.leaflet-bar a { width: var(--size-12); height: var(--size-12); line-height: var(--size-12); background: var(--color-surface); color: var(--color-text); font-size: var(--text-heading-sm-size); font-weight: var(--font-weight-body); }
+.map-wrap .leaflet-tooltip.map-area { background: transparent; border: 0; box-shadow: none; color: var(--color-accent-active); font-family: var(--font-body); font-size: var(--text-caption-size); font-weight: var(--font-weight-heading); padding: 0; }
+.map-wrap .leaflet-tooltip.map-area::before { display: none; }
+
+.branch-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-10); margin: 0; padding: var(--space-2) var(--space-6) var(--space-3); }
+@media (max-width: 767px) { .branch-rows { grid-template-columns: minmax(0, 1fr); padding-inline: var(--space-4); } .map-label { max-width: calc(100% - 2 * var(--space-4)); } .map-toggle { top: auto; bottom: var(--space-4); right: auto; left: var(--space-4); } }
+
+/* Filas etiqueta / valor (ubicación y lateral) */
+.kv { display: grid; grid-template-columns: minmax(7rem, 40%) minmax(0, 1fr); gap: var(--space-3); align-items: baseline; padding: var(--space-4) 0; border-bottom: var(--border-width-default) solid var(--color-border); }
+.kv dt { color: var(--color-text-muted); }
+.kv dd { margin: 0; font-weight: var(--font-weight-heading); overflow-wrap: anywhere; }
+.kv dd.is-missing { color: var(--color-text-muted); font-weight: var(--font-weight-body); }
+.kv dd .btn-icon { margin: calc(var(--space-2) * -1) 0; vertical-align: middle; }
+
+/* ---------- Lateral ---------- */
+.branch-aside { gap: var(--space-1); padding: var(--space-5) var(--space-6) var(--space-2); }
+.branch-aside-title { color: var(--color-text-muted); font-size: var(--text-caption-size); font-weight: var(--font-weight-heading); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+.branch-aside dl { margin: 0; }
+.branch-aside .kv:last-child { border-bottom: 0; }
+
+/* ---------- Pie con auditoría ---------- */
+.branch-footer { padding-top: var(--space-6); border-top: var(--border-width-default) solid var(--color-border); color: var(--color-text-muted); font-size: var(--text-body-sm-size); }
+
+/* ---------- Mixto: pestañas, filtros y "Ver más" ---------- */
+.flag[data-tone="info"]   { color: var(--color-accent); background: var(--color-accent-subtle); border-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+.flag[data-tone="danger"] { color: var(--color-danger); background: var(--color-danger-subtle); border-color: color-mix(in srgb, var(--color-danger) 30%, transparent); }
+.branch-section .tabs { margin-top: var(--space-1); }
+.tenure-panel { display: flex; flex-direction: column; gap: var(--space-4); }
+.tenure-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.tenure-summary { color: var(--color-text); font-size: var(--text-body-sm-size); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.chip {
+  height: var(--size-9); padding: 0 var(--space-3); border: var(--border-width-default) solid var(--color-border-strong); border-radius: var(--radius-full);
+  background: var(--color-surface); color: var(--color-text); font: inherit; font-size: var(--text-body-sm-size); font-weight: var(--font-weight-heading); cursor: pointer;
+}
+.chip:hover { background: var(--color-surface-sunken); }
+/* Seleccionado: fondo slate-50 y texto cyan-500 (vía tokens semánticos para el tema oscuro) */
+.chip[aria-pressed="true"] { background: var(--color-bg-subtle); color: var(--color-accent); }
+.more-btn {
+  width: 100%; height: var(--size-12); border: var(--border-width-default) solid var(--color-border-subtle); border-radius: var(--radius-lg);
+  background: var(--color-surface); color: var(--color-accent); font: inherit; font-size: var(--text-body-sm-size); font-weight: var(--font-weight-heading); cursor: pointer;
+}
+.more-btn:hover { background: var(--color-accent-subtle); }
+
+.deed-title { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); }
+.deed-icon[data-tone="lease"] { background: var(--status-expiring-bg); color: var(--status-expiring-solid); }
+.deed-facts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-5); margin-top: var(--space-1); color: var(--color-text-muted); font-size: var(--text-caption-size); }
+.deed-facts strong { color: var(--color-text); font-weight: var(--font-weight-heading); }
+.deed-facts .btn-link { font-size: var(--text-caption-size); }
+.tone-danger  { color: var(--color-danger) !important; }
+.tone-warning { color: var(--color-warning) !important; }
+
+/* Leyenda del mapa (Mixto) */
+.map-legend {
+  position: absolute; left: var(--space-4); bottom: var(--space-4); z-index: 500; display: flex; gap: var(--space-4);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-md);
+  font-size: var(--text-body-sm-size);
+}
+.map-legend span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.map-legend i { width: 14px; height: 10px; border: 2px dashed; border-radius: 2px; }
+.map-legend i[data-zone="own"]   { border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
+.map-legend i[data-zone="lease"] { border-color: var(--status-expiring-solid); background: color-mix(in srgb, var(--status-expiring-solid) 25%, transparent); }
+@media (max-width: 767px) { .map-legend { bottom: calc(var(--space-4) + var(--size-12)); } }
+

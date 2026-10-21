@@ -1,0 +1,31 @@
+/* =========================================================
+   card.css
+   Contenedor de superficie. Consume SOLO tokens --card-*.
+   ========================================================= */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+  padding: var(--card-padding);
+  background: var(--card-bg);
+  border: var(--border-width-default) solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+.card-sm { padding: var(--card-padding-sm); }
+
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.card-title {
+  font-family: var(--card-title-font);
+  font-size: var(--card-title-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--card-title-weight);
+}

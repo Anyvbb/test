@@ -1,0 +1,137 @@
+/* =========================================================
+   inbox.css
+   Bandeja: grupos de asuntos ordenados por urgencia.
+   Consume SOLO tokens --inbox-*.
+
+   <section class="inbox-group">
+     <header class="inbox-group-header" data-tone="overdue">
+       <h2 class="inbox-group-title">Vencidos</h2><span class="inbox-group-count">4 asuntos</span>
+     </header>
+     <ul class="inbox-list">
+       <li class="inbox-item">
+         <div class="inbox-main">  tags · título · meta  </div>
+         <div class="inbox-owner"> responsable · gestión </div>
+         <div class="inbox-amount">monto</div>
+         <div class="inbox-due">   badge de días </div>
+         <div class="inbox-action">botón</div>
+       </li>
+     </ul>
+   </section>
+   data-tone del header: overdue · soon · later
+   ========================================================= */
+
+.inbox { display: flex; flex-direction: column; gap: var(--inbox-gap); }
+
+.inbox-group {
+  background: var(--inbox-bg);
+  border: var(--border-width-default) solid var(--inbox-border);
+  border-radius: var(--inbox-radius);
+  box-shadow: var(--inbox-shadow);
+  overflow: hidden;
+}
+
+.inbox-group-header {
+  --_dot: var(--urgency-later);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--inbox-header-padding);
+  background: var(--inbox-header-bg);
+  border-bottom: var(--border-width-default) solid var(--inbox-border);
+}
+.inbox-group-header::before {
+  content: "";
+  flex-shrink: 0;
+  align-self: center;
+  width: var(--inbox-dot-size);
+  height: var(--inbox-dot-size);
+  border-radius: var(--radius-full);
+  background: var(--_dot);
+}
+.inbox-group-header[data-tone="overdue"] { --_dot: var(--urgency-overdue); }
+.inbox-group-header[data-tone="soon"]    { --_dot: var(--urgency-soon); }
+
+.inbox-group-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--font-weight-heading);
+}
+.inbox-group-count { color: var(--color-text-muted); font-size: var(--text-body-sm-size); }
+
+.inbox-list { margin: 0; padding: 0; list-style: none; }
+
+.inbox-item {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(7rem, 1fr) minmax(7rem, 0.9fr) minmax(9rem, 0.9fr) 14rem;
+  grid-template-areas: "main owner amount due action";
+  align-items: center;
+  gap: var(--inbox-item-gap);
+  padding: var(--inbox-item-padding);
+  transition: background-color var(--motion-hover);
+}
+.inbox-item + .inbox-item { border-top: var(--border-width-default) solid var(--inbox-border); }
+.inbox-item:hover { background: var(--inbox-item-hover); }
+
+.inbox-main   { grid-area: main; display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.inbox-owner  { grid-area: owner; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.inbox-amount { grid-area: amount; display: flex; flex-direction: column; align-items: flex-end; text-align: right; font-variant-numeric: tabular-nums; }
+.inbox-due    { grid-area: due; }
+.inbox-action { grid-area: action; display: flex; align-items: center; justify-content: flex-end; gap: var(--space-1); }
+
+.inbox-tags { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); }
+
+.inbox-title {
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--font-weight-heading);
+}
+
+.inbox-meta { color: var(--color-text-muted); font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); }
+.inbox-meta a { color: var(--color-text); font-weight: var(--font-weight-strong); }
+.inbox-meta a:hover { color: var(--link-fg); text-decoration: underline; }
+
+.inbox-owner-name { font-size: var(--text-body-sm-size); line-height: var(--text-body-sm-leading); font-weight: var(--font-weight-strong); color: var(--color-text); }
+.inbox-owner-name.is-unassigned { color: var(--data-missing-fg); }
+.inbox-owner-status { color: var(--color-text-subtle); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+button.inbox-owner-name { padding: 0; border: 0; background: none; cursor: pointer; text-align: left; }
+button.inbox-owner-name:hover { text-decoration: underline; }
+
+.inbox-amount strong { font-size: var(--text-body-sm-size); font-weight: var(--font-weight-heading); }
+.inbox-amount span { color: var(--color-text-subtle); font-size: var(--text-caption-size); line-height: var(--text-caption-leading); }
+
+@media (max-width: 1279px) {
+  .inbox-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "main   due"
+      "owner  amount"
+      "action action";
+    align-items: start;
+    row-gap: var(--space-3);
+  }
+  .inbox-action { justify-content: flex-start; }
+}
+@media (max-width: 767px) {
+  .inbox-item { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "due" "owner" "amount" "action"; }
+  .inbox-amount { align-items: flex-start; text-align: left; }
+  .inbox-action .btn { width: 100%; }
+}
+
+/* ---------- Barra de filtros de la bandeja ---------- */
+.inbox-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.inbox-filters-end { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.inbox-filters-end .field { width: calc(var(--size-12) * 4.5); } /* 216px */
+
+@media (max-width: 767px) {
+  .inbox-filters .segmented { width: 100%; }
+  .inbox-filters .segmented-item { flex: 1; justify-content: center; padding: 0 var(--space-2); }
+  .inbox-filters-end, .inbox-filters-end .field { width: 100%; }
+}

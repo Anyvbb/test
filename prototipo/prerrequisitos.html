@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prerrequisitos · BRS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Solo esta pantalla: catálogo de estados + acordeón de permisos */
+    .prq-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+    .prq-states { gap: var(--space-3); position: sticky; top: var(--space-4); }
+    .prq-state-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+    .prq-state {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); width: 100%;
+      padding: var(--space-2) var(--space-3); border: 0; border-radius: var(--radius-md);
+      background: none; color: var(--color-text); font: inherit; text-align: left; cursor: pointer;
+    }
+    .prq-state:hover { background: var(--color-surface-sunken); }
+    .prq-state[aria-current="true"] { background: var(--color-accent-subtle); color: var(--color-accent); font-weight: var(--font-weight-strong); }
+    .prq-state .count { color: var(--color-text-subtle); font-size: var(--text-caption-size); font-variant-numeric: tabular-nums; }
+    .prq-state.is-new > span:first-child::after { content: "Nuevo"; margin-left: var(--space-2); font-size: var(--text-caption-size); color: var(--color-accent); font-weight: var(--font-weight-strong); }
+
+    .prq-main { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+    .prq-main-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-3); }
+    .prq-main-head h2 { font-size: var(--text-heading-sm-size); line-height: var(--text-heading-sm-leading); font-weight: var(--font-weight-heading); }
+    .prq-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+    .prq-tools .input-group { width: 260px; max-width: 100%; }
+
+    .prq-acc { padding: 0; gap: 0; overflow: hidden; }
+    .prq-acc-head {
+      display: flex; align-items: center; gap: var(--space-3); width: 100%;
+      padding: var(--space-3) var(--space-4); border: 0; background: none; color: var(--color-text);
+      font: inherit; text-align: left; cursor: pointer;
+    }
+    .prq-acc-head:hover { background: var(--color-surface-sunken); }
+    .prq-acc-head .prq-acc-title { flex: 1; min-width: 0; font-weight: var(--font-weight-strong); }
+    .prq-acc-head .chev { color: var(--color-text-subtle); transition: transform .15s; }
+    .prq-acc-head[aria-expanded="true"] .chev { transform: rotate(180deg); }
+    .prq-acc-body { border-top: var(--border-width-default) solid var(--color-border); padding: var(--space-1) var(--space-4) var(--space-3); }
+    .prq-item { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--space-3); align-items: start; padding: var(--space-3) 0; }
+    .prq-item + .prq-item { border-top: var(--border-width-default) dashed var(--color-border); }
+    .prq-num { width: 24px; height: 24px; border-radius: var(--radius-full); display: grid; place-items: center; background: var(--color-surface-sunken); color: var(--color-text-muted); font-size: var(--text-caption-size); font-weight: var(--font-weight-heading); font-variant-numeric: tabular-nums; }
+    .prq-item-name { font-weight: var(--font-weight-regular); }
+
+    /* Importación */
+    .prq-cols { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .prq-cols code { font-family: var(--font-code); font-size: var(--text-caption-size); background: var(--color-surface-sunken); padding: 2px var(--space-2); border-radius: var(--radius-md); }
+    .prq-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); }
+    .prq-summary .card { gap: var(--space-1); }
+    .prq-summary strong { font-size: var(--text-heading-md-size); line-height: var(--text-heading-md-leading); font-variant-numeric: tabular-nums; }
+
+    @media (max-width: 1023px) {
+      .prq-layout { grid-template-columns: 1fr; }
+      .prq-states { position: static; }
+      .prq-state-list { flex-direction: row; overflow-x: auto; padding-bottom: var(--space-1); }
+      .prq-state { width: auto; white-space: nowrap; border: var(--border-width-default) solid var(--color-border); }
+      .prq-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body data-module="permisos">
+<div class="app-shell">
+
+  <!-- ================= HEADER ================= -->
+  <header class="topbar">
+    <div class="topbar-start">
+      <button class="topbar-action topbar-menu" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        <span class="icon" aria-hidden="true">menu</span>
+      </button>
+      <a class="topbar-brand" href="vencimientos.html">
+        <img class="topbar-logo" src="../assets/heb-logo-white.svg" alt="HEB">
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <img class="topbar-product-logo" src="../assets/logo@2x.png" width="78" height="24" alt="BRS">
+      </a>
+    </div>
+
+    <div class="topbar-end">
+      <button class="topbar-user" popovertarget="user-menu" aria-haspopup="menu" aria-expanded="false" aria-label="Cuenta de Usuario de desarrollo">
+        <span class="icon topbar-user-icon" aria-hidden="true">account_circle</span>
+        <span class="topbar-user-text">
+          <span class="topbar-user-name">Usuario de desarrollo</span>
+        </span>
+        <span class="icon icon-sm" aria-hidden="true">expand_more</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+      <button class="sidebar-toggle" data-sidebar-toggle aria-controls="sidebar" aria-expanded="true" aria-label="Colapsar menú">
+        <span class="icon" aria-hidden="true">chevron_left</span>
+      </button>
+
+      <nav class="sidebar-scroll" data-nav aria-label="Menú del módulo"></nav>
+    </aside>
+    <div class="sidebar-backdrop" data-sidebar-close aria-hidden="true"></div>
+
+    <!-- ================= PÁGINA ================= -->
+    <main class="page">
+      <div class="page-inner">
+
+        <div class="page-header">
+          <div class="stack-xs">
+            <h1 class="page-title">Prerrequisitos por permiso</h1>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary" data-plantilla><span class="icon" aria-hidden="true">download</span>Descargar plantilla</button>
+            <button class="btn btn-primary" data-importar><span class="icon" aria-hidden="true">upload_file</span>Importar desde Excel</button>
+          </div>
+        </div>
+
+        <div id="prq-ultima"></div>
+
+        <div class="prq-layout" id="prerrequisitos">
+          <aside class="card card-sm prq-states" aria-label="Estados">
+            <div class="input-group">
+              <span class="icon" aria-hidden="true">search</span>
+              <input class="input" type="search" data-estado-buscar placeholder="Buscar estado" aria-label="Buscar estado">
+            </div>
+            <ul class="prq-state-list" data-estados></ul>
+          </aside>
+
+          <section class="prq-main" aria-live="polite" data-detalle></section>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ================= MENÚS ================= -->
+<div class="menu" id="user-menu" popover role="menu" aria-label="Cuenta">
+  <p class="menu-label">Usuario de desarrollo</p>
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">person</span>Mi perfil</button>
+  <button class="menu-item" role="menuitem" data-theme-toggle><span class="icon" aria-hidden="true">dark_mode</span>Cambiar tema</button>
+  <hr class="menu-divider">
+  <button class="menu-item" role="menuitem"><span class="icon" aria-hidden="true">logout</span>Cerrar sesión</button>
+</div>
+
+<script src="../ui.js"></script>
+<script src="data.js"></script>
+<script src="forms.js"></script>
+<script src="shell.js"></script>
+<script src="prerrequisitos.js"></script>
+</body>
+</html>

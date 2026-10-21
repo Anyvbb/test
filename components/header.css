@@ -1,0 +1,192 @@
+/* =========================================================
+   header.css
+   Barra superior en rojo de marca (--color-bg-header).
+   Marca: logo HEB (heb-logo-white.svg) · divisor vertical blanco
+   al 30% · logo del producto BRS (logo@2x.png, 156×48 → 78×24).
+   Consume SOLO tokens --topbar-*.
+
+   <header class="topbar">
+     <div class="topbar-start"> menú (móvil) · logo HEB · divisor · logo BRS </div>
+     <div class="topbar-center"> buscador </div>
+     <div class="topbar-end"> acciones · avatar </div>
+   </header>
+   ========================================================= */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--topbar-z);
+  display: flex;
+  align-items: center;
+  gap: var(--space-inline-md);
+  height: var(--topbar-height);
+  padding: 0 var(--space-4);
+  background: var(--topbar-bg);
+  border-bottom: var(--border-width-default) solid var(--topbar-border);
+  box-shadow: var(--topbar-shadow);
+  color: var(--topbar-fg);
+}
+
+.topbar-start,
+.topbar-end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-inline-sm);
+}
+.topbar-start { flex-shrink: 0; }
+.topbar-center { flex: 1; display: flex; justify-content: center; min-width: 0; }
+.topbar-end { margin-left: auto; }
+
+/* ---------- Marca ---------- */
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--topbar-fg);
+}
+.topbar-brand:hover { color: var(--topbar-fg); }
+
+.topbar-logo { height: var(--topbar-logo-height); width: auto; display: block; }
+
+/* El anillo de foco del tema (acento) no se ve sobre rojo */
+.topbar :focus-visible { box-shadow: var(--topbar-focus-ring); }
+
+.topbar-product-logo { height: var(--topbar-product-logo-height); width: auto; display: block; }
+
+.topbar-divider {
+  width: var(--border-width-default);
+  height: var(--size-6);
+  background: var(--topbar-divider);
+}
+
+.topbar-product {
+  color: var(--topbar-product-fg);
+  font-family: var(--topbar-product-font);
+  font-size: var(--topbar-product-size);
+  font-weight: var(--topbar-product-weight);
+  letter-spacing: var(--topbar-product-tracking);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- Buscador ---------- */
+.topbar-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: var(--topbar-search-width);
+}
+.topbar-search .icon {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--topbar-field-placeholder);
+  pointer-events: none;
+}
+.topbar-search input {
+  width: 100%;
+  height: var(--size-9);
+  padding: 0 var(--space-3) 0 var(--space-10);
+  background: var(--topbar-field-bg);
+  border: var(--border-width-default) solid var(--topbar-field-border);
+  border-radius: var(--radius-pill);
+  color: var(--topbar-field-fg);
+  font-size: var(--text-body-sm-size);
+  transition: background-color var(--motion-hover), border-color var(--motion-hover);
+}
+.topbar-search input::placeholder { color: var(--topbar-field-placeholder); }
+.topbar-search input:hover { background: var(--topbar-field-bg-hover); }
+.topbar-search input:focus { outline: none; border-color: var(--topbar-fg); box-shadow: var(--topbar-focus-ring); }
+
+.topbar-kbd {
+  position: absolute;
+  right: var(--space-3);
+  padding: 0 var(--space-1);
+  border: var(--border-width-default) solid var(--topbar-divider);
+  border-radius: var(--radius-sm);
+  color: var(--topbar-fg-muted);
+  font-family: var(--font-code);
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-leading);
+  pointer-events: none;
+}
+
+/* ---------- Acciones ---------- */
+.topbar-action {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-9);
+  height: var(--size-9);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--topbar-fg-muted);
+  cursor: pointer;
+  transition: background-color var(--motion-hover), color var(--motion-hover);
+}
+.topbar-action:hover { background: var(--topbar-hover); color: var(--topbar-fg); }
+
+.topbar-action-dot {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--topbar-dot);
+  box-shadow: 0 0 0 2px var(--topbar-bg);
+}
+
+/* ---------- Usuario ---------- */
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: var(--space-2);
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--topbar-user-bg);
+  color: var(--topbar-user-fg);
+  cursor: pointer;
+  transition: background-color var(--motion-hover);
+}
+.topbar-user:hover { background: var(--topbar-user-bg-hover); }
+
+.topbar-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--avatar-size-md);
+  height: var(--avatar-size-md);
+  border-radius: var(--radius-full);
+  background: var(--topbar-avatar-bg);
+  color: var(--topbar-avatar-fg);
+  font-size: var(--text-caption-size);
+  font-weight: var(--avatar-font-weight);
+}
+
+/* Alternativa al avatar: ícono de usuario */
+.topbar-user-icon { font-size: var(--avatar-size-md); color: var(--topbar-user-fg); }
+
+.topbar-user-text { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+.topbar-user-name { font-size: var(--text-body-sm-size); line-height: var(--text-caption-leading); font-weight: var(--font-weight-strong); }
+.topbar-user-role { font-size: var(--text-caption-size); line-height: var(--text-caption-leading); color: var(--topbar-fg-muted); }
+
+/* Botón de menú: solo en móvil */
+.topbar-menu { display: none; }
+
+@media (max-width: 1023px) {
+  .topbar-menu { display: inline-flex; }
+  .topbar-user-text,
+  .topbar-kbd { display: none; }
+}
+@media (max-width: 767px) {
+  .topbar-center,
+  .topbar-divider,
+  .topbar-product,
+  .topbar-product-logo { display: none; }
+}

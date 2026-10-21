@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aviso de vencimiento · CLETA</title>
+  <!-- Maqueta del correo de la HU03. Página independiente: solo usa data.js (no requiere sesión).
+       Uso: correo-aviso.html?id=<id del permiso>. Sin id, muestra el primer permiso que genera aviso. -->
+  <style>
+    :root { --bg:#eef0f3; --card:#fff; --text:#1d2330; --muted:#5d6675; --line:#dde1e7; --accent:#d71920; --warn-bg:#fff6e0; --warn:#8a5a00; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding:24px 16px; }
+    .wrap { max-width:720px; margin:0 auto; }
+    .toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; font-size:13px; color:var(--muted); flex-wrap:wrap; }
+    .toolbar a { color:var(--muted); }
+    .mail { background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+    .mail-head { padding:18px 22px; border-bottom:1px solid var(--line); }
+    .mail-subject { font-size:19px; font-weight:600; margin:0 0 10px; }
+    .mail-meta { display:grid; grid-template-columns:60px 1fr; gap:2px 10px; font-size:13px; color:var(--muted); margin:0; }
+    .mail-meta dt { font-weight:600; }
+    .mail-meta dd { margin:0; }
+    .mail-body { padding:22px; }
+    .brand { display:inline-block; background:var(--accent); color:#fff; font-weight:700; letter-spacing:.5px; padding:4px 10px; border-radius:4px; font-size:13px; margin-bottom:16px; }
+    .lead { font-size:16px; margin:0 0 18px; }
+    h2 { font-size:14px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); margin:0 0 8px; }
+    table { border-collapse:collapse; width:100%; margin-bottom:18px; }
+    th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); font-size:14px; }
+    th { width:170px; color:var(--muted); font-weight:600; }
+    .action { background:var(--warn-bg); color:var(--warn); border-radius:6px; padding:12px 14px; font-weight:600; margin:0 0 18px; }
+    .btn { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; padding:10px 16px; border-radius:6px; font-weight:600; }
+    .foot { color:var(--muted); font-size:12px; margin-top:22px; border-top:1px solid var(--line); padding-top:12px; }
+    .empty { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toolbar">
+      <span>Vista previa del correo de aviso (prototipo: no se envía)</span>
+      <a href="bandeja-permisos.html">← Volver a la bandeja</a>
+    </div>
+    <div id="correo"></div>
+  </div>
+  <script src="data.js"></script>
+  <script>
+    (() => {
+      const { db, esc, fmtDate, addDays, TODAY, sucursal, diasAviso } = CLETA;
+      const id = Number(new URLSearchParams(location.search).get('id'));
+      const p = id ? db.permisos.find((x) => x.id === id) : db.permisos.find((x) => x.fin);
+      const root = document.getElementById('correo');
+      if (!p) { root.innerHTML = '<div class="empty">No se encontró el permiso.</div>'; return; }
+      const s = sucursal(p.sucursalId);
+      const tienda = `${s.num ? `${s.num} ` : ''}${s.nombre}`;
+      if (!p.fin) {
+        root.innerHTML = `<div class="empty"><strong>${esc(p.nombre)}</strong> · ${esc(tienda)}<br>
+          Este permiso es de tipo <strong>${esc(p.periodo)}</strong>: no tiene fecha de vigencia, así que no genera aviso por correo.</div>`;
+        return;
+      }
+      const dias = diasAviso(p);
+      const envio = addDays(p.fin, -dias);
+      const cuando = envio <= TODAY ? `Enviado el ${fmtDate(envio)}` : `Se enviará el ${fmtDate(envio)}`;
+      root.innerHTML = `<article class="mail">
+        <header class="mail-head">
+          <p class="mail-subject">Atención: Su Permiso o Licencia están próximos a vencer.</p>
+          <dl class="mail-meta">
+            <dt>De</dt><dd>CLETA · Permisos y licencias</dd>
+            <dt>Para</dt><dd>Equipo Jurídico (destinatario por confirmar)</dd>
+            <dt>Fecha</dt><dd>${cuando} · ${dias} días antes de la vigencia</dd>
+          </dl>
+        </header>
+        <div class="mail-body">
+          <span class="brand">HEB · CLETA</span>
+          <p class="lead">El Permiso / Licencia <strong>“${esc(p.nombre)}”</strong> de la tienda <strong>“${esc(tienda)}”</strong> está próximo a vencer.</p>
+          <h2>Información de documento</h2>
+          <table>
+            <tr><th>Estado</th><td>${esc(s.estado || '—')}</td></tr>
+            <tr><th>Municipio</th><td>${esc(s.ciudad || '—')}</td></tr>
+            <tr><th>Vigencia</th><td>${fmtDate(p.fin)}</td></tr>
+            <tr><th>Formato de tienda</th><td>${esc(s.formato || '—')}</td></tr>
+          </table>
+          <p class="action">Se requiere iniciar el proceso de renovación.</p>
+          <a class="btn" href="expediente.html?id=${s.id}">Ver permiso en CLETA</a>
+          <p class="foot">Este aviso se envía ${dias === 15 ? '15 días antes de la vigencia por ser de renovación mensual' : '90 días antes de la fecha de vigencia'}. Los permisos de única ocasión o que no aplican no generan aviso.</p>
+        </div>
+      </article>`;
+    })();
+  </script>
+</body>
+</html>
